@@ -1,5 +1,11 @@
 ![bb](https://github.com/user-attachments/assets/c1df4cea-084f-4214-96b8-3d3a9fc83aee)
 
+## 프로젝트 시작
+    npx install
+
+    npx expo start
+
+그 후 F12를 누른 후 앱 컨테이너를 입힌 후 실행하거나 Google play store에서 expo go라는 앱을 설치하고, 터미널의 QR 코드를 찍습니다.
 
 ## 커밋 규칙
     gitmoji -c
