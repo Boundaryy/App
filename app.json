@@ -1,4 +1,5 @@
 {
+  "scheme": "A",
   "expo": {
     "name": "StickerSmash",
     "slug": "StickerSmash",
@@ -22,6 +23,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
