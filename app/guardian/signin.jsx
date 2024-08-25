@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         justifyContent: 'center',
-        paddingLeft: 50, // 오른쪽으로 40만큼 이동
+        paddingLeft: 50, 
     },
     header: {
         marginBottom: 20,
