@@ -1,5 +1,3 @@
-![bb](https://github.com/user-attachments/assets/c1df4cea-084f-4214-96b8-3d3a9fc83aee)
-
 ## 프로젝트 시작
     npx install
 
