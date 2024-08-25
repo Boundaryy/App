@@ -79,16 +79,18 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    color: '#5772FF',
   },
   subtitle: {
     fontSize: 28,
     fontWeight: '600',
-    color: '#5772FF',
+
   },
   description: {
     fontSize: 16,
     textAlign: 'left',
     marginVertical: 2,
+    color: '#898989',
   },
   iconContainer: {
     flexDirection: 'row',
