@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { BarButton } from "../../components/Bar-Button";
 
 const ParentDashboard = () => {
     const navigation = useNavigation();

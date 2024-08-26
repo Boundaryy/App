@@ -1,35 +1,22 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
+import { BarButton } from "../../components/Bar-Button";
+import { globalStyles } from '../../styles/global'
+
 
 const App = () => {
-    const handleSituationTrainingClick = () => {
-        // 네비게이션을 통해 상황 대처 학습 화면으로 이동
-        // 예: navigation.navigate('SituationTraining');
-    };
-
-    const handleCognitionTrainingClick = () => {
-        // 네비게이션을 통해 코그니션 트레이닝 화면으로 이동
-        // 예: navigation.navigate('CognitionTraining');
-    };
-
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>어렵지 않은 학습</Text>
-                <Text style={styles.headerSubtitle}>
+        <View style={globalStyles.container}>
+            <View style={globalStyles.header}>
+                <Text style={globalStyles.subtitle}>어렵지 않은 학습</Text>
+                <Text style={globalStyles.description}>
                     상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
                 </Text>
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button} onPress={handleSituationTrainingClick}>
-                    <Text style={styles.buttonText}>상황 대처 학습</Text>
-                    <Text style={styles.buttonExplain}>게임을 통한 학습능력 상승</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={handleCognitionTrainingClick}>
-                    <Text style={styles.buttonText}>코그니션 트레이닝</Text>
-                    <Text style={styles.buttonExplain}>게임으로 트레이닝을 진행해요!</Text>
-                </TouchableOpacity>
+                <BarButton imgLink={require("../../assets/images/situation.png")} title={"상황 대처 학습"} explain={"게임을 통한 학습능력 상승"}></BarButton>
+                <BarButton imgLink={require("../../assets/images/happyface.png")} title={"코그니션 트레이닝"} explain={"스도쿠 게임으로 트레이닝을 진행해요!"}></BarButton>
             </View>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>꾸준히 함께해봐요</Text>
@@ -60,6 +47,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'column',
+        width: "85%",
         marginBottom: 20,
     },
     button: {

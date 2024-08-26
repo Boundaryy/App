@@ -6,10 +6,7 @@ import { Button } from '../components/Button.jsx'
 
 
 export default function Index() {
-  const router = useRouter();
-
-
-
+  const router = useRouter()
   return (
     <View style={globalStyles.container}>
       <Image source={require('../assets/logo.png')} style={styles.logo} />
@@ -20,15 +17,8 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   logo: {
     width: 200,
     height: 146,
-    position: 'absolute',
-    top: 350,
   },
 });

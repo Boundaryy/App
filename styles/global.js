@@ -2,10 +2,11 @@ import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
   container: {
+    width:"100%",
+    height: "100%",
     display: "flex",
-    padding: 46,
-    paddingTop: 180,
-    justifyContent: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   footer: {
     position: 'absolute',
@@ -13,7 +14,6 @@ export const globalStyles = StyleSheet.create({
     fontSize: 14,
     color: '#808080',
   },
-  
   header: {
     position: "absolute",
     top: 80,

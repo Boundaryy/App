@@ -21,12 +21,12 @@ export const Button = ({toLink, title}) => {
 }
 
 const styles = StyleSheet.create({
-    buttonContainer:{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
+  buttonContainer:{
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+  },
   button: {
     width: 310,
     height: 50,
