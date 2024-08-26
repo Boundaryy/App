@@ -1,23 +1,20 @@
 import React from 'react';
+import { globalStyles } from '../styles/global'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { Button } from '../components/Button.jsx'
+
 
 export default function Index() {
   const router = useRouter();
 
-  const handleSignupClick = () => {
-    router.push('/choose');
-  };
+
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <Image source={require('../assets/logo.png')} style={styles.logo} />
-
-      <TouchableOpacity style={styles.signupButton} onPress={handleSignupClick}>
-        <Text style={styles.signupButtonText}>회원가입</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.footer}>©Barder</Text>
+      <Button toLink={"/choose"} title={"회원가입"}/>
+      <Text style={globalStyles.footer}>©Barder</Text>
     </View>
   );
 }
@@ -29,31 +26,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 140,
-    height: 'auto',
+    width: 200,
+    height: 146,
     position: 'absolute',
     top: 350,
-  },
-  signupButton: {
-    width: 310,
-    height: 50,
-    backgroundColor: '#5772FF',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 100,
-  },
-  signupButtonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontFamily: 'Pretendard',
-    fontWeight: '600',
-  },
-  footer: {
-    position: 'absolute',
-    bottom: 60,
-    fontSize: 14,
-    color: '#808080',
   },
 });

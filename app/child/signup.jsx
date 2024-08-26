@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { globalStyles } from '../../styles/global'
+import { Button } from '../../components/Button';
 
 export default function SignUp() {
     const [selectedGender, setSelectedGender] = useState('남자');
@@ -47,11 +49,11 @@ export default function SignUp() {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.title}>Boundary</Text>
-                <Text style={styles.subtitle}>회원가입</Text>
-                <Text style={styles.description}>서비스에서 사용될 정보를 알려주세요.</Text>
+        <View style={globalStyles.container}>
+            <View style={globalStyles.header}>
+                <Text style={globalStyles.title}>Boundary</Text>
+                <Text style={globalStyles.subtitle}>회원가입</Text>
+                <Text style={globalStyles.description}>서비스에서 사용될 정보를 알려주세요.</Text>
             </View>
 
             <View style={styles.formGroup}>
@@ -127,36 +129,12 @@ export default function SignUp() {
                 />
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.buttonText}>가입하기</Text>
-            </TouchableOpacity>
+            <Button toLink={"/child/home"} title={"회원가입"}/>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 20,
-        backgroundColor: '#fff',
-        flex: 1,
-        paddingTop: 70, 
-    },
-    header: {
-        marginBottom: 20,
-    },
-    title: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: '#5772FF',
-    },
-    subtitle: {
-        fontSize: 24,
-        marginVertical: 10,
-    },
-    description: {
-        fontSize: 16,
-        color: '#808080',
-    },
     formGroup: {
         marginBottom: 20,
     },

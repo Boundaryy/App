@@ -1,38 +1,31 @@
+
 import React, { useState } from 'react';
+import { globalStyles } from '../styles/global'
 import { View, Text, TouchableOpacity, Alert, StyleSheet, Image } from 'react-native';
 import { useRouter } from 'expo-router';
+import { Button } from '../components/Button';
 
 const ChooseScreen = () => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [toLink, setToLink] = useState(null);
   const router = useRouter();
 
   const handleIconClick = (option) => {
+    setToLink(option+"/signup")
     setSelectedOption(option);
   };
 
-  const handleSubmit = () => {
-    if (!selectedOption) {
-      Alert.alert('이미지를 선택해 주세요.');
-    } else {
-      if (selectedOption === '아이') {
-        router.push('/child/auth/signup');
-      } else if (selectedOption === '부모') {
-        router.push('/parent/auth/signup');
-      }
-    }
-  };
-
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Boundary</Text>
-        <Text style={styles.subtitle}>회원가입</Text>
-        <Text style={styles.description}>아이와 부모님을 선택해 주세요.</Text>
+    <View style={globalStyles.container}>
+      <View style={globalStyles.header}>
+        <Text style={globalStyles.title}>Boundary</Text>
+        <Text style={globalStyles.subtitle}>회원가입</Text>
+        <Text style={globalStyles.description}>아이와 부모님을 선택해 주세요.</Text>
       </View>
       <View style={styles.iconContainer}>
         <TouchableOpacity
-          style={[styles.icon, selectedOption === '아이' && styles.selectedIcon]}
-          onPress={() => handleIconClick('아이')}
+          style={[styles.icon, selectedOption === '/child' && styles.selectedIcon]}
+          onPress={() => handleIconClick('/child')}
           accessible
           accessibilityLabel="아이 아이콘"
           accessibilityRole="button"
@@ -44,8 +37,8 @@ const ChooseScreen = () => {
           <Text style={styles.iconText}>아이로 회원가입</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.icon, selectedOption === '부모' && styles.selectedIcon]}
-          onPress={() => handleIconClick('부모')}
+          style={[styles.icon, selectedOption === '/parent' && styles.selectedIcon]}
+          onPress={() => handleIconClick('/parent')}
           accessible
           accessibilityLabel="부모 아이콘"
           accessibilityRole="button"
@@ -57,46 +50,16 @@ const ChooseScreen = () => {
           <Text style={styles.iconText}>부모로 회원가입</Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        <Text style={styles.submitButtonText}>계속하기</Text>
-      </TouchableOpacity>
+      <Button toLink={toLink} title={"계속하기"}/>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  header: {
-    alignItems: 'flex-start',
-    marginBottom: 200,
-    marginLeft: -120, 
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#5772FF',
-  },
-  subtitle: {
-    fontSize: 28,
-    fontWeight: '600',
-
-  },
-  description: {
-    fontSize: 16,
-    textAlign: 'left',
-    marginVertical: 2,
-    color: '#898989',
-  },
   iconContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
-    marginVertical: 100,
   },
   icon: {
     flexDirection: 'column',
@@ -119,21 +82,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     color: '#000',
-  },
-  submitButton: {
-    width: 310,
-    height: 50,
-    backgroundColor: '#5772FF',
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 100,
-  },
-  submitButtonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '600',
   },
 });
 
