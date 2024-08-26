@@ -11,7 +11,7 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/logo.svg')} style={styles.logo} />
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
 
       <TouchableOpacity style={styles.signupButton} onPress={handleSignupClick}>
         <Text style={styles.signupButtonText}>회원가입</Text>
