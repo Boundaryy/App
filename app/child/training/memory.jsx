@@ -46,7 +46,7 @@ export default function MemoryGame() {
 
 const styles = StyleSheet.create({
   background: {
-    width: 380,  
+    width: 416,  
     height: 930, 
     resizeMode: 'cover', 
   },
