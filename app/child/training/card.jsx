@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
         transition: 0.3, /* 추가 */
         transform: [{ rotate: '0deg' }], // 45도 회전
     },
-    cardHovered: {
+    cardHovered: 
+    {
         transform: [{ rotate: '0deg' }], // 45도 회전
     },
     cardText: {

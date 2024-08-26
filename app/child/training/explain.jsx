@@ -9,7 +9,6 @@ const App = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>상황 대처 학습</Text>
             {/* <Image source={require('./conv-image.svg')} style={styles.emoji} /> */}
             <Text style={styles.description}>
                 시작하면 상황이 제시됩니다. {'\n'}상황에 맞춰 내가 친구에게 해야할 {'\n'}적절한 말을 해봅시다
