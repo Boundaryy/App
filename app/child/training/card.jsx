@@ -13,7 +13,7 @@ const CardGame = () => {
         const newFlipped = [...flipped];
         newFlipped[index] = true;
         setFlipped(newFlipped);
-
+ 
         if (firstCard === null) {
             // setFirstCard(index);
         } else {
