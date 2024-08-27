@@ -14,11 +14,10 @@ const SignupScreen = () => {
             phoneNumber,
             username,
             password,
-            childUsername
+            childUsername,
         };
         console.log('Submitted data:', formData);
-
-        navigation.navigate('ParentHome'); 
+        navigation.navigate('guardian/signin'); 
     };
 
     const formatPhoneNumber = (text) => {
