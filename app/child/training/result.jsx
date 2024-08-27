@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 
 const results = [
     {
@@ -19,6 +20,17 @@ const results = [
 ];
 
 const LearningResults = () => {
+    const router = useRouter();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            router.push('/child/home');
+        }, 3000);
+
+        
+        return () => clearTimeout(timer);
+    }, [router]);
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.header}>
@@ -97,10 +109,10 @@ const styles = StyleSheet.create({
         color: '#CCC',
     },
     correct: {
-        backgroundColor: 'url("/check-circle.svg")', // SVG 이미지는 다른 방법으로 처리해야 합니다.
+        backgroundColor: 'url("/check-circle.svg")', 
     },
     incorrect: {
-        backgroundColor: 'url("/x-circle.svg")', // SVG 이미지는 다른 방법으로 처리해야 합니다.
+        backgroundColor: 'url("/x-circle.svg")', 
     },
     resultImage: {
         width: 40,
