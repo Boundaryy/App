@@ -1,16 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ChatScreen = () => {
-    const [messages, setMessages] = useState([
-        { text: "안녕하세요, 학부모님 속상하시죠?", from: "left" },
-        { text: "괜찮아요. 오히려 이 서비스 덕에 행복해요", from: "right" },
-        { text: "정말 다행이에요.", from: "left" },
-        { text: "매우감사합니당", from: "right" }
-    ]);
+    const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const router = useRouter();
+
+    // Load messages from AsyncStorage when the component mounts
+    useEffect(() => {
+        const loadMessages = async () => {
+            try {
+                const savedMessages = await AsyncStorage.getItem('chatMessages');
+                if (savedMessages) {
+                    setMessages(JSON.parse(savedMessages));
+                } else {
+                    // If no messages found, initialize with default messages
+                    setMessages([
+                        { text: "안녕하세요, 학부모님 속상하시죠?", from: "left" },
+                        { text: "괜찮아요. 오히려 이 서비스 덕에 행복해요", from: "right" },
+                        { text: "정말 다행이에요.", from: "left" },
+                        { text: "매우감사합니당", from: "right" }
+                    ]);
+                }
+            } catch (error) {
+                console.error('Failed to load messages from AsyncStorage:', error);
+            }
+        };
+
+        loadMessages();
+    }, []);
+
+    // Save messages to AsyncStorage whenever the messages state changes
+    useEffect(() => {
+        const saveMessages = async () => {
+            try {
+                await AsyncStorage.setItem('chatMessages', JSON.stringify(messages));
+            } catch (error) {
+                console.error('Failed to save messages to AsyncStorage:', error);
+            }
+        };
+
+        saveMessages();
+    }, [messages]);
 
     const sendMessage = () => {
         if (newMessage.trim() !== '') {
@@ -19,13 +52,12 @@ const ChatScreen = () => {
         }
     };
 
+    // Auto-navigate back to the guardian home after 555 seconds (9 minutes and 15 seconds)
     useEffect(() => {
-        // Set a timer to navigate to /guardian/home after 3 seconds
         const timer = setTimeout(() => {
             router.push('/guardian/home');
-        }, 3000);
+        }, 555000);
 
-        // Cleanup function to clear the timer if the component is unmounted
         return () => clearTimeout(timer);
     }, [router]);
 
@@ -65,6 +97,7 @@ const styles = StyleSheet.create({
     },
     header: {
         marginBottom: 20,
+        marginTop: 70,
     },
     headerText: {
         fontSize: 28,
@@ -81,7 +114,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     left: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'gray',
         alignSelf: 'flex-start',
         borderRadius: 25,
     },
