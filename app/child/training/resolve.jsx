@@ -32,14 +32,14 @@ const ChatScreen = () => {
         <View style={styles.speechBubble}>
           <Image source={require('../../../assets/images/happyface.png')} style={styles.icon} />
           <View style={styles.bubbleText}>
-            <Text>으갸갸갸갸갸갹</Text>
+            <Text>오늘 희성이가 아파서 학교에 가지 못했다.</Text>
           </View>
         </View>
 
         <View style={styles.mySpeechBubble}>
           <Image source={require('../../../assets/images/happyface.png')} style={styles.icon} />
           <View style={styles.myBubbleText}>
-            <Text style={styles.myBubbleTextContent}>오교교교굑교교교교교</Text>
+            <Text style={styles.myBubbleTextContent}>희성아 괜찮니? 숙제 범위 내가 알려줄게 내일보자!</Text>
           </View>
         </View>
       </ScrollView>
