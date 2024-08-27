@@ -129,7 +129,7 @@ export default function SignUp() {
                 />
             </View>
 
-            <Button toLink={"/child/home"} title={"회원가입"}/>
+            <Button toLink={"/child/signin"} title={"회원가입"}/>
         </View>
     );
 }
