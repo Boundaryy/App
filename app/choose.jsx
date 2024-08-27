@@ -37,8 +37,8 @@ const ChooseScreen = () => {
           <Text style={styles.iconText}>아이로 회원가입</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.icon, selectedOption === '/parent' && styles.selectedIcon]}
-          onPress={() => handleIconClick('/parent')}
+          style={[styles.icon, selectedOption === '/guardian' && styles.selectedIcon]}
+          onPress={() => handleIconClick('/guardian')}
           accessible
           accessibilityLabel="부모 아이콘"
           accessibilityRole="button"
