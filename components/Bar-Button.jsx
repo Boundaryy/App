@@ -1,9 +1,16 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-export const BarButton = ({ imgLink, title, explain }) => {
+export const BarButton = ({ toLink, imgLink, title, explain }) => {
+    const router = useRouter();
+
+    const handleClick = () => {
+        router.push(toLink);
+      };
+    
     return (
-        <TouchableOpacity style={styles.barBtn}>
+        <TouchableOpacity onPress={handleClick} style={styles.barBtn}>
             <View style={styles.iconBg}>
                 <Image source={imgLink} style={styles.iconImg} />
             </View>

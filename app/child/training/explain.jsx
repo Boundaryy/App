@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { globalStyles } from '../../../styles/global';
+import { Button } from '../../../components/Button';
 
 const App = () => {
     const handleLoginClick = () => {
@@ -8,32 +10,20 @@ const App = () => {
     };
 
     return (
-        <View style={styles.container}>
-            {/* <Image source={require('./conv-image.svg')} style={styles.emoji} /> */}
+        <View style={globalStyles.container}>
+            <Text style={globalStyles.subtitle}>상황 대처 예시</Text>
+            <Image source={require('../../../assets/images/explain.png')} style={styles.emoji} />
             <Text style={styles.description}>
                 시작하면 상황이 제시됩니다. {'\n'}상황에 맞춰 내가 친구에게 해야할 {'\n'}적절한 말을 해봅시다
             </Text>
-            <TouchableOpacity style={styles.button} onPress={handleLoginClick}>
-                <Text style={styles.buttonText}>시작하기</Text>
-            </TouchableOpacity>
+            <Button toLink={"/child/training/resolve"} title={"시작하기"}/>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,
-    },
-    header: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
     emoji: {
-        width: 300,
+        width: 335,
         height: 150,
         marginVertical: 160,
     },
