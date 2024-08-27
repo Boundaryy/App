@@ -1,112 +1,159 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 
-const results = [
-    {
-        date: "6월 29일",
-        title: "상황 대처 학습",
-        status: "correct",
-        summary: "잘했어요 (10 문제중 9개 정답)",
-        link: "#"
-    },
-    {
-        date: "6월 28일",
-        title: "상황 대처 학습",
-        status: "incorrect",
-        summary: "잘했어요 (10 문제중 9개 정답)",
-        link: "#"
-    }
-];
+const ChatScreen = ({ navigation }) => {
+  const [message, setMessage] = useState('');
+  router = useRouter()
+  const handleLoginClick = () => {
+    router.push("/child/home")
+  };
 
-const LearningResults = () => {
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>학습 결과</Text>
-                <Text style={styles.headerSubtitle}>최근 학습 결과를 확인해보세요.</Text>
-            </View>
-            {results.map((result, index) => (
-                <View key={index} style={styles.resultItem}>
-                    <View style={[styles.resultIcon, result.status === 'correct' ? styles.correct : styles.incorrect]} />
-                    <View style={styles.resultContent}>
-                        <Text style={styles.resultTitle}>{result.title}</Text>
-                        <Text style={styles.resultDate}>{result.date} 상황 대처 학습 결과</Text>
-                        <Text style={styles.resultSummary}>{result.summary}</Text>
-                    </View>
-                    <TouchableOpacity>
-                        <Text style={styles.resultLink}></Text>
-                    </TouchableOpacity>
-                </View>
-            ))}
-        </ScrollView>
-    );
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.arrowBox} onPress={handleLoginClick}>
+        <Image source={require('../../../assets/arrow.png')} style={styles.arrow} />
+        <Text style={styles.arrowText}>돌아가기</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.header}>상황 대처 지능 테스트</Text>
+
+      <ScrollView style={styles.chatArea}>
+        <View style={styles.speechBubble}>
+          <Image source={require('../../../assets/images/happyface.png')} style={styles.icon} />
+          <View style={styles.bubbleText}>
+            <Text>으갸갸갸갸갸갹</Text>
+          </View>
+        </View>
+
+        <View style={styles.mySpeechBubble}>
+          
+          <Image source={require('../../../assets/images/happyface.png')} style={styles.icon} />
+          <View style={styles.myBubbleText}>
+            <Text style={styles.myBubbleTextContent}>오교교교굑교교교교교</Text>
+          </View>
+        </View>
+      </ScrollView>
+
+      <View style={styles.sendBox}>
+        <TextInput
+          style={styles.input}
+          placeholder="여기에 메세지를 입력하세요"
+          value={message}
+          onChangeText={setMessage}
+        />
+        <Image source={require('../../../assets/arrow.png')} style={styles.arrow1} />
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 20
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  arrowBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  arrow: {
+    height:  20,
+    width:20,
     },
-    header: {
-        alignItems: 'flex-start',
-        marginBottom: 20,
-        paddingTop: 60,
-    },
-    headerTitle: {
-        fontSize: 28,
-        fontWeight: '700',
-        color: '#000',
-    },
-    headerSubtitle: {
-        color: '#898989',
-        fontSize: 14,
-        margin: 8,
-        fontWeight: '200',
-    },
-    resultItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: 16,
-        borderBottomWidth: 1,
-        borderBottomColor: '#E0E0E0',
-    },
-    resultIcon: {
-        width: 24,
-        height: 24,
-        marginRight: 12,
-    },
-    resultContent: {
-        flexGrow: 1,
-    },
-    resultTitle: {
-        fontSize: 18,
-        fontWeight: '700',
-        color: '#333',
-    },
-    resultDate: {
-        fontSize: 14,
-        color: '#5772FF',
-        marginTop: 4,
-    },
-    resultSummary: {
-        fontSize: 14,
-        color: '#4CAF50',
-        marginTop: 4,
-    },
-    resultLink: {
-        fontSize: 16,
-        color: '#CCC',
-    },
-    correct: {
-        backgroundColor: 'url("/check-circle.svg")', // SVG 이미지는 다른 방법으로 처리해야 합니다.
-    },
-    incorrect: {
-        backgroundColor: 'url("/x-circle.svg")', // SVG 이미지는 다른 방법으로 처리해야 합니다.
-    },
-    resultImage: {
-        width: 40,
-        height: 40,
-        marginRight: 10,
-    },
+
+    arrow1: {
+        height:  20,
+        width:20,
+        transform: [{ rotate: '180deg' }], // 45도 회전
+        },
+  arrowText: {
+    fontSize: 18,
+    color: '#808080',
+    marginLeft: 10,
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  chatArea: {
+    flex: 1,
+  },
+  speechBubble: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  mySpeechBubble: {
+    flexDirection: 'row-reverse',
+    marginBottom: 10,
+  },
+  icon: {
+    width: 40,
+    height: 40,
+  },
+  bubbleText: {
+    backgroundColor: '#cbcbcb',
+    padding: 15,
+    borderRadius: 50,
+    borderTopLeftRadius: 0,
+    marginLeft: 10,
+  },
+  myBubbleText: {
+    backgroundColor: '#5772FF',
+    padding: 15,
+    borderRadius: 50,
+    borderTopRightRadius: 0,
+    marginRight: 10,
+  },
+  myBubbleTextContent: {
+    color: 'white',
+  },
+  sendBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    borderRadius: 50,
+    padding: 10,
+    marginTop: 20,
+  },
+  input: {
+    flex: 1,
+    fontSize: 18,
+  },
+  sendIcon: {
+    width: 26,
+    height: 26,
+  },
+  barBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  iconBg: {
+    backgroundColor: '#FFFFFF',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconImg: {
+    width: 40,
+    height: 40,
+  },
+  textBg: {
+    marginLeft: 10,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  desc: {
+    fontSize: 12,
+    color: 'rgb(108, 113, 255)',
+  },
 });
 
-export default LearningResults;
+export default ChatScreen;
