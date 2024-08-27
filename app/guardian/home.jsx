@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { BarButton } from "../../components/Bar-Button";
+import { Calendar } from 'react-native-calendars';
 
 const ParentDashboard = () => {
     const navigation = useNavigation();
     const route = useRoute();
-
+    
     const { username = '@Boundary' } = route.params || {};
+    
+    const [selectedDate, setSelectedDate] = useState('');
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -30,35 +33,19 @@ const ParentDashboard = () => {
                 </View>
             </View>
 
-            <View style={styles.calendar}>
-                <Text style={styles.calendarHeader}>2024.08</Text>
-                <View style={styles.calendarDays}>
-                    {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((day, index) => (
-                        <Text key={index} style={styles.calendarDayInactive}>{day}</Text>
-                    ))}
-                    {[...Array(31).keys()].map((day) => (
-                        <Text
-                            key={day}
-                            style={[
-                                styles.calendarDay,
-                                (day === 26) ? styles.calendarDayActive : null, // 27일을 26으로 조정
-                            ]}
-                        >
-                            {day + 1}
-                        </Text>
-                    ))}
-                </View>
-
-                <View style={styles.calendarLegend}>
-                    <View style={styles.calendarLegendItem}>
-                        <View style={styles.calendarLegendDot}></View>
-                        <Text>학습한 날</Text>
-                    </View>
-                    <View style={styles.calendarLegendItem}>
-                        <View style={[styles.calendarLegendDot, styles.calendarLegendDotInactive]}></View>
-                        <Text>학습하지 않은 날</Text>
-                    </View>
-                </View>
+            {/* Calendar Component */}
+            <View style={styles.calendarContainer}>
+                <Calendar
+                    onDayPress={(day) => setSelectedDate(day.dateString)}
+                    markedDates={{
+                        [selectedDate]: { selected: true, marked: true, selectedColor: '#5772FF' },
+                    }}
+                    theme={{
+                        selectedDayBackgroundColor: '#5772FF',
+                        todayTextColor: '#5772FF',
+                        arrowColor: '#5772FF',
+                    }}
+                />
             </View>
 
             <View style={styles.menu}>
@@ -83,7 +70,7 @@ const styles = StyleSheet.create({
     },
     header: {
         marginBottom: 40,
-        alignItems: 'let', 
+        alignItems: 'left',
     },
     headerTitle: {
         fontSize: 28,
@@ -101,6 +88,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 30,
         justifyContent: 'center',
+        marginLeft: -140,
     },
     userAvatar: {
         width: 86,
@@ -142,60 +130,9 @@ const styles = StyleSheet.create({
     progressText: {
         color: '#FFFFFF',
     },
-    calendar: {
-        width: 320,
-        padding: 15,
-        backgroundColor: '#F3F4F6',
-        borderRadius: 8,
-        alignSelf: 'center',
-    },
-    calendarHeader: {
-        fontSize: 16,
-        color: '#565656',
-        marginBottom: 10,
-        textAlign: 'left',
-        width: '100%',
-    },
-    calendarDays: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-    },
-    calendarDay: {
-        width: 30,
-        height: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 15,
-        marginBottom: 5,
-        textAlign: 'center',
-        color: '#000',
-    },
-    calendarDayActive: {
-        backgroundColor: '#5772FF',
-        color: '#FFFFFF',
-    },
-    calendarDayInactive: {
-        color: '#898989',
-    },
-    calendarLegend: {
-        flexDirection: 'row',
-        justifyContent: 'center',
+    calendarContainer: {
         marginTop: 20,
-    },
-    calendarLegendItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginHorizontal: 20,
-    },
-    calendarLegendDot: {
-        width: 10,
-        height: 2,
-        backgroundColor: '#5772FF',
-        marginRight: 5,
-    },
-    calendarLegendDotInactive: {
-        backgroundColor: '#000',
+        marginBottom: -30,
     },
     menu: {
         marginTop: 30,
