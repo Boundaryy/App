@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const results = [
     {
@@ -17,6 +18,12 @@ const results = [
 ];
 
 const LearningResults = () => {
+    const navigation = useNavigation();
+
+    const handlePress = () => {
+        navigation.navigate('guardian/resolve'); 
+    };
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.header}>
@@ -24,8 +31,7 @@ const LearningResults = () => {
                 <Text style={styles.subtitle}>최근 학습 결과를 확인해보세요.</Text>
             </View>
             {results.map((result, index) => (
-                <TouchableOpacity key={index} style={styles.resultItem}>
-                    {/* <Image source={require('./assets/Good.png')} style={styles.resultImage} /> */}
+                <TouchableOpacity key={index} style={styles.resultItem} onPress={handlePress}>
                     <View style={[styles.resultIcon, result.status === 'correct' ? styles.correct : styles.incorrect]} />
                     <View style={styles.resultContent}>
                         <Text style={styles.resultTitle}>{result.title}</Text>
@@ -76,11 +82,10 @@ const styles = StyleSheet.create({
         marginRight: 12,
     },
     correct: {
-        backgroundColor: 'transparent', // 여기에 체크 아이콘을 추가할 수 있습니다.
-        // backgroundImage: 'url(/check-circle.svg)', // 리액트 네이티브에서는 이미지 사용 방식이 다릅니다.
+        backgroundColor: 'transparent', 
     },
     incorrect: {
-        backgroundColor: 'transparent', // 여기에 엑스 아이콘을 추가할 수 있습니다.
+        backgroundColor: 'transparent', 
     },
     resultContent: {
         flexGrow: 1,

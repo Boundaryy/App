@@ -62,13 +62,13 @@ const ParentDashboard = () => {
             </View>
 
             <View style={styles.menu}>
-                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('ParentResult')}>
+                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('guardian/result')}>
                     <View style={styles.menuItemContent}>
                         <Text style={styles.menuItemText}>결과</Text>
                         <Text style={styles.menuItemSubtext}>최근 시험 결과 보기</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('ParentResolve')}>
+                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('guardian/advice')}>
                     <View style={styles.menuItemContent}>
                         <Text style={styles.menuItemText}>조언 상담</Text>
                         <Text style={styles.menuItemSubtext}>상담사와 채팅하기</Text>
