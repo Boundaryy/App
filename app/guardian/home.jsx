@@ -68,12 +68,9 @@ const ParentDashboard = () => {
                         <Text style={styles.menuItemSubtext}>최근 시험 결과 보기</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('guardian/advice')}>
-                    <View style={styles.menuItemContent}>
-                        <Text style={styles.menuItemText}>조언 상담</Text>
-                        <Text style={styles.menuItemSubtext}>상담사와 채팅하기</Text>
-                    </View>
-                </TouchableOpacity>
+                <BarButton title={"조원 상담"} explain={"Hello"} toLink={"/guadian/advice"} imgLink={require("../../assets/images/happyface.png")}></BarButton>
+                <BarButton></BarButton>
+                
             </View>
         </ScrollView>
     );

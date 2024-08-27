@@ -36,10 +36,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         borderRadius: 20,
         padding: 10,
-        shadowColor: '#b3b3b3',
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
         elevation: 2, // Android shadow effect
     },
     iconBg: {

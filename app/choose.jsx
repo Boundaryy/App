@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
+    marginBottom: 100,
   },
   icon: {
     flexDirection: 'column',

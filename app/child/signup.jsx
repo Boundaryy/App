@@ -49,7 +49,7 @@ export default function SignUp() {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <View style={styles.container}>
             <View style={globalStyles.header}>
                 <Text style={globalStyles.title}>Boundary</Text>
                 <Text style={globalStyles.subtitle}>회원가입</Text>
@@ -135,6 +135,11 @@ export default function SignUp() {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        display: "flex",
+        padding: 50,
+        paddingTop: 190,
+    },
     formGroup: {
         marginBottom: 20,
     },

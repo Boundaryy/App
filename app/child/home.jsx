@@ -32,17 +32,16 @@ const App = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
     },
     header: {
-        marginVertical: 20,
+        marginVertical: 10,
     },
     headerTitle: {
         fontSize: 24,
         fontWeight: 'bold',
     },
     headerSubtitle: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#565656',
     },
     buttonContainer: {

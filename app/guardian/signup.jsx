@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Button } from '../../components/Button';
 
 const SignupScreen = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -81,9 +82,7 @@ const SignupScreen = () => {
                     />
                 </View>
 
-                <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                    <Text style={styles.submitButtonText}>가입하기</Text>
-                </TouchableOpacity>
+                <Button title={"회원가입"} toLink={"/guardian/home"}></Button>
             </View>
         </View>
     );
