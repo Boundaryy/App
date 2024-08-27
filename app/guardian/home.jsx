@@ -64,13 +64,10 @@ const ParentDashboard = () => {
             <View style={styles.menu}>
                 <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('guardian/result')}>
                     <View style={styles.menuItemContent}>
-                        <Text style={styles.menuItemText}>결과</Text>
-                        <Text style={styles.menuItemSubtext}>최근 시험 결과 보기</Text>
                     </View>
                 </TouchableOpacity>
-                <BarButton title={"조원 상담"} explain={"Hello"} toLink={"/guadian/advice"} imgLink={require("../../assets/images/happyface.png")}></BarButton>
-                <BarButton></BarButton>
-                
+                <BarButton title={"조언 상담"} explain={"아이 학습에 대한 이야기를 나눠요"} toLink={"/guardian/advice"} imgLink={require("../../assets/images/happyface.png")}></BarButton>
+                <BarButton title={"결과"} explain={"아이의 학습을 한번에 확인해요"} toLink={"/guardian/result"} imgLink={require("../../assets/images/cognition.png")}></BarButton>
             </View>
         </ScrollView>
     );
