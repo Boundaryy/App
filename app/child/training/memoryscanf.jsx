@@ -1,7 +1,14 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router'; // Import useRouter
 
 export default function MemoryGameAnswer() {
+  const router = useRouter(); // Initialize useRouter
+
+  const handleSubmit = () => {
+    router.push('/child/training/memoryre'); // Navigate to the desired route
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>메모리게임 정답</Text>
@@ -17,7 +24,7 @@ export default function MemoryGameAnswer() {
           placeholderTextColor="#aaa"
         />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}>완료하기</Text>
         </TouchableOpacity>
       </View>
@@ -46,7 +53,7 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   highlight: {
-    color: '#4A90E2', 
+    color: '#4A90E2',
     fontWeight: 'bold',
   },
   input: {
@@ -57,7 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#4A90E2', 
+    backgroundColor: '#4A90E2',
     paddingVertical: 12,
     borderRadius: 4,
     alignItems: 'center',
