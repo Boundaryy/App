@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image, ImageBackground, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
 
 export default function MemoryGame() {
   const emojis = ['🍎', '🍊', '🍌'];
   const emojiCount = 5; 
+  const router = useRouter(); 
 
 
   const getRandomPosition = () => {
@@ -11,6 +13,16 @@ export default function MemoryGame() {
     const left = Math.floor(Math.random() * 350); 
     return { top, left };
   };
+
+ 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/child/training/memoryscanf');
+    }, 3000); 
+
+
+    return () => clearTimeout(timer);
+  }, [router]);
 
   return (
     <ImageBackground

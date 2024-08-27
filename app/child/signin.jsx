@@ -14,7 +14,8 @@ const LoginScreen = () => {
         };
         console.log('입력된 데이터:', formData);
 
-        navigation.navigate('Home');
+        // 로그인 버튼을 누르면 child/home으로 이동하도록 변경
+        navigation.navigate('child/home');
     };
 
     return (
@@ -49,7 +50,7 @@ const LoginScreen = () => {
                 <Text style={styles.submitButtonText}>로그인</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+            <TouchableOpacity onPress={() => navigation.navigate('child/signup')}>
                 <Text style={styles.signupLink}>아직 회원가입을 하지 않았다면?</Text>
             </TouchableOpacity>
         </View>
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         justifyContent: 'center',
-        paddingLeft: 50, // 오른쪽으로 40만큼 이동
+        paddingLeft: 50, 
     },
     header: {
         marginBottom: 20,

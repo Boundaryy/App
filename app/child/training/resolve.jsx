@@ -1,12 +1,22 @@
-import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 
-const ChatScreen = ({ navigation }) => {
+const ChatScreen = () => {
   const [message, setMessage] = useState('');
-  router = useRouter()
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/child/training/result');
+    }, 5000);
+
+   
+    return () => clearTimeout(timer);
+  }, [router]);
+
   const handleLoginClick = () => {
-    router.push("/child/home")
+    router.push('/child/home');
   };
 
   return (
@@ -27,7 +37,6 @@ const ChatScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.mySpeechBubble}>
-          
           <Image source={require('../../../assets/images/happyface.png')} style={styles.icon} />
           <View style={styles.myBubbleText}>
             <Text style={styles.myBubbleTextContent}>오교교교굑교교교교교</Text>
@@ -59,15 +68,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   arrow: {
-    height:  20,
-    width:20,
-    },
-
-    arrow1: {
-        height:  20,
-        width:20,
-        transform: [{ rotate: '180deg' }], // 45도 회전
-        },
+    height: 20,
+    width: 20,
+  },
+  arrow1: {
+    height: 20,
+    width: 20,
+    transform: [{ rotate: '180deg' }], 
+  },
   arrowText: {
     fontSize: 18,
     color: '#808080',

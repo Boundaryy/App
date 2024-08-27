@@ -1,14 +1,21 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router'; 
 
-export default function AnswerScreen({ navigation }) {
+export default function AnswerScreen() {
+  const router = useRouter(); 
+
+  const handlePress = () => {
+    router.push('/child/home'); 
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.message}>정답입니다!</Text>
 
       <TouchableOpacity 
         style={styles.button} 
-        onPress={() => navigation.goBack()}
+        onPress={handlePress} 
       >
         <Text style={styles.buttonText}>확인하기</Text>
       </TouchableOpacity>
