@@ -14,7 +14,7 @@ const LoginScreen = () => {
         };
         console.log('입력된 데이터:', formData);
 
-        navigation.navigate('Home');
+        navigation.navigate('guardian/home');
     };
 
     return (
