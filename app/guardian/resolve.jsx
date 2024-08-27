@@ -1,9 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 
 const ResultScreen = () => {
+    const router = useRouter();
+
     const handleSubmit = () => {
         console.log('완료 버튼이 클릭되었습니다.');
+        router.push('/guardian/result'); 
     };
 
     return (
@@ -20,7 +24,6 @@ const ResultScreen = () => {
             </View>
 
             <View style={styles.imageContainer}>
-                {/* <Image source={require('./Result.png')} style={styles.image} /> */}
             </View>
 
             <View style={styles.suggestions}>

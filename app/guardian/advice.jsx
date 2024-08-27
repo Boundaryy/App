@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 
 const ChatScreen = () => {
     const [messages, setMessages] = useState([
@@ -9,6 +10,7 @@ const ChatScreen = () => {
         { text: "매우감사합니당", from: "right" }
     ]);
     const [newMessage, setNewMessage] = useState('');
+    const router = useRouter();
 
     const sendMessage = () => {
         if (newMessage.trim() !== '') {
@@ -16,6 +18,16 @@ const ChatScreen = () => {
             setNewMessage('');
         }
     };
+
+    useEffect(() => {
+        // Set a timer to navigate to /guardian/home after 3 seconds
+        const timer = setTimeout(() => {
+            router.push('/guardian/home');
+        }, 3000);
+
+        // Cleanup function to clear the timer if the component is unmounted
+        return () => clearTimeout(timer);
+    }, [router]);
 
     return (
         <View style={styles.container}>
