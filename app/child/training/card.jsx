@@ -1,30 +1,37 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 
-const cards = [1, 2, 1, 2, 3, 3]; // 카드 예시 (목록 생성)
+const cards = [1, 2, 1, 2, 3, 3]; 
 
 const CardGame = () => {
     const [flipped, setFlipped] = useState(Array(cards.length).fill(false));
+    const [matched, setMatched] = useState(Array(cards.length).fill(false)); // 매칭된 카드 상태 추가
     const [firstCard, setFirstCard] = useState(null);
 
     const handleCardPress = (index) => {
-        if (flipped[index]) return;
+        if (flipped[index] || matched[index]) return; // 이미 뒤집히거나 매칭된 카드 클릭 방지
 
         const newFlipped = [...flipped];
         newFlipped[index] = true;
         setFlipped(newFlipped);
- 
+
         if (firstCard === null) {
-            // setFirstCard(index);
+            setFirstCard(index);
         } else {
-            // 두 번째 카드가 눌렸을 때
-            // if (cards[firstCard] !== cards[index]) {
-            //     setTimeout(() => {
-            //         const resetFlipped = flipped.map((f, i) => (i === firstCard || i === index ? false : f));
-            //         setFlipped(resetFlipped);
-            //     }, 1000);
-            // }
-            // setFirstCard(null);
+            if (cards[firstCard] === cards[index]) {
+                const newMatched = [...matched];
+                newMatched[firstCard] = true;
+                newMatched[index] = true;
+                setMatched(newMatched);
+            } else {
+                setTimeout(() => {
+                    const resetFlipped = flipped.map((f, i) => 
+                        (i === firstCard || i === index ? false : f)
+                    );
+                    setFlipped(resetFlipped);
+                }, 1000);
+            }
+            setFirstCard(null);
         }
     };
 
@@ -36,14 +43,17 @@ const CardGame = () => {
             </View>
             <View style={styles.board}>
                 {cards.map((card, index) => (
-                    <View style={styles.card}>
-                    <TouchableOpacity key={index} onPress={() => handleCardPress(index)} style={styles.frontcard}>
-                        <Text style={styles.cardText}>{flipped[index] ? card : '?'}</Text>
+                    <TouchableOpacity 
+                        key={index} 
+                        onPress={() => handleCardPress(index)} 
+                        style={styles.card}
+                    >
+                        {flipped[index] || matched[index] ? (
+                            <Text style={styles.cardText}>{card}</Text>
+                        ) : (
+                            <Image source={require('../../../assets/card.png')} style={styles.cardImage} />
+                        )}
                     </TouchableOpacity>
-                    <TouchableOpacity key={index} onPress={() => handleCardPress(index)} style={styles.backcard}>
-                        <Text style={styles.cardText}>{flipped[index] ? card : '?'}</Text>
-                    </TouchableOpacity>
-                    </View>
                 ))}
             </View>
         </View>
@@ -52,66 +62,44 @@ const CardGame = () => {
 
 const styles = StyleSheet.create({
     header: {
-        width: 80,
+        width: 200, 
+        marginLeft: 46, 
+        marginTop: 60,
     },
     timer: {
         fontSize: 18,
         fontWeight: '700',
-        color: 'blue'
+        color: 'blue',
     },
     board: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
     },
-    frontcard: {
-        width: 160,
-        height: 220,
-        backgroundColor: '#f1f1f1',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#ccc',
-        margin: 5,
-        transition: 0.3,
-    },
-    backcard: {
-        width: 160,
-        height: 220,
-        backgroundColor: '#f1f1f1',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#ccc',
-        margin: 5,
-        transition: 0.3,
-    },
     card: {
-        transition: 0.3, /* 추가 */
-        transform: [{ rotate: '0deg' }], // 45도 회전
-    },
-    cardHovered: 
-    {
-        transform: [{ rotate: '0deg' }], // 45도 회전
+        width: 160,
+        height: 220,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 0.5,
+        borderColor: 'lightgray',
+        margin: 5,
+        transition: '0.3s',
     },
     cardText: {
         fontSize: 24,
     },
-    header: {
-        alignItems: 'flex-start',
-        marginBottom: 20,
-        paddingTop: 60,
+    cardImage: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain', 
     },
     headerTitle: {
         fontSize: 28,
         fontWeight: '700',
         color: '#000',
-    },
-    headerSubtitle: {
-        color: '#898989',
-        fontSize: 14,
-        margin: 8,
-        fontWeight: '200',
+        flexShrink: 1,
+        whiteSpace: 'nowrap',
     },
 });
 
