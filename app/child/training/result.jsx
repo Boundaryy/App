@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const results = [
@@ -8,28 +8,21 @@ const results = [
         title: "상황 대처 학습",
         status: "correct",
         summary: "잘했어요 (10 문제중 9개 정답)",
-        link: "#"
     },
     {
         date: "6월 28일",
         title: "상황 대처 학습",
         status: "incorrect",
         summary: "잘했어요 (10 문제중 9개 정답)",
-        link: "#"
     }
 ];
 
 const LearningResults = () => {
     const router = useRouter();
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            router.push('/child/home');
-        }, 3000);
-
-        
-        return () => clearTimeout(timer);
-    }, [router]);
+    const handlePress = () => {
+        router.push('child/training/resultcontent');
+    };
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -38,17 +31,14 @@ const LearningResults = () => {
                 <Text style={styles.headerSubtitle}>최근 학습 결과를 확인해보세요.</Text>
             </View>
             {results.map((result, index) => (
-                <View key={index} style={styles.resultItem}>
+                <TouchableOpacity key={index} onPress={handlePress} style={styles.resultItem}>
                     <View style={[styles.resultIcon, result.status === 'correct' ? styles.correct : styles.incorrect]} />
                     <View style={styles.resultContent}>
                         <Text style={styles.resultTitle}>{result.title}</Text>
                         <Text style={styles.resultDate}>{result.date} 상황 대처 학습 결과</Text>
                         <Text style={styles.resultSummary}>{result.summary}</Text>
                     </View>
-                    <TouchableOpacity>
-                        <Text style={styles.resultLink}></Text>
-                    </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
             ))}
         </ScrollView>
     );

@@ -7,7 +7,7 @@ const ResultScreen = () => {
 
     const handleSubmit = () => {
         console.log('완료 버튼이 클릭되었습니다.');
-        router.push('/guardian/result'); 
+        router.push('/child/home'); 
     };
 
     return (
@@ -24,7 +24,6 @@ const ResultScreen = () => {
             </View>
 
             <View style={styles.imageContainer}>
-                <Image source={require('../../assets/images/circlearrow.png')}></Image>
             </View>
 
             <View style={styles.suggestions}>
@@ -53,7 +52,6 @@ const styles = StyleSheet.create({
     header: {
         alignItems: 'center',
         marginBottom: 20,
-
     },
     headerTitle: {
         fontSize: 24,
