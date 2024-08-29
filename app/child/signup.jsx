@@ -60,7 +60,7 @@ export default function SignUp() {
                 <Text style={styles.label}>전화 번호를 알려주세요.</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="010-1234-5678"
+                    placeholder="예시) 010-1234-5678"
                     value={phoneNumber}
                     onChangeText={formatPhoneNumber}
                     keyboardType="numeric"
@@ -71,7 +71,7 @@ export default function SignUp() {
                 <Text style={styles.label}>나이를 알려주세요.</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="18세"
+                    placeholder="예시) 12세"
                     value={age}
                     onChangeText={setAge}
                     keyboardType="numeric"
@@ -82,7 +82,7 @@ export default function SignUp() {
                 <Text style={styles.label}>이름을 알려주세요.</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="ex) 김바운"
+                    placeholder="예시) 김바운"
                     value={name}
                     onChangeText={setName}
                 />

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, Image, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, Image, ImageBackground, StyleSheet, Animated } from 'react-native';
 import { useRouter } from 'expo-router';
 
 export default function MemoryGame() {
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
   },
   arrow: {
-    width: 24,   
+    width: 24,
     height: 24,  
     marginRight: 10, 
   },
@@ -84,6 +84,6 @@ const styles = StyleSheet.create({
   },
   emoji: {
     position: 'absolute',
-    fontSize: 32, 
+    fontSize: 56, 
   },
 });

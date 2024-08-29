@@ -16,7 +16,7 @@ const App = () => {
             </View>
             <View style={styles.buttonContainer}>
                 <BarButton toLink={"/child/training/explain"} imgLink={require("../../assets/images/situation.png")} title={"상황 대처 학습"} explain={"게임을 통한 학습능력 상승"}></BarButton>
-                <BarButton toLink={"/child/training/memory"} imgLink={require("../../assets/images/happyface.png")} title={"코그니션 트레이닝"} explain={"스도쿠 게임으로 트레이닝을 진행해요!"}></BarButton>
+                <BarButton toLink={"/child/training/choose"} imgLink={require("../../assets/images/happyface.png")} title={"코그니션 트레이닝"} explain={"인지 기능 향상 트레이닝을 진행해요!"}></BarButton>
             </View>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>꾸준히 함께해봐요</Text>

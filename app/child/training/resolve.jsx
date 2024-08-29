@@ -3,17 +3,15 @@ import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView 
 import { useRouter } from 'expo-router';
 
 const ChatScreen = () => {
+  const [messegeList, setMessegeList] = useState([]);
   const [message, setMessage] = useState('');
   const router = useRouter();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push('/child/training/result');
-    }, 5000);
-
-   
-    return () => clearTimeout(timer);
-  }, [router]);
+  const sendMessege = () => {
+    messegeList.push(message)
+    setMessegeList([...messegeList])
+    setMessage("")
+  }
 
   const handleLoginClick = () => {
     router.push('/child/home');
@@ -35,13 +33,14 @@ const ChatScreen = () => {
             <Text>오늘 희성이가 아파서 학교에 가지 못했다.</Text>
           </View>
         </View>
-
-        <View style={styles.mySpeechBubble}>
-          <Image source={require('../../../assets/images/happyface.png')} style={styles.icon} />
-          <View style={styles.myBubbleText}>
-            <Text style={styles.myBubbleTextContent}>희성아 괜찮니? 숙제 범위 내가 알려줄게 내일보자!</Text>
-          </View>
-        </View>
+        {messegeList.map((mes, key) => (
+            <View key={key} style={styles.mySpeechBubble}>
+              <Image source={require('../../../assets/images/happyface.png')} style={styles.icon} />
+              <View style={styles.myBubbleText}>
+                <Text style={styles.myBubbleTextContent}>{mes}</Text>
+              </View>
+            </View>
+        ))}
       </ScrollView>
 
       <View style={styles.sendBox}>
@@ -51,7 +50,9 @@ const ChatScreen = () => {
           value={message}
           onChangeText={setMessage}
         />
+        <TouchableOpacity onPress={sendMessege}>
         <Image source={require('../../../assets/arrow.png')} style={styles.arrow1} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -87,6 +88,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   chatArea: {
+    marginTop:40,
     flex: 1,
   },
   speechBubble: {
@@ -121,9 +123,9 @@ const styles = StyleSheet.create({
   sendBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#D9D9D9',
     borderRadius: 50,
-    padding: 10,
+    padding: 14,
     marginTop: 20,
   },
   input: {
