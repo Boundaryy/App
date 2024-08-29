@@ -63,11 +63,10 @@ const styles = StyleSheet.create({
     resizeMode: 'cover', 
   },
   header: {
-    height: 80,
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 30,
-  },
+    width: 200, 
+    marginLeft: 46, 
+    marginTop: 60,
+},
   headerContent: {
     flexDirection: 'row',  
     alignItems: 'center', 

@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
-
+import { useRouter } from 'expo-router';
 const cards = [1, 2, 1, 2, 3, 3]; 
 
 const CardGame = () => {
     const [flipped, setFlipped] = useState(Array(cards.length).fill(false));
     const [matched, setMatched] = useState(Array(cards.length).fill(false)); // 매칭된 카드 상태 추가
     const [firstCard, setFirstCard] = useState(null);
+    router = useRouter();
 
     const handleCardPress = (index) => {
         if (flipped[index] || matched[index]) return; // 이미 뒤집히거나 매칭된 카드 클릭 방지
-
+        if (flipped[index] || matched[index]) return;
         const newFlipped = [...flipped];
         newFlipped[index] = true;
         setFlipped(newFlipped);
@@ -34,13 +35,17 @@ const CardGame = () => {
             setFirstCard(null);
         }
     };
+    const handleLoginClick = () => {
+        router.push('/child/home');
+      };
 
     return (
         <View>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>카드 뒤집기</Text>
-                <Text style={styles.timer}>30sec</Text>
-            </View>
+            <TouchableOpacity style={styles.arrowBox} onPress={handleLoginClick}>
+                <Image source={require('../../../assets/arrow.png')} style={styles.arrow} />
+                <Text style={styles.arrowText}>돌아가기</Text>
+            </TouchableOpacity>
+
             <View style={styles.board}>
                 {cards.map((card, index) => (
                     <TouchableOpacity 
@@ -66,6 +71,10 @@ const styles = StyleSheet.create({
         marginLeft: 46, 
         marginTop: 60,
     },
+    headerContent: {
+        flexDirection: 'row',  
+        alignItems: 'center', 
+      },
     timer: {
         fontSize: 18,
         fontWeight: '700',
@@ -101,6 +110,25 @@ const styles = StyleSheet.create({
         flexShrink: 1,
         whiteSpace: 'nowrap',
     },
+    arrowBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+      },
+      arrow: {
+        height: 20,
+        width: 20,
+      },
+      arrow1: {
+        height: 20,
+        width: 20,
+        transform: [{ rotate: '180deg' }], 
+      },
+      arrowText: {
+        fontSize: 18,
+        color: '#808080',
+        marginLeft: 10,
+      },
 });
 
 export default CardGame;
