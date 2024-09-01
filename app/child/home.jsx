@@ -18,9 +18,9 @@ const App = () => {
                 <BarButton toLink={"/child/training/situchoose"} imgLink={require("../../assets/images/situation.png")} title={"상황 대처 학습"} explain={"게임을 통한 학습능력 상승"}></BarButton>
                 <BarButton toLink={"/child/training/choose"} imgLink={require("../../assets/images/happyface.png")} title={"코그니션 트레이닝"} explain={"인지 기능 향상 트레이닝을 진행해요!"}></BarButton>
             </View>
-            <View style={globalStyles.header}>
-                <Text style={globalStyles.subtitle}>꾸준히 함께해봐요</Text>
-                <Text style={globalStyles.description}>
+            <View style={styles.header}>
+                <Text style={styles.header}>꾸준히 함께해봐요</Text>
+                <Text style={styles.description}>
                     상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
                 </Text>
             </View>
@@ -57,6 +57,14 @@ const styles = StyleSheet.create({
     calendar: {
         marginTop: 20,
     },
+    header: {
+        fontSize: 26,
+        gap: 10,
+        fontWeight: "600",
+    },
+    description: {
+        color: "#808080",
+    }
 });
 
 export default App;
