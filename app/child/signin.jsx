@@ -29,7 +29,7 @@ const LoginScreen = () => {
                 <Text style={styles.label}>아이디를 입력하세요.</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="boundary_baby"
+                    placeholder="예시) boundary_baby"
                     value={username}
                     onChangeText={setUsername}
                 />
@@ -39,7 +39,7 @@ const LoginScreen = () => {
                 <Text style={styles.label}>비밀번호를 입력하세요.</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder=""
+                    placeholder="예시) qwer!1234"
                     secureTextEntry
                     value={password}
                     onChangeText={setPassword}

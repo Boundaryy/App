@@ -49,7 +49,8 @@ export default function SignUp() {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={globalStyles.container}>
+            <View style={styles.container}>
             <View style={globalStyles.header}>
                 <Text style={globalStyles.title}>Boundary</Text>
                 <Text style={globalStyles.subtitle}>회원가입</Text>
@@ -68,10 +69,10 @@ export default function SignUp() {
             </View>
 
             <View style={styles.formGroup}>
-                <Text style={styles.label}>나이를 알려주세요.</Text>
+                <Text style={styles.label}>만 나이를 알려주세요.</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="예시) 12세"
+                    placeholder="예시) 12"
                     value={age}
                     onChangeText={setAge}
                     keyboardType="numeric"
@@ -131,14 +132,14 @@ export default function SignUp() {
 
             <Button toLink={"/child/signin"} title={"회원가입"}/>
         </View>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        display: "flex",
-        padding: 50,
-        paddingTop: 190,
+        display:"flex",
+        justifyContent:"flex-start"
     },
     formGroup: {
         marginBottom: 20,

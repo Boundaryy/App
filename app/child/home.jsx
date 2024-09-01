@@ -18,9 +18,9 @@ const App = () => {
                 <BarButton toLink={"/child/training/explain"} imgLink={require("../../assets/images/situation.png")} title={"상황 대처 학습"} explain={"게임을 통한 학습능력 상승"}></BarButton>
                 <BarButton toLink={"/child/training/choose"} imgLink={require("../../assets/images/happyface.png")} title={"코그니션 트레이닝"} explain={"인지 기능 향상 트레이닝을 진행해요!"}></BarButton>
             </View>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>꾸준히 함께해봐요</Text>
-                <Text style={styles.headerSubtitle}>
+            <View style={globalStyles.header}>
+                <Text style={globalStyles.subtitle}>꾸준히 함께해봐요</Text>
+                <Text style={globalStyles.description}>
                     상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
                 </Text>
             </View>
@@ -30,20 +30,6 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    header: {
-        marginVertical: 10,
-    },
-    headerTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    },
-    headerSubtitle: {
-        fontSize: 14,
-        color: '#565656',
-    },
     buttonContainer: {
         flexDirection: 'column',
         width: "85%",

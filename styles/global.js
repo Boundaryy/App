@@ -15,9 +15,6 @@ export const globalStyles = StyleSheet.create({
     color: '#808080',
   },
   header: {
-    position: "absolute",
-    top: 80,
-    left: 44,
     gap: 10,
   },
   title: {
@@ -33,5 +30,6 @@ export const globalStyles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'left',
     color: '#898989',
+    marginBottom: 20,
   }
 });
