@@ -6,16 +6,26 @@ export default function MemoryGameAnswer() {
   const router = useRouter(); // Initialize useRouter
 
   const handleSubmit = () => {
-    router.push('/child/training/memoryre'); // Navigate to the desired route
+    router.push('/guardian/succesadd'); // Navigate to the desired route
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>메모리게임 정답</Text>
+      <Text style={styles.header}>상황 추가</Text>
 
       <View style={styles.content}>
         <Text style={styles.question}>
-          <Text style={styles.highlight}>Q. 사과의 개수</Text>를 알려주세요.
+          <Text style={styles.highlight}>이미 있는 상황</Text>
+          <View style={styles.checkboxContainer}>
+            <Text style={styles.checkboxText}>HTML</Text>
+            <Text style={styles.checkboxText}>CSS</Text>
+            <Text style={styles.checkboxText}>JavaScript</Text>
+            <Text style={styles.checkboxText}>PHP</Text>
+            <Text style={styles.checkboxText}>Bootstrap</Text>
+            <Text style={styles.checkboxText}>jQuery</Text>
+            <Text style={styles.checkboxText}>NodeJS</Text>
+            <Text style={styles.checkboxText}>Tailwind CSS</Text>
+          </View>
         </Text>
 
         <TextInput
@@ -34,7 +44,6 @@ export default function MemoryGameAnswer() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#F8F8F8',
     paddingHorizontal: 16,
     paddingVertical: 32,
@@ -73,5 +82,22 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  checkboxContainer: {
+    display: "flex",
+    marginBottom: 20,
+  },
+  checkboxText: {
+    backgroundColor: "#F0F0F0",
+    fontSize: 18,
+    padding: 10,
+    marginVertical: 5,
   },
 });
