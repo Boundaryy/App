@@ -6,18 +6,18 @@ export default function AnswerScreen() {
   const router = useRouter(); 
 
   const handlePress = () => {
-    router.push('/child/training/cogresult'); 
+    router.push('/child/home'); 
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.message}>정답입니다!</Text>
+      <Text style={styles.message}>14 포인트가 부여되었습니다.</Text>
 
       <TouchableOpacity 
         style={styles.button} 
         onPress={handlePress} 
       >
-        <Text style={styles.buttonText}>포인트 받으러 가기</Text>
+        <Text style={styles.buttonText}>완료하기</Text>
       </TouchableOpacity>
     </View>
   );
