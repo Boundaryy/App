@@ -54,7 +54,9 @@ const ParentDashboard = () => {
                     </View>
                 </TouchableOpacity>
                 <BarButton title={"조언 상담"} explain={"아이 학습에 대한 이야기를 나눠요"} toLink={"/guardian/advice"} imgLink={require("../../assets/images/happyface.png")}></BarButton>
+                <BarButton title={"상황 추가"} explain={"상황을 추가하세요"} toLink={"/guardian/addsitu"} imgLink={require("../../assets/images/cognition.png")}></BarButton>
                 <BarButton title={"결과"} explain={"아이의 학습을 한번에 확인해요"} toLink={"/guardian/result"} imgLink={require("../../assets/images/cognition.png")}></BarButton>
+
             </View>
         </ScrollView>
     );
