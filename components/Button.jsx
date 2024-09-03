@@ -3,17 +3,14 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useRouter } from 'expo-router';
 import { View } from 'react-native-web';
+import axios from 'axios';
 
-export const Button = ({toLink, title}) => {
+export const Button = ({onPress, title}) => {
   const router = useRouter();
-
-  const handleSignupClick = () => {
-    router.push(toLink);
-  };
 
   return (
     <View style={styles.buttonContainer}> 
-    <TouchableOpacity style={styles.button} onPress={handleSignupClick}>
+    <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
     </View>

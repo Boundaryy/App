@@ -15,6 +15,10 @@ const ChooseScreen = () => {
     setSelectedOption(option);
   };
 
+  const handleClick = () => {
+    router.push(toLink)
+  }
+
   return (
     <View style={globalStyles.container}>
       <View style={globalStyles.header}>
@@ -50,7 +54,7 @@ const ChooseScreen = () => {
           <Text style={styles.iconText}>부모로 회원가입</Text>
         </TouchableOpacity>
       </View>
-      <Button toLink={toLink} title={"계속하기"}/>
+      <Button onPress={handleClick}title={"계속하기"}/>
     </View>
   );
 };
