@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { BarButton } from "../../components/Bar-Button";
 import { globalStyles } from '../../styles/global'
-
 
 const App = () => {
     return (
@@ -23,6 +22,13 @@ const App = () => {
                 <Text style={styles.description}>
                     상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
                 </Text>
+              
+                <View style={styles.levelContainer}>
+                    <Image source={require("../../assets/images/image.png")} style={styles.levelImage} />
+                    {/* LV.8과 11pt 텍스트를 나란히 배치 */}
+                    <Text style={styles.levelText}>LV.8</Text>
+                    <Text style={styles.pointText}>11pt</Text>
+                </View>
             </View>
             <Calendar style={styles.calendar} />
         </View>
@@ -64,7 +70,28 @@ const styles = StyleSheet.create({
     },
     description: {
         color: "#808080",
-    }
+    },
+    levelContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 10, 
+    },
+    levelImage: {
+        width: 80,
+        height: 80,
+        marginRight: 10,
+    },
+    levelText: {
+        fontSize: 20,
+        fontWeight: '600',
+        marginRight:100, 
+    },
+    pointText: {
+        fontSize: 20,
+        fontWeight: '600',
+        color: '#000000', 
+    },
 });
 
 export default App;
+ 
