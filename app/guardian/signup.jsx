@@ -19,7 +19,7 @@ const SignupScreen = () => {
         };
         console.log('Submitted data:', formData);
         navigation.navigate('guardian/signin'); 
-    };
+    }; 
 
     const formatPhoneNumber = (text) => {
         let input = text.replace(/\D/g, '');
