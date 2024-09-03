@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { globalStyles } from '../../styles/global'
 import { Button } from '../../components/Button';
+import { useRouter } from 'expo-router';
+import axios from 'axios';
 
 export default function SignUp() {
     const [selectedGender, setSelectedGender] = useState('남자');
@@ -11,8 +13,14 @@ export default function SignUp() {
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const route = useRouter();
     
     const navigation = useNavigation();
+
+    const createTwoButtonAlert = () => {
+        alert("빈칸없이 작성해주세요!")
+    };
+    
 
     const handleGenderClick = (gender) => {
         setSelectedGender(gender);
@@ -34,19 +42,33 @@ export default function SignUp() {
         setPhoneNumber(input);
     };
 
-    const handleSubmit = () => {
-        const formData = {
-            phoneNumber,
-            age,
-            name,
-            selectedGender,
-            username,
-            password
-        };
-        console.log('입력된 데이터:', formData);
-
-        navigation.navigate('ChildHome');
-    };
+    const handleClick = () => {
+        if (!phoneNumber || !age || !name || !selectedGender || !username || !password){
+            createTwoButtonAlert()
+        }
+        else {
+            // try {
+            //     axios({
+            //         url:"https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/login",
+            //         method:"post",
+            //         data : {
+            //             "name": name,
+            //             "age": age,
+            //             "phoneNum": phoneNumber,
+            //             "gender": selectedGender,
+            //             "userId": username,
+            //             "password": username,
+            //             "role": "Child",
+            //             "point": 0
+            //         }
+            //     })
+            // }
+            // catch {
+            //     alert("백엔드 에러")
+            // }
+            route.push('/child/signin')
+        }
+    }
 
     return (
         <View style={globalStyles.container}>
@@ -130,7 +152,7 @@ export default function SignUp() {
                 />
             </View>
 
-            <Button toLink={"/child/signin"} title={"회원가입"}/>
+            <Button onPress={handleClick} title={"회원가입"}/>
         </View>
         </View>
     );

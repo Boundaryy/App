@@ -7,10 +7,15 @@ import { Button } from '../components/Button.jsx'
 
 export default function Index() {
   const router = useRouter()
+
+  const handle = () => {
+    router.push('/choose')
+  }
+
   return (
     <View style={globalStyles.container}>
       <Image source={require('../assets/logo.png')} style={styles.logo} />
-      <Button toLink={"/choose"} title={"회원가입"}/>
+      <Button onPress={handle} title={"회원가입"}/>
       <Text style={globalStyles.footer}>©Barder</Text>
     </View>
   );

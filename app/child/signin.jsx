@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 
 const LoginScreen = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigation = useNavigation();
+    const router = useRouter()
 
     const handleSubmit = () => {
-        const formData = {
-            username,
-            password
-        };
-        console.log('입력된 데이터:', formData);
-
-        // 로그인 버튼을 누르면 child/home으로 이동하도록 변경
-        navigation.navigate('child/home');
+        if (!username || !password) {
+            alert("빈칸없이 작성해주세요")
+        }else {
+            router.push('/child/home')
+        }
     };
+
+    const handleSignup = () =>{
+        router.push('/child/signup')
+    }
 
     return (
         <View style={styles.container}>
@@ -50,7 +52,7 @@ const LoginScreen = () => {
                 <Text style={styles.submitButtonText}>로그인</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('child/signup')}>
+            <TouchableOpacity onPress={handleSignup}>
                 <Text style={styles.signupLink}>아직 회원가입을 하지 않았다면?</Text>
             </TouchableOpacity>
         </View>
@@ -95,8 +97,8 @@ const styles = StyleSheet.create({
         color: '#5772FF',
     },
     submitButton: {
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent:"center",
+        alignItems:"center",
         backgroundColor: '#5772FF',
         borderRadius: 8,
         width: 310,
@@ -104,6 +106,7 @@ const styles = StyleSheet.create({
         marginTop: 150,
     },
     submitButtonText: {
+        position:"absolute",
         color: '#FFFFFF',
         fontSize: 20,
         fontWeight: '600',
