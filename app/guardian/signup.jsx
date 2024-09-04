@@ -2,25 +2,19 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '../../components/Button';
+import { useRouter } from 'expo-router';
 
 const SignupScreen = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [childUsername, setChildUsername] = useState('');
-    const navigation = useNavigation();
+    const route = useRouter();
 
-    const handleSubmit = () => {
-        const formData = {
-            phoneNumber,
-            username,
-            password,
-            childUsername,
-        };
-        console.log('Submitted data:', formData);
-        navigation.navigate('guardian/signin'); 
-    }; 
-
+    const createTwoButtonAlert = () => {
+        alert("빈칸없이 작성해주세요!")
+    };
+    
     const formatPhoneNumber = (text) => {
         let input = text.replace(/\D/g, '');
         if (input.length > 3 && input.length <= 7) {
@@ -30,6 +24,34 @@ const SignupScreen = () => {
         }
         setPhoneNumber(input);
     };
+
+    const handleClick = () => {
+        if (!phoneNumber || !childUsername || !username || !password){
+            createTwoButtonAlert()
+        }
+        else {
+            // try {
+            //     axios({
+            //         url:"https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/login",
+            //         method:"post",
+            //         data : {
+            //             "name": name,
+            //             "age": age,
+            //             "phoneNum": phoneNumber,
+            //             "gender": selectedGender,
+            //             "userId": username,
+            //             "password": username,
+            //             "role": "Child",
+            //             "point": 0
+            //         }
+            //     })
+            // }
+            // catch {
+            //     alert("백엔드 에러")
+            // }
+            route.push('/guardian/signin')
+        }
+    }
 
     return (
         <View style={styles.outerContainer}>
@@ -44,7 +66,7 @@ const SignupScreen = () => {
                     <Text style={styles.label}>전화 번호를 알려주세요.</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="010-1234-5678"
+                        placeholder="예시) 010-1234-5678"
                         value={phoneNumber}
                         onChangeText={formatPhoneNumber}
                         keyboardType="numeric"
@@ -55,7 +77,7 @@ const SignupScreen = () => {
                     <Text style={styles.label}>사용할 아이디를 입력하세요.</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="ex) boundary"
+                        placeholder="예시) wbhaao"
                         value={username}
                         onChangeText={setUsername}
                     />
@@ -65,7 +87,7 @@ const SignupScreen = () => {
                     <Text style={styles.label}>사용할 비밀번호를 입력하세요.</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder=""
+                        placeholder="예시) qwer!1234"
                         secureTextEntry
                         value={password}
                         onChangeText={setPassword}
@@ -76,13 +98,13 @@ const SignupScreen = () => {
                     <Text style={styles.label}>아이의 아이디를 입력하세요.</Text>
                     <TextInput
                         style={styles.input}
-                        placeholder="boundary_baby"
+                        placeholder="예시) gyumingim"
                         value={childUsername}
                         onChangeText={setChildUsername}
                     />
                 </View>
 
-                <Button title={"회원가입"} toLink={"/guardian/home"}></Button>
+                <Button title={"회원가입"} onPress={handleClick}></Button>
             </View>
         </View>
     );
