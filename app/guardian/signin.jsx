@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 
 const LoginScreen = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigation = useNavigation();
+    const router = useRouter()
 
     const handleSubmit = () => {
-        const formData = {
-            username,
-            password
-        };
-        console.log('입력된 데이터:', formData);
-
-        navigation.navigate('guardian/home');
+        if (!username || !password) {
+            alert("빈칸없이 작성해주세요")
+        }else {
+            router.push('/guardian/home')
+        }
     };
+
+    const handleSignup = () =>{
+        router.push('/guardian/signup')
+    }
 
     return (
         <View style={styles.container}>
@@ -49,7 +52,7 @@ const LoginScreen = () => {
                 <Text style={styles.submitButtonText}>로그인</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+            <TouchableOpacity onPress={handleSignup}>
                 <Text style={styles.signupLink}>아직 회원가입을 하지 않았다면?</Text>
             </TouchableOpacity>
         </View>
