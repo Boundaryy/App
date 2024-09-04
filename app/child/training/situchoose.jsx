@@ -14,19 +14,43 @@ const App = () => {
                 </Text>
             </View>
             <View style={styles.buttonContainer}>
-                <SituButton toLink={"/child/training/resolve"}  title={"친구들이 놀릴 때 대처하기"} explain={"게임을 통한 학습능력 상승"}></SituButton>
-                <SituButton toLink={"/child/training/resolve"}  title={"코그니션 트레이닝"} explain={"인지 기능 향상 트레이닝을 진행해요!"}></SituButton>
-                <SituButton toLink={"/child/training/resolve"}  title={"코그니션 트레이닝"} explain={"인지 기능 향상 트레이닝을 진행해요!"}></SituButton>
-                <SituButton toLink={"/child/training/resolve"}  title={"코그니션 트레이닝"} explain={"인지 기능 향상 트레이닝을 진행해요!"}></SituButton>
-                <SituButton toLink={"/child/training/resolve"}  title={"코그니션 트레이닝"} explain={"인지 기능 향상 트레이닝을 진행해요!"}></SituButton>
-                <SituButton toLink={"/child/training/resolve"}  title={"코그니션 트레이닝"} explain={"인지 기능 향상 트레이닝을 진행해요!"}></SituButton>
-                <SituButton toLink={"/child/training/resolve"}  title={"코그니션 트레이닝"} explain={"인지 기능 향상 트레이닝을 진행해요!"}></SituButton>
+                <SituButton pick={styles.barBtnParent} toLink={"/child/training/resolve"}  title={"친구들이 놀릴 때 대처하기"} explain={"부모님픽!"}></SituButton>
+                <SituButton pick={styles.barBtn} toLink={"/child/training/resolve"}  title={"친구와 약속 조정"} explain={"처음 시도"}></SituButton>
+                <SituButton pick={styles.barBtn} toLink={"/child/training/resolve"}  title={"식당에서 주문하기"} explain={"처음 시도"}></SituButton>
+                <SituButton pick={styles.barBtn} toLink={"/child/training/resolve"}  title={"전화 통화하기"} explain={"처음 시도"}></SituButton>
+                <SituButton pick={styles.barBtn} toLink={"/child/training/resolve"}  title={"친구 위로하기"} explain={"처음 시도"}></SituButton>
+                <SituButton pick={styles.barBtn} toLink={"/child/training/resolve"}  title={"상점에서 계산하기"} explain={"처음 시도"}></SituButton>
             </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    barBtn: {
+        backgroundColor: "#F3F4F6",
+        width: "100%",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between', // 화살표와 텍스트 사이의 공간을 자동으로 조정
+        marginTop: 10,
+        borderRadius: 20,
+        padding: 14,
+        elevation: 2,
+    },
+    barBtnParent: {
+        backgroundColor: "#F3F4F6",
+        width: "100%",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between', // 화살표와 텍스트 사이의 공간을 자동으로 조정
+        marginTop: 10,
+        borderWidth: 3, // 테두리 두께
+        borderColor: '#5772FF', // 테두리 색상
+        borderRadius: 10, // 테두리 모서리 둥글기
+        borderRadius: 20,
+        padding: 14,
+        elevation: 2,
+    },
     buttonContainer: {
         flexDirection: 'column',
         width: "85%",
