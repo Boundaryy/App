@@ -17,14 +17,11 @@ export default function MemoryGameAnswer() {
         <Text style={styles.question}>
           <Text style={styles.highlight}>이미 있는 상황</Text>
           <View style={styles.checkboxContainer}>
-            <Text style={styles.checkboxText}>HTML</Text>
-            <Text style={styles.checkboxText}>CSS</Text>
-            <Text style={styles.checkboxText}>JavaScript</Text>
-            <Text style={styles.checkboxText}>PHP</Text>
-            <Text style={styles.checkboxText}>Bootstrap</Text>
-            <Text style={styles.checkboxText}>jQuery</Text>
-            <Text style={styles.checkboxText}>NodeJS</Text>
-            <Text style={styles.checkboxText}>Tailwind CSS</Text>
+            <Text style={styles.checkboxText}>친구와 약속 조정</Text>
+            <Text style={styles.checkboxText}>식당에서 주문하기</Text>
+            <Text style={styles.checkboxText}>전화 통화하기</Text>
+            <Text style={styles.checkboxText}>친구 위로하기</Text>
+            <Text style={styles.checkboxText}>상점에서 계산하기</Text>
           </View>
         </Text>
 
@@ -44,7 +41,6 @@ export default function MemoryGameAnswer() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F8F8F8',
     paddingHorizontal: 16,
     paddingVertical: 32,
   },

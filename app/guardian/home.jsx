@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { BarButton } from "../../components/Bar-Button";
 import { Calendar } from 'react-native-calendars';
@@ -20,7 +20,7 @@ const ParentDashboard = () => {
             </View>
 
             <View style={styles.userInfo}>
-                <View style={styles.userAvatar}></View>
+                <Image source={require('../../assets/maru.jpeg')} style={styles.userAvatar}/>
                 <View style={styles.userDetails}>
                     <Text style={styles.userName}>김바운</Text>
                     <Text style={styles.userHandle}>{username}</Text>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         marginLeft: -140,
     },
     userAvatar: {
-        width: 86,
+        width: 80,
         height: 80,
         backgroundColor: '#5772FF',
         borderRadius: 50,
