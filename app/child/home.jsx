@@ -3,6 +3,8 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { BarButton } from "../../components/Bar-Button";
 import { globalStyles } from '../../styles/global'
+import { TouchableOpacity } from 'react-native-web';
+import { router } from 'expo-router';
 
 const App = () => {
     return (
@@ -23,12 +25,12 @@ const App = () => {
                     상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
                 </Text>
               
-                <View style={styles.levelContainer}>
+                <TouchableOpacity onPress={() => {router.push('/child/mypage')}} style={styles.levelContainer}>
                     <Image source={require("../../assets/images/image.png")} style={styles.levelImage} />
                     {/* LV.8과 11pt 텍스트를 나란히 배치 */}
                     <Text style={styles.levelText}>LV.8</Text>
                     <Text style={styles.pointText}>11pt</Text>
-                </View>
+                </TouchableOpacity>
             </View>
             <Calendar style={styles.calendar} />
         </View>
@@ -72,9 +74,15 @@ const styles = StyleSheet.create({
         color: "#808080",
     },
     levelContainer: {
+        borderRadius: "10px",
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 10, 
+        backgroundColor: "#F3F3F3",
+        // borderColor: "#5772FF",
+        // borderStyle: "solid",
+        // borderWidth: "2px",
+        height: 80
     },
     levelImage: {
         width: 80,
@@ -85,6 +93,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '600',
         marginRight:100, 
+        color: "#5772FF",
     },
     pointText: {
         fontSize: 20,

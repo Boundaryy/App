@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-export const SituButton = ({ toLink, title, explain }) => {
+export const SituButton = ({ pick, toLink, title, explain }) => {
     const router = useRouter();
 
     const handleClick = () => {
@@ -10,7 +10,7 @@ export const SituButton = ({ toLink, title, explain }) => {
     };
     
     return (
-        <TouchableOpacity onPress={handleClick} style={styles.barBtn}>
+        <TouchableOpacity onPress={handleClick} style={pick}>
             <View style={styles.textBg}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.desc}>{explain}</Text>
@@ -30,6 +30,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between', // 화살표와 텍스트 사이의 공간을 자동으로 조정
         marginTop: 10,
+        borderRadius: 20,
+        padding: 14,
+        elevation: 2,
+    },
+    barBtnParent: {
+        backgroundColor: "#F3F4F6",
+        width: "100%",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between', // 화살표와 텍스트 사이의 공간을 자동으로 조정
+        marginTop: 10,
+        borderWidth: 3, // 테두리 두께
+        borderColor: '#5772FF', // 테두리 색상
+        borderRadius: 10, // 테두리 모서리 둥글기
         borderRadius: 20,
         padding: 14,
         elevation: 2,
