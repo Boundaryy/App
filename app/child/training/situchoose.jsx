@@ -1,82 +1,126 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { SituButton } from "../../../components/Situ-Button";
-import { globalStyles } from '../../../styles/global'
-
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { globalStyles } from '../../../styles/global';
+import { useNavigation } from '@react-navigation/native';
 
 const App = () => {
+    const [selectedSession, setSelectedSession] = useState(null);
+    const navigation = useNavigation();
+
+    const handleSessionPress = (index) => {
+        setSelectedSession(index);
+    };
+
+    const handleNextButtonPress = () => {
+        navigation.navigate('child/training/resolve'); 
+    };
+
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.header}>
-                <Text style={globalStyles.subtitle}>상황 고르기</Text>
+                <Text style={globalStyles.subtitle}>상황 선택하기</Text>
                 <Text style={globalStyles.description}>
-                    상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
+                    AI와 부모님이 만들어 준 상황을 선택해보세요.
                 </Text>
             </View>
             <View style={styles.buttonContainer}>
-                <SituButton pick={styles.barBtnParent} toLink={"/child/training/resolve"}  title={"친구들이 놀릴 때 대처하기"} explain={"부모님픽!"}></SituButton>
-                <SituButton pick={styles.barBtn} toLink={"/child/training/resolve"}  title={"친구와 약속 조정"} explain={"처음 시도"}></SituButton>
-                <SituButton pick={styles.barBtn} toLink={"/child/training/resolve"}  title={"식당에서 주문하기"} explain={"처음 시도"}></SituButton>
-                <SituButton pick={styles.barBtn} toLink={"/child/training/resolve"}  title={"전화 통화하기"} explain={"처음 시도"}></SituButton>
-                <SituButton pick={styles.barBtn} toLink={"/child/training/resolve"}  title={"친구 위로하기"} explain={"처음 시도"}></SituButton>
-                <SituButton pick={styles.barBtn} toLink={"/child/training/resolve"}  title={"상점에서 계산하기"} explain={"처음 시도"}></SituButton>
+                <TouchableOpacity
+                    style={[
+                        styles.session,
+                        selectedSession === 0 && styles.selectedSession
+                    ]}
+                    onPress={() => handleSessionPress(0)}
+                >
+                    <Image
+                        source={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Family%20Man%2C%20Woman%2C%20Girl%2C%20Boy.png" }}
+                        style={styles.buttonImage}
+                    />
+                    <View style={styles.buttonTextContainer}>
+                        <Text style={styles.buttonTitle}>친구들이 놀릴 때 대처하기</Text>
+                        <Text style={styles.buttonExplain}>부모님픽!</Text>
+                    </View>
+                </TouchableOpacity>
+                
+                {['식당에서 주문하기', '전화 통화하기', '친구 위로하기', '상점에서 계산하기'].map((title, index) => (
+                    <TouchableOpacity
+                        key={index + 1}
+                        style={[
+                            styles.session,
+                            selectedSession === index + 1 && styles.selectedSession
+                        ]}
+                        onPress={() => handleSessionPress(index + 1)}
+                    >
+                        <Image
+                            source={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Robot.png" }}
+                            style={styles.buttonImage}
+                        />
+                        <View style={styles.buttonTextContainer}>
+                            <Text style={styles.buttonTitle}>{title}</Text>
+                            <Text style={styles.buttonExplain}>AI 생성</Text>
+                        </View>
+                    </TouchableOpacity>
+                ))}
             </View>
+            <TouchableOpacity style={styles.nextButton} onPress={handleNextButtonPress}>
+                <Text style={styles.nextButtonText}>선택하기</Text>
+            </TouchableOpacity>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    barBtn: {
+    session: {
         backgroundColor: "#F3F4F6",
         width: "100%",
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between', // 화살표와 텍스트 사이의 공간을 자동으로 조정
-        marginTop: 10,
+        justifyContent: 'flex-start',
         borderRadius: 20,
         padding: 14,
-        elevation: 2,
+        marginBottom: 14,
+        borderWidth: 3,
+        borderColor: 'transparent', 
     },
-    barBtnParent: {
-        backgroundColor: "#F3F4F6",
-        width: "100%",
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between', // 화살표와 텍스트 사이의 공간을 자동으로 조정
-        marginTop: 10,
-        borderWidth: 3, // 테두리 두께
-        borderColor: '#5772FF', // 테두리 색상
-        borderRadius: 10, // 테두리 모서리 둥글기
-        borderRadius: 20,
-        padding: 14,
-        elevation: 2,
+    selectedSession: {
+        borderColor: '#A5B3FF',
     },
     buttonContainer: {
         flexDirection: 'column',
         width: "85%",
-        marginBottom: 20,
+        marginTop: -20,
     },
-    button: {
-        width: '100%',
+    buttonImage: {
+        width: 60,
         height: 60,
-        backgroundColor: '#5772FF',
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 10,
+        marginRight: 10,
     },
-    buttonText: {
-        color: '#FFFFFF',
+    buttonTextContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    buttonTitle: {
         fontSize: 18,
-        fontWeight: '600',
+        fontWeight: '500',
     },
     buttonExplain: {
-        color: '#FFFFFF',
-        fontSize: 14,
-        textAlign: 'center',
+        color: '#808080',
+        fontSize: 16,
     },
-    calendar: {
-        marginTop: 20,
+    nextButton: {
+        backgroundColor: '#5772FF',
+        width: 340,
+        height: 50,
+        paddingVertical: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        bottom: 40,
+    },
+    nextButtonText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: '600',
     },
 });
 
