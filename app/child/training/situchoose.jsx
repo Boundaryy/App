@@ -18,6 +18,9 @@ const App = () => {
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.header}>
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                    <Text style={styles.backText}>뒤로가기</Text>
+                </TouchableOpacity>
                 <Text style={globalStyles.subtitle}>상황 선택하기</Text>
                 <Text style={globalStyles.description}>
                     AI와 부모님이 만들어 준 상황을 선택해보세요.
@@ -69,6 +72,13 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+    backButton: {
+        marginBottom: 10,
+    },
+    backText: {
+        fontSize: 18,
+        color: '#808080',
+    },
     session: {
         backgroundColor: "#F3F4F6",
         width: "100%",
@@ -77,7 +87,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         borderRadius: 20,
         padding: 14,
-        marginBottom: 14,
+        marginBottom: 8,
         borderWidth: 3,
         borderColor: 'transparent', 
     },
@@ -87,7 +97,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'column',
         width: "85%",
-        marginTop: -20,
+        marginTop: 20,
     },
     buttonImage: {
         width: 60,
