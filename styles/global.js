@@ -16,8 +16,7 @@ export const globalStyles = StyleSheet.create({
   },
   header: {
     position: "fixed",
-    top: "90px",
-    left: 40,
+    top: "60px",
     gap: 4,
   },
   title: {

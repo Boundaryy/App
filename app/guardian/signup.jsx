@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
     header: {
         marginBottom: 20,
         paddingTop: 60,
+
     },
     headerTitle: {
         color: '#5772FF',
@@ -137,9 +138,6 @@ const styles = StyleSheet.create({
     headerDescription: {
         color: '#565656',
         fontSize: 14,
-    },
-    formGroup: {
-        marginBottom: 20,
     },
     label: {
         fontSize: 18,

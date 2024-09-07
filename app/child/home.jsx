@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { BarButton } from "../../components/Bar-Button";
 import { globalStyles } from '../../styles/global';
-import { TouchableOpacity } from 'react-native-web';
 import { router } from 'expo-router';
 
 const App = () => {

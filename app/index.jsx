@@ -12,10 +12,17 @@ export default function Index() {
     router.push('/choose')
   }
 
+  const chooseLogin = () => {
+    router.push('/chooselogin')
+  }
+
   return (
     <View style={globalStyles.container}>
       <Image source={require('../assets/logo.png')} style={styles.logo} />
       <Button onPress={handle} title={"회원가입"}/>
+      <TouchableOpacity onPress={chooseLogin} style={{margin:20}}>
+        <Text style={{fontWeight:900}}>로그인</Text>
+      </TouchableOpacity>
       <Text style={globalStyles.footer}>©Barder</Text>
     </View>
   );

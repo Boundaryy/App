@@ -1,8 +1,7 @@
 
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useRouter } from 'expo-router';
-import { View } from 'react-native-web';
 import axios from 'axios';
 
 export const Button = ({onPress, title}) => {
