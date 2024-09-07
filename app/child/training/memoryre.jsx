@@ -6,18 +6,20 @@ export default function AnswerScreen() {
   const router = useRouter(); 
 
   const handlePress = () => {
-    router.push('/child/training/cogresult'); 
+    router.push('/child/home'); 
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.message}>정답입니다!</Text>
 
+      <Text style={styles.pointsMessage}>{} 포인트가 지급되었습니다.</Text>
+
       <TouchableOpacity 
         style={styles.button} 
         onPress={handlePress} 
       >
-        <Text style={styles.buttonText}>포인트 받으러 가기</Text>
+        <Text style={styles.buttonText}>완료하기</Text>
       </TouchableOpacity>
     </View>
   );
@@ -33,14 +35,23 @@ const styles = StyleSheet.create({
   message: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#4A90E2', 
-    marginBottom: 24,
+    color: '#5772FF', 
+    marginBottom: 8, 
+  },
+  pointsMessage: {
+    fontSize: 18, 
+    color: '#808080',
+    marginBottom: 50, 
+    fontWeight: '500',
   },
   button: {
-    backgroundColor: '#4A90E2',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
+    backgroundColor: '#5772FF',
+    width: 310,
+    height: 56,
+    justifyContent: 'center', 
+    alignItems: 'center',      
     borderRadius: 8,
+    marginTop: '80px',
   },
   buttonText: {
     color: '#fff',
