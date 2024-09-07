@@ -13,7 +13,7 @@ export default function AnswerScreen() {
     <View style={styles.container}>
       <View style={styles.iconContainer}>
         <Image 
-          source={{ uri: 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Smiling%20Face%20with%20Hearts.png' }}
+          source={{ uri: 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Smiling%20Face%20with%20Heart-Eyes.png' }}
           style={styles.icon}
         />
       </View>
@@ -37,11 +37,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8F8F8',
   },
   iconContainer: {
-    marginBottom: 8, // Adjust the space between the icon and the message
+    marginBottom: 8, 
   },
   icon: {
-    width: 140, // Increased width
-    height: 140, // Increased height
+    width: 140,
+    height: 140,
   },
   message: {
     fontSize: 28,
