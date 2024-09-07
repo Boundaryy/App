@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useRouter } from 'expo-router'; 
 
 export default function AnswerScreen() {
@@ -11,10 +11,14 @@ export default function AnswerScreen() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.iconContainer}>
+        <Image 
+          source={{ uri: 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Smiling%20Face%20with%20Heart-Eyes.png' }}
+          style={styles.icon}
+        />
+      </View>
       <Text style={styles.message}>정답입니다!</Text>
-
-      <Text style={styles.pointsMessage}>{} 포인트가 지급되었습니다.</Text>
-
+      <Text style={styles.pointsMessage}>{' '}포인트가 지급되었습니다.</Text>
       <TouchableOpacity 
         style={styles.button} 
         onPress={handlePress} 
@@ -31,6 +35,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F8F8F8',
+  },
+  iconContainer: {
+    marginBottom: 8, 
+  },
+  icon: {
+    width: 140,
+    height: 140,
   },
   message: {
     fontSize: 28,
@@ -51,7 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',      
     borderRadius: 8,
-    marginTop: '80px',
+    marginTop: 20,
   },
   buttonText: {
     color: '#fff',

@@ -3,55 +3,68 @@ import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView 
 import { useRouter } from 'expo-router';
 
 const ChatScreen = () => {
-  const [messegeList, setMessegeList] = useState([]);
+  const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState('');
   const router = useRouter();
 
-  const sendMessege = () => {
-    messegeList.push(message)
-    setMessegeList([...messegeList])
-    setMessage("")
-  }
+  useEffect(() => {
+    if (messageList.length >= 3) {
+      router.push('/child/training/resultcontent');
+    }
+  }, [messageList, router]);
 
-  const handleLoginClick = () => {
-    router.push('/child/home');
+  const sendMessage = () => {
+    if (message.trim()) {
+      setMessageList([...messageList, message]);
+      setMessage("");
+    }
+  };
+
+  const handleBackClick = () => {
+    router.back(); 
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.arrowBox} onPress={handleLoginClick}>
-        <Image source={require('../../../assets/arrow.png')} style={styles.arrow} />
-        <Text style={styles.arrowText}>돌아가기</Text>
+      <TouchableOpacity style={styles.backButton} onPress={handleBackClick}>
+        <Text style={styles.backText}>뒤로가기</Text>
       </TouchableOpacity>
 
       <Text style={styles.header}>상황 대처 지능 테스트</Text>
 
       <ScrollView style={styles.chatArea}>
-        <View style={styles.speechBubble}>
-          <Image source={require('../../../assets/images/happyface.png')} style={styles.icon} />
-          <View style={styles.bubbleText}>
-            <Text>오늘 희성이가 아파서 학교에 가지 못했다.</Text>
+        <View style={styles.speechBubbleContainer}>
+          <Image 
+            source={{ uri: 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Robot.png' }} 
+            style={styles.icon} 
+          />
+          <View style={styles.speechBubble}>
+            <Text style={styles.bubbleText}>오늘 희성이가 아파서 학교에 가지 못했다.</Text>
           </View>
         </View>
-        {messegeList.map((mes, key) => (
-            <View key={key} style={styles.mySpeechBubble}>
-              <Image source={require('../../../assets/images/happyface.png')} style={styles.icon} />
-              <View style={styles.myBubbleText}>
-                <Text style={styles.myBubbleTextContent}>{mes}</Text>
-              </View>
+        {messageList.map((mes, key) => (
+          <View key={key} style={styles.mySpeechBubbleContainer}>
+            <Image 
+              source={{ uri: 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Astonished%20Face.png' }} 
+              style={styles.icon} 
+            />
+            <View style={styles.mySpeechBubble}>
+              <Text style={styles.myBubbleTextContent}>{mes}</Text>
             </View>
+          </View>
         ))}
       </ScrollView>
 
       <View style={styles.sendBox}>
         <TextInput
           style={styles.input}
-          placeholder="여기에 메세지를 입력하세요"
+          placeholder="여기에 메시지를 입력하세요"
+          placeholderTextColor="#A0A0A0"
           value={message}
           onChangeText={setMessage}
         />
-        <TouchableOpacity onPress={sendMessege}>
-        <Image source={require('../../../assets/arrow.png')} style={styles.arrow1} />
+        <TouchableOpacity onPress={sendMessage}>
+          <Image source={require('../../../assets/image.png')} style={styles.sendIcon} />
         </TouchableOpacity>
       </View>
     </View>
@@ -63,106 +76,96 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  arrowBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
   },
-  arrow: {
-    height: 20,
-    width: 20,
-  },
-  arrow1: {
-    height: 20,
-    width: 20,
-    transform: [{ rotate: '180deg' }], 
-  },
-  arrowText: {
+  backText: {
     fontSize: 18,
     color: '#808080',
-    marginLeft: 10,
+    marginTop: 40,
+    marginLeft: 30,
   },
   header: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#000000',
+    marginTop: 80,
+    marginLeft: 30,
   },
   chatArea: {
-    marginTop:40,
     flex: 1,
+    marginTop: 20,
   },
-  speechBubble: {
+  speechBubbleContainer: {
     flexDirection: 'row',
-    marginBottom: 10,
+    alignItems: 'flex-start',
+    marginBottom: 40,
   },
-  mySpeechBubble: {
+  mySpeechBubbleContainer: {
     flexDirection: 'row-reverse',
-    marginBottom: 10,
+    alignItems: 'flex-start',
+    marginBottom: 40,
   },
   icon: {
-    width: 40,
-    height: 40,
+    width: 54,
+    height: 54,
+    borderRadius: 20,
+  },
+  speechBubble: {
+    backgroundColor: '#F3F4F6',
+    padding: 16, 
+    borderRadius: 16,
+    borderTopLeftRadius: 0,
+    maxWidth: '80%', 
+    marginLeft: 16,
+    marginTop: 4,
+    justifyContent: 'center',
+  },
+  mySpeechBubble: {
+    backgroundColor: '#5772FF',
+    padding: 16, 
+    borderRadius: 16,
+    borderTopRightRadius: 0,
+    maxWidth: '80%', 
+    marginRight: 10,
+    marginTop: 4,
+    justifyContent: 'center',
   },
   bubbleText: {
-    backgroundColor: '#cbcbcb',
-    padding: 15,
-    borderRadius: 50,
-    borderTopLeftRadius: 0,
-    marginLeft: 10,
-  },
-  myBubbleText: {
-    backgroundColor: '#5772FF',
-    padding: 15,
-    borderRadius: 50,
-    borderTopRightRadius: 0,
-    marginRight: 10,
+    fontSize: 15, 
   },
   myBubbleTextContent: {
     color: 'white',
+    fontSize: 16,
   },
   sendBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 50,
-    padding: 14,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
     marginTop: 20,
   },
   input: {
     flex: 1,
     fontSize: 18,
+    color: '#333',
+    padding: 10,
+    borderRadius: 20,
+    backgroundColor: '#F3F4F6',
+    marginRight: 10,
   },
   sendIcon: {
-    width: 26,
-    height: 26,
-  },
-  barBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  iconBg: {
-    backgroundColor: '#FFFFFF',
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  iconImg: {
-    width: 40,
-    height: 40,
-  },
-  textBg: {
-    marginLeft: 10,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  desc: {
-    fontSize: 12,
-    color: 'rgb(108, 113, 255)',
+    width: 24,
+    height: 24,
+    tintColor: '#5772FF',
   },
 });
 
