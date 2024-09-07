@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     calendar: {
-        marginTop: "4px",
+        marginTop: "4",
         width: '130%',  
         alignSelf: 'center',  
     },
