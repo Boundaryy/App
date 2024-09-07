@@ -7,7 +7,7 @@ const ResultScreen = () => {
 
     const handleSubmit = () => {
         console.log('완료 버튼이 클릭되었습니다.');
-        router.push('/child/home'); 
+        router.push('/child/training/point'); 
     };
 
     return (

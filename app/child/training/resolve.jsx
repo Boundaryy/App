@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 
@@ -6,6 +6,12 @@ const ChatScreen = () => {
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState('');
   const router = useRouter();
+
+  useEffect(() => {
+    if (messageList.length >= 3) {
+      router.push('/child/training/resultcontent');
+    }
+  }, [messageList, router]);
 
   const sendMessage = () => {
     if (message.trim()) {

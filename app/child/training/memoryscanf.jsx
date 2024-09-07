@@ -6,7 +6,7 @@ export default function MemoryGameAnswer() {
   const router = useRouter(); 
 
   const handleSubmit = () => {
-    router.push('/child/training/memoryre'); 
+    router.push('/child/training/point'); 
   };
 
   return (

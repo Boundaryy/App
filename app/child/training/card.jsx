@@ -44,7 +44,7 @@ const CardGame = () => {
 
     useEffect(() => {
         if (matched.every(Boolean)) {
-            router.push('/child/training/cardresult'); // 모든 카드가 매칭되었을 때 이동
+            router.push('/child/training/point'); 
         }
     }, [matched]);
 
