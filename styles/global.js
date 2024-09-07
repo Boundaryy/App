@@ -16,9 +16,9 @@ export const globalStyles = StyleSheet.create({
   },
   header: {
     position: "fixed",
-    top: "40px",
+    top: "90px",
     left: 40,
-    gap: 10,
+    gap: 4,
   },
   title: {
     fontSize: 18,
@@ -30,7 +30,7 @@ export const globalStyles = StyleSheet.create({
     fontWeight: '600',
   },
   description: {
-    fontSize: 14,
+    fontSize: 16,
     textAlign: 'left',
     color: '#898989',
     marginBottom: 20,
