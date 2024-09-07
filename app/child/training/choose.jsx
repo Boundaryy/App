@@ -1,9 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Calendar } from 'react-native-calendars';
 import { BarButton } from "../../../components/Bar-Button";
-import { globalStyles } from '../../../styles/global'
-
+import { globalStyles } from '../../../styles/global';
 
 const App = () => {
     return (
@@ -15,8 +13,18 @@ const App = () => {
                 </Text>
             </View>
             <View style={styles.buttonContainer}>
-                <BarButton toLink={"/child/training/memory"} imgLink={require("../../../assets/images/situation.png")} title={"메모리 게임"} explain={"과일이 몇개 있는지 맞춰봐요"}></BarButton>
-                <BarButton toLink={"/child/training/card"} imgLink={require("../../../assets/images/happyface.png")} title={"카드 짝맞추기 게임"} explain={"같은 모양의 카드를 맞춰봐요"}></BarButton>
+                <BarButton 
+                    toLink={"/child/training/memory"} 
+                    imgLink={require("../../../assets/images/situation.png")} 
+                    title={"메모리 게임"} 
+                    explain={"과일이 몇개 있는지 맞춰봐요"}
+                />
+                <BarButton 
+                    toLink={"/child/training/card"} 
+                    imgLink={require("../../../assets/images/happyface.png")} 
+                    title={"카드 짝맞추기 게임"} 
+                    explain={"같은 모양의 카드를 맞춰봐요"}
+                />
             </View>
         </View>
     );
@@ -41,6 +49,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'column',
         width: "85%",
+        marginTop: -380,
         marginBottom: 20,
     },
     button: {

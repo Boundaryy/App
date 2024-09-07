@@ -1,21 +1,23 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router'; // Import useRouter
+import { useRouter } from 'expo-router'; 
 
 export default function MemoryGameAnswer() {
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter(); 
 
   const handleSubmit = () => {
-    router.push('/child/training/memoryre'); // Navigate to the desired route
+    router.push('/child/training/memoryre'); 
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>메모리게임 정답</Text>
 
+      <Text style={styles.subHeader}>질문에 대한 답을 입력하세요.</Text>
+
       <View style={styles.content}>
         <Text style={styles.question}>
-          <Text style={styles.highlight}>Q. 사과의 개수</Text>를 알려주세요.
+          <Text style={styles.highlight}>사과의 개수</Text>를 알려주세요.
         </Text>
 
         <TextInput
@@ -40,38 +42,49 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
   },
   header: {
-    fontSize: 20,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: 4, 
+    marginTop: '60px',
+    marginLeft: '24px',
+  },
+  subHeader: {
+    fontSize: 16, 
+    color: '#888888', 
+    marginBottom: 172, 
+    marginLeft: '24px',
   },
   content: {
     marginTop: 24,
   },
   question: {
-    fontSize: 18,
+    fontSize: 22,
     marginBottom: 24,
-    color: '#000',
-  },
-  highlight: {
-    color: '#4A90E2',
-    fontWeight: 'bold',
+    color: '#565656',
+    fontWeight: '600',
+    marginLeft: '24px'
   },
   input: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#4A90E2',
+    borderBottomWidth: 2,
+    borderBottomColor: '#5772FF',
     paddingVertical: 8,
-    marginBottom: 32,
-    fontSize: 16,
+    marginBottom: 300,
+    fontSize: 18,
+    marginLeft: '24px',
+    width: '320px',
   },
   button: {
-    backgroundColor: '#4A90E2',
-    paddingVertical: 12,
-    borderRadius: 4,
+    width: '280', 
+    height: 60,
+    backgroundColor: '#5772FF',
+    borderRadius: 8,
+    justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 10,
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 16,
+    color: '#FFFF',
+    fontSize: 18,
     fontWeight: 'bold',
   },
 });
