@@ -31,10 +31,6 @@ export default function MemoryGame() {
     >
       <View style={styles.header}>
         <View style={styles.headerContent}>
-          <Image 
-            source={require('../../../assets/arrow.png')} 
-            style={styles.arrow} 
-          />
           <Text style={styles.title}>메모리게임</Text>
         </View>
       </View>
@@ -64,18 +60,15 @@ const styles = StyleSheet.create({
   },
   header: {
     width: 200, 
-    marginLeft: 46, 
-    marginTop: 60,
+    marginLeft: 40, 
+    marginTop: 90,
+
 },
   headerContent: {
     flexDirection: 'row',  
     alignItems: 'center', 
   },
-  arrow: {
-    width: 24,
-    height: 24,  
-    marginRight: 10, 
-  },
+
   title: {
     fontSize: 28,
     color: '#000',
