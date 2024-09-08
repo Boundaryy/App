@@ -129,6 +129,6 @@ const styles = StyleSheet.create({
     padding: 12, 
     marginVertical: 5,
     marginTop: 8,
-    color: '#565656', 
+    color: '#393939', 
   },
 });
