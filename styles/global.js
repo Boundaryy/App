@@ -10,7 +10,7 @@ export const globalStyles = StyleSheet.create({
   },
   footer: {
     position: 'absolute',
-    bottom: 60,
+    bottom: 40,
     fontSize: 14,
     color: '#808080',
   },
