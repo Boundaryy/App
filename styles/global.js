@@ -15,9 +15,11 @@ export const globalStyles = StyleSheet.create({
     color: '#808080',
   },
   header: {
-    position: "fixed",
-    top: "60px",
-    gap: 4,
+    position: "absolute",
+    top: "120px",
+    left: "50px",
+    
+    
   },
   title: {
     fontSize: 18,
