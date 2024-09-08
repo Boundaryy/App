@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 
@@ -6,12 +6,6 @@ const ChatScreen = () => {
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState('');
   const router = useRouter();
-
-  useEffect(() => {
-    if (messageList.length >= 3) {
-      router.push('/child/training/resultcontent');
-    }
-  }, [messageList, router]);
 
   const sendMessage = () => {
     if (message.trim()) {
@@ -30,7 +24,7 @@ const ChatScreen = () => {
         <Text style={styles.backText}>뒤로가기</Text>
       </TouchableOpacity>
 
-      <Text style={styles.header}>상황 대처 지능 테스트</Text>
+      <Text style={styles.header}>조언 상담</Text>
 
       <ScrollView style={styles.chatArea}>
         <View style={styles.speechBubbleContainer}>
