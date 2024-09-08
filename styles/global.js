@@ -16,10 +16,8 @@ export const globalStyles = StyleSheet.create({
   },
   header: {
     position: "absolute",
-    top: "120px",
+    top: "50px",
     left: "50px",
-    
-    
   },
   title: {
     fontSize: 18,
@@ -28,6 +26,7 @@ export const globalStyles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 28,
+    whiteSpace:"nowrap",
     fontWeight: '600',
   },
   description: {
@@ -35,5 +34,22 @@ export const globalStyles = StyleSheet.create({
     textAlign: 'left',
     color: '#898989',
     marginBottom: 20,
-  }
+  },
+  formGroup: {
+    width: "75%",
+    margin: "40 0",
+  },
+  label: {
+    fontSize: 18,
+    fontWeight: '400',
+    marginBottom: 5,
+  },
+  input: {
+      padding: 10,
+      borderBottomWidth: 2,
+      borderBottomColor: '#5772FF',
+      fontSize: 18,
+      color: '#5772FF',
+      marginBottom: 20,
+  },
 });

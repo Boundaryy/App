@@ -11,7 +11,7 @@ const App = () => {
             <View style={globalStyles.header}>
                 <Text style={globalStyles.subtitle}>어렵지 않은 학습</Text>
                 <Text style={globalStyles.description}>
-                    상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
+                    상황 대처, 게임을 통해 지능을 향상시켜요
                 </Text>
             </View>
             

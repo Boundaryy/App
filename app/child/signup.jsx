@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { globalStyles } from '../../styles/global'
 import { Button } from '../../components/Button';
@@ -72,28 +72,27 @@ export default function SignUp() {
 
     return (
         <View style={globalStyles.container}>
-            <View style={styles.container}>
             <View style={globalStyles.header}>
                 <Text style={globalStyles.title}>Boundary</Text>
                 <Text style={globalStyles.subtitle}>회원가입</Text>
                 <Text style={globalStyles.description}>서비스에서 사용될 정보를 알려주세요.</Text>
             </View>
 
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>전화 번호를 알려주세요.</Text>
+            <SafeAreaView style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>전화 번호를 알려주세요.</Text>
                 <TextInput
-                    style={styles.input}
+                    style={globalStyles.input}
                     placeholder="예시) 010-1234-5678"
                     value={phoneNumber}
                     onChangeText={formatPhoneNumber}
                     keyboardType="numeric"
                 />
-            </View>
+            </SafeAreaView>
 
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>만 나이를 알려주세요.</Text>
+            <View style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>만 나이를 알려주세요.</Text>
                 <TextInput
-                    style={styles.input}
+                    style={globalStyles.input}
                     placeholder="예시) 12"
                     value={age}
                     onChangeText={setAge}
@@ -101,18 +100,18 @@ export default function SignUp() {
                 />
             </View>
 
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>이름을 알려주세요.</Text>
+            <View style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>이름을 알려주세요.</Text>
                 <TextInput
-                    style={styles.input}
+                    style={globalStyles.input}
                     placeholder="예시) 김바운"
                     value={name}
                     onChangeText={setName}
                 />
             </View>
 
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>성별을 선택해주세요.</Text>
+            <View style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>성별을 선택해주세요.</Text>
                 <View style={styles.genderContainer}>
                     <TouchableOpacity
                         style={[styles.genderOption, selectedGender === '남자' && styles.selectedGender]}
@@ -131,20 +130,20 @@ export default function SignUp() {
                 </View>
             </View>
 
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>사용할 아이디를 입력하세요.</Text>
+            <View style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>사용할 아이디를 입력하세요.</Text>
                 <TextInput
-                    style={styles.input}
+                    style={globalStyles.input}
                     placeholder="ex) boundary_baby"
                     value={username}
                     onChangeText={setUsername}
                 />
             </View>
 
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>사용할 비밀번호를 입력하세요.</Text>
+            <View style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>사용할 비밀번호를 입력하세요.</Text>
                 <TextInput
-                    style={styles.input}
+                    style={globalStyles.input}
                     placeholder="ex) qwer!1234"
                     value={password}
                     onChangeText={setPassword}
@@ -153,7 +152,6 @@ export default function SignUp() {
             </View>
 
             <Button onPress={handleClick} title={"회원가입"}/>
-        </View>
         </View>
     );
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
+import { globalStyles } from '../../styles/global';
 
 const LoginScreen = () => {
     const [username, setUsername] = useState('');
@@ -21,27 +22,28 @@ const LoginScreen = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>Boundary</Text>
-                <Text style={styles.headerSubtitle}>로그인</Text>
-            </View>
+        <View style={globalStyles.container}>
+                <View style={globalStyles.header}>
+                    <Text style={globalStyles.title}>Boundary</Text>
+                    <Text style={globalStyles.subtitle}>로그인</Text>
+                    <Text style={globalStyles.description}>로그인 정보를 입력해주세요</Text>
+                </View>
 
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>아이디를 입력하세요.</Text>
+            <View style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>아이디를 입력하세요.</Text>
                 <TextInput
-                    style={styles.input}
-                    placeholder="boundary_baby"
+                    style={globalStyles.input}
+                    placeholder="예시) boundary_baby"
                     value={username}
                     onChangeText={setUsername}
                 />
             </View>
 
-            <View style={styles.formGroup}>
-                <Text style={styles.label}>비밀번호를 입력하세요.</Text>
+            <View style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>비밀번호를 입력하세요.</Text>
                 <TextInput
-                    style={styles.input}
-                    placeholder=""
+                    style={globalStyles.input}
+                    placeholder="예시) qwer!1052"
                     secureTextEntry
                     value={password}
                     onChangeText={setPassword}

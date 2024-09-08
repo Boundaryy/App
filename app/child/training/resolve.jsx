@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const ChatScreen = () => {
@@ -55,7 +55,7 @@ const ChatScreen = () => {
         ))}
       </ScrollView>
 
-      <View style={styles.sendBox}>
+      <SafeAreaView style={styles.sendBox}>
         <TextInput
           style={styles.input}
           placeholder="여기에 메시지를 입력하세요"
@@ -66,7 +66,7 @@ const ChatScreen = () => {
         <TouchableOpacity onPress={sendMessage}>
           <Image source={require('../../../assets/image.png')} style={styles.sendIcon} />
         </TouchableOpacity>
-      </View>
+      </SafeAreaView>
     </View>
   );
 };
