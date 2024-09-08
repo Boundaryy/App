@@ -23,7 +23,7 @@ const ChooseScreen = () => {
     <View style={globalStyles.container}>
       <View style={globalStyles.header}>
         <Text style={globalStyles.title}>Boundary</Text>
-        <Text style={globalStyles.subtitle}>회원가입</Text>
+        <Text style={globalStyles.subtitle}>로그인</Text>
         <Text style={globalStyles.description}>아이와 부모님을 선택해 주세요.</Text>
       </View>
       <View style={styles.iconContainer}>
