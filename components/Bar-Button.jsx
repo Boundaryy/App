@@ -18,9 +18,7 @@ export const BarButton = ({ toLink, imgLink, title, explain }) => {
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.desc}>{explain}</Text>
             </View>
-            <View style={styles.arrowBox}>
-                <Image style={styles.arrow} source={require('../assets/arrow.png')} />
-            </View>
+
         </TouchableOpacity>
     );
 };
