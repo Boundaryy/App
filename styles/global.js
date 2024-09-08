@@ -39,6 +39,15 @@ export const globalStyles = StyleSheet.create({
     width: "75%",
     margin: "40 0",
   },
+  backText: {
+    fontSize: 18,
+    color: '#808080',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+  },
   label: {
     fontSize: 18,
     fontWeight: '400',

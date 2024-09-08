@@ -17,7 +17,7 @@ export default function AnswerScreen() {
           style={styles.icon}
         />
       </View>
-      <Text style={styles.message}>정답입니다!</Text>
+      <Text style={styles.message}>성공적으로 학습을 마쳤어요!</Text>
       <Text style={styles.pointsMessage}>{' '}포인트가 지급되었습니다.</Text>
       <TouchableOpacity 
         style={styles.button} 

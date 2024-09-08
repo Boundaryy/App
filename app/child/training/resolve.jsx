@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
+import { globalStyles } from '../../../styles/global';
 
 const ChatScreen = () => {
   const [messageList, setMessageList] = useState([]);
@@ -21,16 +22,17 @@ const ChatScreen = () => {
   };
 
   const handleBackClick = () => {
-    router.back(); 
+    router.push("child/home"); 
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={handleBackClick}>
-        <Text style={styles.backText}>뒤로가기</Text>
+    <View style={globalStyles.container}>
+      <TouchableOpacity style={globalStyles.backButton} onPress={handleBackClick}>
+        <Text style={globalStyles.backText}>뒤로가기</Text>
       </TouchableOpacity>
-
-      <Text style={styles.header}>상황 대처 지능 테스트</Text>
+      <View style={globalStyles.header} >
+        <Text style={globalStyles.subtitle}>상황 대처 지능 테스트</Text>
+      </View>
 
       <ScrollView style={styles.chatArea}>
         <View style={styles.speechBubbleContainer}>
@@ -76,11 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  backButton: {
-    position: 'absolute',
-    top: 20,
-    left: 20,
-  },
+
   backText: {
     fontSize: 18,
     color: '#808080',
@@ -97,7 +95,7 @@ const styles = StyleSheet.create({
   },
   chatArea: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 120,
   },
   speechBubbleContainer: {
     flexDirection: 'row',
@@ -152,6 +150,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     marginTop: 20,
+    width: "90%",
   },
   input: {
     flex: 1,
