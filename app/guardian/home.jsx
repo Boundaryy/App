@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { BarButton } from "../../components/Bar-Button";
-import { Calendar } from 'react-native-calendars';
 
 const ParentDashboard = () => {
     const navigation = useNavigation();
@@ -20,32 +19,13 @@ const ParentDashboard = () => {
             </View>
 
             <View style={styles.userInfo}>
-                <Image source={require('../../assets/maru.jpeg')} style={styles.userAvatar}/>
+                <Image source={require('../../assets/pro.png')} style={styles.userAvatar}/>
                 <View style={styles.userDetails}>
                     <Text style={styles.userName}>김바운</Text>
                     <Text style={styles.userHandle}>{username}</Text>
                 </View>
             </View>
 
-            <View style={styles.progressBarContainer}>
-                <View style={styles.progressBarFill}>
-                    <Text style={styles.progressText}>62%</Text>
-                </View>
-            </View>
-
-            <View style={styles.calendarContainer}>
-                <Calendar
-                    onDayPress={(day) => setSelectedDate(day.dateString)}
-                    markedDates={{
-                        [selectedDate]: { selected: true, marked: true, selectedColor: '#5772FF' },
-                    }}
-                    theme={{
-                        selectedDayBackgroundColor: '#5772FF',
-                        todayTextColor: '#5772FF',
-                        arrowColor: '#5772FF',
-                    }}
-                />
-            </View>
 
             <View style={styles.menu}>
                 <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('guardian/result')}>
@@ -53,10 +33,10 @@ const ParentDashboard = () => {
                     </View>
                 </TouchableOpacity>
                 <BarButton 
-                    title={"조언 상담"} 
-                    explain={"아이 학습에 대한 이야기를 나눠요"} 
-                    toLink={"/guardian/advice"} 
-                    imgLink={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Heart%20Decoration.png" }}
+                    title={"아이 학습 진행도 확인"} 
+                    explain={"출석체크 등 아이의 학습 진행도를 확인해요."} 
+                    toLink={"/guardian/babysitu"} 
+                    imgLink={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Face%20with%20Monocle.png" }}
                 />
                 <BarButton 
                     title={"상황 추가"} 
@@ -69,6 +49,12 @@ const ParentDashboard = () => {
                     explain={"아이의 학습을 한번에 확인해요"} 
                     toLink={"/guardian/result"} 
                     imgLink={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Face%20with%20Peeking%20Eye.png" }}
+                />
+                <BarButton 
+                    title={"조언 상담"} 
+                    explain={"아이 학습에 대한 이야기를 나눠요"} 
+                    toLink={"/guardian/advice"} 
+                    imgLink={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Heart%20Decoration.png" }}
                 />
             </View>
         </ScrollView>
@@ -91,37 +77,41 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontWeight: '700',
         color: '#000',
+        marginTop: -140,
+        marginLeft: 10,
     },
     headerSubtitle: {
         fontSize: 16,
-        fontWeight: '300',
-        color: '#898989',
-        marginTop: 8,
+        fontWeight: '500',
+        color: '#808080',
+        marginLeft: 10,
     },
     userInfo: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 30,
+        marginBottom: -30,
         justifyContent: 'center',
-        marginLeft: -140,
+        marginLeft: -70,
+        marginTop: -80,
     },
     userAvatar: {
-        width: 80,
-        height: 80,
+        width: 120,
+        height: 120,
         backgroundColor: '#5772FF',
-        borderRadius: 50,
-        marginRight: 15,
+        borderRadius: 20,
+        marginRight: 30,
+        borderColor: 'gray',
     },
     userDetails: {
         justifyContent: 'center',
     },
     userName: {
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: '700',
         color: '#000000',
     },
     userHandle: {
-        fontSize: 14,
+        fontSize: 16,
         color: '#4A4A4A',
     },
     progressBarContainer: {
@@ -145,35 +135,14 @@ const styles = StyleSheet.create({
     progressText: {
         color: '#FFFFFF',
     },
-    calendarContainer: {
-        marginTop: 20,
-        marginBottom: -30,
-    },
     menu: {
         marginTop: 30,
     },
     menuItem: {
         paddingVertical: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: '#E5E7EB',
     },
     menuItemContent: {
         flexDirection: 'column',
-    },
-    menuItemText: {
-        fontSize: 20,
-        fontWeight: '500',
-        color: '#000',
-    },
-    menuItemSubtext: {
-        fontSize: 14,
-        color: '#898989',
-        marginTop: 5,
-    },
-    menuItemArrow: {
-        fontSize: 20,
-        color: '#BCBCBC',
-        marginLeft: 'auto',
     },
 });
 
