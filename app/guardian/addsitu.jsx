@@ -1,17 +1,26 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router'; // Import useRouter
+import { useRouter } from 'expo-router'; 
 
 export default function MemoryGameAnswer() {
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter(); 
 
   const handleSubmit = () => {
-    router.push('/guardian/succesadd'); // Navigate to the desired route
+    router.push('/guardian/succesadd'); 
+  };
+
+  const handleBack = () => {
+    router.push('/guardian/home'); 
   };
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+        <Text style={styles.backText}>뒤로가기</Text>
+      </TouchableOpacity>
+
       <Text style={styles.header}>상황 추가</Text>
+      <Text style={styles.greeting}>아이에게 필요한 상황을 추가해보세요.</Text>
 
       <View style={styles.content}>
         <Text style={styles.question}>
@@ -28,11 +37,11 @@ export default function MemoryGameAnswer() {
         <TextInput
           style={styles.input}
           placeholder="예시) ~~하는 상황"
-          placeholderTextColor="#aaa"
+          placeholderTextColor="#808080"
         />
 
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>완료하기</Text>
+          <Text style={styles.buttonText}>등록하기</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -43,57 +52,83 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingVertical: 32,
+    flex: 1, 
+    justifyContent: 'center',
+  },
+  backButton: {
+    marginBottom: 16,
+  },
+  backText: {
+    fontSize: 18,
+    color: '#808080',
+    marginLeft: 32,
+    marginTop: 34,
   },
   header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 16,
+    fontSize: 26,
+    fontWeight: '600',
+    marginBottom: 2,
+    marginTop: 0,
+    marginLeft: 30,
+  },
+  greeting: {
+    fontSize: 16,
+    color: '#808080',
+    marginBottom: 24,
+    marginLeft: 30,
   },
   content: {
     marginTop: 24,
+    alignItems: 'center', 
   },
   question: {
     fontSize: 18,
     marginBottom: 24,
     color: '#000',
+    textAlign: 'center', 
   },
   highlight: {
-    color: '#4A90E2',
-    fontWeight: 'bold',
+    color: '#5772FF',
+    fontWeight: '600',
+    marginLeft: -190,
+    fontSize: 20,
   },
   input: {
     borderBottomWidth: 1,
-    borderBottomColor: '#4A90E2',
+    borderBottomColor: '#5772FF',
     paddingVertical: 8,
     marginBottom: 32,
-    fontSize: 16,
+    fontSize: 18,
+    width: '80%',
   },
   button: {
-    backgroundColor: '#4A90E2',
+    backgroundColor: '#5772FF',
+    width: 340,
+    height: 50,
     paddingVertical: 12,
-    borderRadius: 4,
+    borderRadius: 8,
     alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginTop: 120,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-  },
   checkboxContainer: {
     display: "flex",
     marginBottom: 20,
   },
   checkboxText: {
-    backgroundColor: "#F0F0F0",
+    width: 310,
+    backgroundColor: "#ECF7FF",
+    borderRadius: 4, 
     fontSize: 18,
-    padding: 10,
+    padding: 12, 
     marginVertical: 5,
+    marginTop: 8,
+    color: '#393939', 
   },
 });

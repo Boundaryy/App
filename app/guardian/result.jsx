@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const results = [
@@ -13,7 +13,7 @@ const results = [
         date: "6월 28일",
         title: "상황 대처 학습",
         status: "incorrect",
-        summary: "잘했어요 (10 문제중 9개 정답)",
+        summary: "못했어요 (10 문제중 3개 정답)",
     }
 ];
 
@@ -24,21 +24,38 @@ const LearningResults = () => {
         navigation.navigate('guardian/resolve'); 
     };
 
+    const handleBackPress = () => {
+        console.log('뒤로가기 버튼 누름');  
+        navigation.goBack(); 
+    };
+
     return (
         <ScrollView style={styles.container}>
+            <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
+                <Text style={styles.backButtonText}>뒤로가기</Text>
+            </TouchableOpacity>
+            
             <View style={styles.header}>
                 <Text style={styles.title}>학습 결과</Text>
                 <Text style={styles.subtitle}>최근 학습 결과를 확인해보세요.</Text>
             </View>
             {results.map((result, index) => (
                 <TouchableOpacity key={index} style={styles.resultItem} onPress={handlePress}>
-                    <View style={[styles.resultIcon, result.status === 'correct' ? styles.correct : styles.incorrect]} />
+                    <Image
+                        source={{
+                            uri: result.status === 'correct'
+                                ? 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Cowboy%20Hat%20Face.png'
+                                : 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Exploding%20Head.png'
+                        }}
+                        style={styles.resultIcon}
+                    />
                     <View style={styles.resultContent}>
                         <Text style={styles.resultTitle}>{result.title}</Text>
                         <Text style={styles.resultDate}>{result.date} 상황 대처 학습 결과</Text>
-                        <Text style={styles.resultSummary}>{result.summary}</Text>
+                        <Text style={[styles.resultSummary, result.status === 'incorrect' && styles.incorrectSummary]}>
+                            {result.summary}
+                        </Text>
                     </View>
-                    <Text style={styles.resultLink}>{'>'}</Text>
                 </TouchableOpacity>
             ))}
         </ScrollView>
@@ -49,20 +66,31 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
     },
+
+    backButtonText: {
+        fontSize: 18,
+        color: '#808080',  
+        marginTop: 40,
+        marginLeft: 30,
+    },
     header: {
-        marginBottom: 20,
-        paddingTop: 60,
+        marginBottom: 10,
+        paddingTop: 0,
     },
     title: {
         fontSize: 28,
-        fontWeight: '700',
+        fontWeight: '600',
         color: '#000',
+        marginLeft: 28,
+        marginTop: 20,
     },
     subtitle: {
         color: '#898989',
-        fontSize: 14,
+        fontSize: 16,
         marginVertical: 8,
         fontWeight: '200',
+        marginTop: 0,
+        marginLeft: 28,
     },
     resultItem: {
         flexDirection: 'row',
@@ -71,43 +99,35 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
     },
-    resultImage: {
-        width: 40,
-        height: 40,
-        marginRight: 10,
-    },
     resultIcon: {
-        width: 24,
-        height: 24,
-        marginRight: 12,
-    },
-    correct: {
-        backgroundColor: 'transparent', 
-    },
-    incorrect: {
-        backgroundColor: 'transparent', 
+        width: 68,
+        height: 68,
+        marginRight: 20,
+        marginLeft: 24,
     },
     resultContent: {
         flexGrow: 1,
     },
     resultTitle: {
-        fontSize: 18,
-        fontWeight: '700',
-        color: '#333',
+        fontSize: 22,
+        fontWeight: '600',
+        color: '#000000',
+        marginLeft: -8,
     },
     resultDate: {
-        fontSize: 14,
+        fontSize: 16,
         color: '#5772FF',
         marginTop: 4,
+        marginLeft: -7,
     },
     resultSummary: {
-        fontSize: 14,
-        color: '#4CAF50',
-        marginTop: 4,
-    },
-    resultLink: {
         fontSize: 16,
-        color: '#CCC',
+        color: '#4CAF50', 
+        marginTop: 4,
+        marginLeft: -7,
+    },
+    incorrectSummary: {
+        color: '#FF0000', 
     },
 });
 
