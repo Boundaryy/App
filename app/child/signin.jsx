@@ -19,7 +19,7 @@ const LoginScreen = () => {
                 });
 
                 if (response.data.success) {
-                    console.log("로그인 성공");  // 성공 여부를 콘솔에 출력
+                    console.log("로그인 성공");  
                     router.push('/child/home');
                 } else {
                     console.log("로그인 실패");
