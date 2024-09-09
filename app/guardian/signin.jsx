@@ -38,7 +38,7 @@ const LoginScreen = () => {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <View style={globalStyles.logincontainer}>
                 <View style={globalStyles.header}>
                     <Text style={globalStyles.title}>Boundary</Text>
                     <Text style={globalStyles.subtitle}>로그인</Text>

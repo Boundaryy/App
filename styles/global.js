@@ -8,6 +8,14 @@ export const globalStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  logincontainer: {
+    width:"100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingBottom:20,
+  },
   footer: {
     position: 'absolute',
     bottom: 40,
@@ -37,7 +45,7 @@ export const globalStyles = StyleSheet.create({
   },
   formGroup: {
     width: "75%",
-    margin: "40 0",
+    height:"11.5%",
   },
   backText: {
     fontSize: 18,
@@ -51,7 +59,6 @@ export const globalStyles = StyleSheet.create({
   label: {
     fontSize: 18,
     fontWeight: '400',
-    marginBottom: 5,
   },
   input: {
       padding: 10,
@@ -59,6 +66,5 @@ export const globalStyles = StyleSheet.create({
       borderBottomColor: '#5772FF',
       fontSize: 18,
       color: '#5772FF',
-      marginBottom: 20,
   },
 });

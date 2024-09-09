@@ -21,7 +21,7 @@ export default function Index() {
       <Image source={require('../assets/logo.png')} style={styles.logo} />
       <Button onPress={handle} title={"회원가입"} />
       <TouchableOpacity onPress={chooseLogin} style={{ margin: 20 }}>
-        <Text style={[styles.loginText, { fontSize }]} onPress={() => setFontSize(fontSize + 2)}>로그인</Text>
+        <Text style={[styles.loginText, { fontSize }]} >로그인</Text>
       </TouchableOpacity>
       <Text style={globalStyles.footer}>©Barder</Text>
     </View>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 170,
     marginBottom: 100,
-    height: 126,
+    height: 122,
   },
   loginText: {
     fontWeight: '400',
