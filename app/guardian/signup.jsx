@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { useNavigation } from '@react-navigation/native';
 import { Button } from '../../components/Button';
 import { useRouter } from 'expo-router';
+import { globalStyles } from '../../styles/global';
 
 const SignupScreen = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -54,18 +55,16 @@ const SignupScreen = () => {
     }
 
     return (
-        <View style={styles.outerContainer}>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Boundary</Text>
-                    <Text style={styles.headerSubtitle}>회원가입</Text>
-                    <Text style={styles.headerDescription}>서비스에서 사용될 정보를 알려주세요.</Text>
+            <View style={globalStyles.container}>
+                <View style={globalStyles.header}>
+                    <Text style={globalStyles.title}>Boundary</Text>
+                    <Text style={globalStyles.subtitle}>회원가입</Text>
+                    <Text style={globalStyles.description}>회원가입 정보를 입력해주세요</Text>
                 </View>
-
-                <View style={styles.formGroup}>
-                    <Text style={styles.label}>전화 번호를 알려주세요.</Text>
+                <View style={globalStyles.formGroup}>
+                    <Text style={globalStyles.label}>전화 번호를 알려주세요.</Text>
                     <TextInput
-                        style={styles.input}
+                        style={globalStyles.input}
                         placeholder="예시) 010-1234-5678"
                         value={phoneNumber}
                         onChangeText={formatPhoneNumber}
@@ -73,20 +72,20 @@ const SignupScreen = () => {
                     />
                 </View>
 
-                <View style={styles.formGroup}>
-                    <Text style={styles.label}>사용할 아이디를 입력하세요.</Text>
+                <View style={globalStyles.formGroup}>
+                    <Text style={globalStyles.label}>사용할 아이디를 입력하세요.</Text>
                     <TextInput
-                        style={styles.input}
+                        style={globalStyles.input}
                         placeholder="예시) wbhaao"
                         value={username}
                         onChangeText={setUsername}
                     />
                 </View>
 
-                <View style={styles.formGroup}>
-                    <Text style={styles.label}>사용할 비밀번호를 입력하세요.</Text>
+                <View style={globalStyles.formGroup}>
+                    <Text style={globalStyles.label}>사용할 비밀번호를 입력하세요.</Text>
                     <TextInput
-                        style={styles.input}
+                        style={globalStyles.input}
                         placeholder="예시) qwer!1234"
                         secureTextEntry
                         value={password}
@@ -94,10 +93,10 @@ const SignupScreen = () => {
                     />
                 </View>
 
-                <View style={styles.formGroup}>
-                    <Text style={styles.label}>아이의 아이디를 입력하세요.</Text>
+                <View style={globalStyles.formGroup}>
+                    <Text style={globalStyles.label}>아이의 아이디를 입력하세요.</Text>
                     <TextInput
-                        style={styles.input}
+                        style={globalStyles.input}
                         placeholder="예시) gyumingim"
                         value={childUsername}
                         onChangeText={setChildUsername}
@@ -105,17 +104,11 @@ const SignupScreen = () => {
                 </View>
 
                 <Button title={"회원가입"} onPress={handleClick}></Button>
-            </View>
-        </View>
+                </View>
     );
 };
 
 const styles = StyleSheet.create({
-    outerContainer: {
-        flex: 1,
-        paddingHorizontal: 20,
-        justifyContent: 'center',
-    },
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -123,7 +116,6 @@ const styles = StyleSheet.create({
     header: {
         marginBottom: 20,
         paddingTop: 60,
-
     },
     headerTitle: {
         color: '#5772FF',
@@ -138,19 +130,6 @@ const styles = StyleSheet.create({
     headerDescription: {
         color: '#565656',
         fontSize: 14,
-    },
-    label: {
-        fontSize: 18,
-        fontWeight: '400',
-        marginBottom: 5,
-    },
-    input: {
-        padding: 10,
-        borderBottomWidth: 2,
-        borderBottomColor: '#5772FF',
-        fontSize: 18,
-        color: '#5772FF',
-        marginBottom: 20,
     },
     submitButton: {
         alignItems: 'center',

@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     },
     buttonTitle: {
         fontSize: 18,
-        fontWeight: '500',
+        fontWeight:"900",
     },
     buttonExplain: {
         color: '#808080',

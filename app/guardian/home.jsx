@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { BarButton } from "../../components/Bar-Button";
+import { globalStyles } from '../../styles/global';
 
 const ParentDashboard = () => {
     const navigation = useNavigation();
@@ -12,10 +13,10 @@ const ParentDashboard = () => {
     const [selectedDate, setSelectedDate] = useState('');
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>아이의 학습을 확인하세요.</Text>
-                <Text style={styles.headerSubtitle}>아이의 학습 결과를 확인하며 도와주세요.</Text>
+        <ScrollView contentContainerStyle={globalStyles.container}>
+            <View style={globalStyles.header}>
+                <Text style={globalStyles.subtitle}>아이의 학습을 확인하세요.</Text>
+                <Text style={globalStyles.description}>아이의 학습 결과를 확인하며 도와주세요.</Text>
             </View>
 
             <View style={styles.userInfo}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
+import { globalStyles } from '../../../styles/global';
 
 const ResultScreen = () => {
     const router = useRouter();
@@ -11,10 +12,10 @@ const ResultScreen = () => {
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>결과</Text>
-                <Text style={styles.headerDate}>7월 17일 결과에요</Text>
+        <ScrollView contentContainerStyle={globalStyles.container}>
+            <View style={globalStyles.header}>
+                <Text style={globalStyles.subtitle}>결과</Text>
+                <Text style={globalStyles.description}>7월 17일 결과에요</Text>
             </View>
 
             <View style={styles.messageBox}>
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     messageBox: {
         width: 294,
         height: 177,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#F9F9F9',
         borderRadius: 10,
         padding: 16,
         marginBottom: 30,

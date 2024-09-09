@@ -9,9 +9,10 @@ const App = () => {
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.header}>
+                <Text style={globalStyles.title}>Boundary</Text>
                 <Text style={globalStyles.subtitle}>어렵지 않은 학습</Text>
                 <Text style={globalStyles.description}>
-                    상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
+                    상황 대처, 게임을 통해 지능을 향상시켜요
                 </Text>
             </View>
             
@@ -36,7 +37,7 @@ const App = () => {
                     상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
                 </Text>
               
-                <TouchableOpacity onPress={() => {router.push('/child/home')}} style={styles.levelContainer}>
+                <TouchableOpacity onPress={() => {router.push('/child/mypage')}} style={styles.levelContainer}>
                     <Image source={require("../../assets/images/image.png")} style={styles.levelImage} />
                     <Text style={styles.levelText}>LV.8</Text>
                 </TouchableOpacity>

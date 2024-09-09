@@ -34,11 +34,10 @@ const LearningResults = () => {
             <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
                 <Text style={styles.backButtonText}>뒤로가기</Text>
             </TouchableOpacity>
-            
-            <View style={styles.header}>
-                <Text style={styles.title}>학습 결과</Text>
-                <Text style={styles.subtitle}>최근 학습 결과를 확인해보세요.</Text>
-            </View>
+                <View style={styles.header}>
+                    <Text style={styles.title}>학습 결과</Text>
+                    <Text style={styles.subtitle}>최근 학습 결과를 확인해보세요.</Text>
+                </View>
             {results.map((result, index) => (
                 <TouchableOpacity key={index} style={styles.resultItem} onPress={handlePress}>
                     <Image
