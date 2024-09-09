@@ -7,20 +7,29 @@ import { globalStyles } from '../../styles/global';
 import { router } from 'expo-router';
 
 const App = () => {
+<<<<<<< HEAD
     const [userData, setUserData] = useState(null);
     const [logoutMessage, setLogoutMessage] = useState(''); 
+=======
+    const [userData, setUserData] = useState(null); 
+>>>>>>> origin/feat/#42
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/user');
+<<<<<<< HEAD
                 setUserData(response.data);
+=======
+                setUserData(response.data); 
+>>>>>>> origin/feat/#42
             } catch (error) {
                 console.error("데이터 불러오기 중 오류 발생:", error);
                 Alert.alert("오류", "데이터를 불러오는데 실패했습니다.");
             }
         };
 
+<<<<<<< HEAD
         fetchData();
     }, []);
 
@@ -40,6 +49,11 @@ const App = () => {
         }
     };
 
+=======
+        fetchData(); 
+    }, []);
+
+>>>>>>> origin/feat/#42
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.header}>
