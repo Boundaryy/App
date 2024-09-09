@@ -1,11 +1,28 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import axios from 'axios';
 import { Calendar } from 'react-native-calendars';
 import { BarButton } from "../../components/Bar-Button";
 import { globalStyles } from '../../styles/global';
 import { router } from 'expo-router';
 
 const App = () => {
+    const [userData, setUserData] = useState(null); 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/user');
+                setUserData(response.data); 
+            } catch (error) {
+                console.error("데이터 불러오기 중 오류 발생:", error);
+                Alert.alert("오류", "데이터를 불러오는데 실패했습니다.");
+            }
+        };
+
+        fetchData(); 
+    }, []);
+
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.header}>
@@ -38,7 +55,7 @@ const App = () => {
               
                 <TouchableOpacity onPress={() => {router.push('/child/home')}} style={styles.levelContainer}>
                     <Image source={require("../../assets/images/image.png")} style={styles.levelImage} />
-                    <Text style={styles.levelText}>LV.8</Text>
+                    <Text style={styles.levelText}>LV.{userData?.point ?? '...'}</Text>
                 </TouchableOpacity>
             </View>
             <Calendar style={styles.calendar} />
