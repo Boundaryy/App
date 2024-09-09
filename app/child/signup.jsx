@@ -71,7 +71,7 @@ export default function SignUp() {
     }
 
     return (
-        <View style={globalStyles.container}>
+        <View style={globalStyles.logincontainer}>
             <View style={globalStyles.header}>
                 <Text style={globalStyles.title}>Boundary</Text>
                 <Text style={globalStyles.subtitle}>회원가입</Text>
