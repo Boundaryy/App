@@ -7,29 +7,20 @@ import { globalStyles } from '../../styles/global';
 import { router } from 'expo-router';
 
 const App = () => {
-<<<<<<< HEAD
     const [userData, setUserData] = useState(null);
-    const [logoutMessage, setLogoutMessage] = useState(''); 
-=======
-    const [userData, setUserData] = useState(null); 
->>>>>>> origin/feat/#42
+    const [logoutMessage, setLogoutMessage] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/user');
-<<<<<<< HEAD
                 setUserData(response.data);
-=======
-                setUserData(response.data); 
->>>>>>> origin/feat/#42
             } catch (error) {
                 console.error("데이터 불러오기 중 오류 발생:", error);
                 Alert.alert("오류", "데이터를 불러오는데 실패했습니다.");
             }
         };
 
-<<<<<<< HEAD
         fetchData();
     }, []);
 
@@ -49,11 +40,6 @@ const App = () => {
         }
     };
 
-=======
-        fetchData(); 
-    }, []);
-
->>>>>>> origin/feat/#42
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.header}>
@@ -85,7 +71,7 @@ const App = () => {
                     상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
                 </Text>
               
-                <TouchableOpacity onPress={() => {router.push('/child/mypage')}} style={styles.levelContainer}>
+                <TouchableOpacity onPress={() => {router.push('/child/home')}} style={styles.levelContainer}>
                     <Image source={require("../../assets/images/image.png")} style={styles.levelImage} />
                     <Text style={styles.levelText}>LV.{userData?.point ?? '...'}</Text>
                 </TouchableOpacity>
@@ -166,7 +152,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         paddingVertical: 10,
         paddingHorizontal: 20,
-        marginRight: 236,
+        marginRight: 240,
     },
     logoutButtonText: {
         color: '#898989',
