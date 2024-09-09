@@ -5,7 +5,6 @@ const BarState = ({ desc }) => {
   return (
     <View style={styles.barBtn}>
       <View style={styles.iconBg}>
-        {/* <Image source={require('./childIcon.png')} style={styles.iconImg} /> */}
       </View>
       <View style={styles.arrowBox} />
       <View style={styles.textBg}>
