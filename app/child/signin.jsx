@@ -1,24 +1,40 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import axios from 'axios';
 import { useRouter } from 'expo-router';
 
 const LoginScreen = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const router = useRouter()
+    const router = useRouter();
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!username || !password) {
-            alert("빈칸없이 작성해주세요")
-        }else {
-            router.push('/child/home')
+            alert("빈칸없이 작성해주세요");
+        } else {
+            try {
+                const response = await axios.post('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/login', {
+                    userId: username,
+                    password: password,
+                });
+
+                if (response.data.success) {
+                    console.log("로그인 성공");  // 성공 여부를 콘솔에 출력
+                    router.push('/child/home');
+                } else {
+                    console.log("로그인 실패");
+                    Alert.alert("로그인 실패", "아이디 또는 비밀번호를 확인하세요.");
+                }
+            } catch (error) {
+                console.error("로그인 중 오류 발생:", error);
+                Alert.alert("오류", "서버와의 연결이 원활하지 않습니다.");
+            }
         }
     };
 
-    const handleSignup = () =>{
-        router.push('/child/signup')
-    }
+    const handleSignup = () => {
+        router.push('/child/signup');
+    };
 
     return (
         <View style={styles.container}>
@@ -64,7 +80,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         justifyContent: 'center',
-        paddingLeft: 50, 
+        paddingLeft: 50,
     },
     header: {
         marginBottom: 20,
@@ -97,8 +113,8 @@ const styles = StyleSheet.create({
         color: '#5772FF',
     },
     submitButton: {
-        justifyContent:"center",
-        alignItems:"center",
+        justifyContent: "center",
+        alignItems: "center",
         backgroundColor: '#5772FF',
         borderRadius: 8,
         width: 310,
@@ -106,7 +122,7 @@ const styles = StyleSheet.create({
         marginTop: 150,
     },
     submitButtonText: {
-        position:"absolute",
+        position: "absolute",
         color: '#FFFFFF',
         fontSize: 20,
         fontWeight: '600',
