@@ -33,7 +33,7 @@ const SignupScreen = () => {
         else {
             // try {
             //     axios({
-            //         url:"https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/login",
+            //         url:"https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/signup/parent",
             //         method:"post",
             //         data : {
             //             "name": name,

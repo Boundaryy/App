@@ -1,16 +1,20 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router'; 
+import { useRouter } from 'expo-router';
 
 export default function MemoryGameAnswer() {
-  const router = useRouter(); 
+  const router = useRouter();
 
   const handleSubmit = () => {
-    router.push('/guardian/succesadd'); 
+    router.push('/guardian/succesadd');
   };
 
   const handleBack = () => {
-    router.push('/guardian/home'); 
+    router.push('/guardian/home');
+  };
+
+  const handleDelete = (item) => {
+    console.log(`${item} 삭제`);
   };
 
   return (
@@ -26,11 +30,14 @@ export default function MemoryGameAnswer() {
         <Text style={styles.question}>
           <Text style={styles.highlight}>이미 있는 상황</Text>
           <View style={styles.checkboxContainer}>
-            <Text style={styles.checkboxText}>친구와 약속 조정</Text>
-            <Text style={styles.checkboxText}>식당에서 주문하기</Text>
-            <Text style={styles.checkboxText}>전화 통화하기</Text>
-            <Text style={styles.checkboxText}>친구 위로하기</Text>
-            <Text style={styles.checkboxText}>상점에서 계산하기</Text>
+            {['친구와 약속 조정', '식당에서 주문하기', '전화 통화하기', '친구 위로하기', '상점에서 계산하기'].map((item, index) => (
+              <View key={index} style={styles.checkboxItem}>
+                <Text style={styles.checkboxText}>{item}</Text>
+                <TouchableOpacity style={styles.deleteButton} onPress={() => handleDelete(item)}>
+                  <Text style={styles.deleteButtonText}>삭제</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
           </View>
         </Text>
 
@@ -52,7 +59,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingVertical: 32,
-    flex: 1, 
+    flex: 1,
     justifyContent: 'center',
   },
   backButton: {
@@ -79,13 +86,13 @@ const styles = StyleSheet.create({
   },
   content: {
     marginTop: 24,
-    alignItems: 'center', 
+    alignItems: 'center',
   },
   question: {
     fontSize: 18,
     marginBottom: 24,
     color: '#000',
-    textAlign: 'center', 
+    textAlign: 'center',
   },
   highlight: {
     color: '#5772FF',
@@ -118,17 +125,38 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   checkboxContainer: {
-    display: "flex",
+    display: 'flex',
     marginBottom: 20,
   },
+  checkboxItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
   checkboxText: {
-    width: 310,
-    backgroundColor: "#ECF7FF",
-    borderRadius: 4, 
+    backgroundColor: '#ECF7FF',
+    borderRadius: 4,
     fontSize: 18,
-    padding: 12, 
+    padding: 12,
     marginVertical: 5,
     marginTop: 8,
-    color: '#393939', 
+    color: '#393939',
+    flex: 1,
+    width: 240, 
+    marginLeft: 8,
+  },
+  deleteButton: {
+    borderWidth: 1,
+    borderColor: 'red',
+    borderRadius: 4,
+    backgroundColor: '#fff',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginLeft: 12, 
+  },
+  deleteButtonText: {
+    color: 'red',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
