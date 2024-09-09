@@ -9,11 +9,11 @@ import axios from 'axios';
 export default function SignUp() {
     const [selectedGender, setSelectedGender] = useState('남자');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [age, setAge] = useState('');
+    const [age, setAge] = useState(0);
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const route = useRouter();
+    const router = useRouter();
     
     const navigation = useNavigation();
 
@@ -47,26 +47,26 @@ export default function SignUp() {
             createTwoButtonAlert()
         }
         else {
-            // try {
-            //     axios({
-            //         url:"https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/signup/child",
-            //         method:"post",
-            //         data : {
-            //             "name": name,
-            //             "age": age,
-            //             "phoneNum": phoneNumber,
-            //             "gender": selectedGender,
-            //             "userId": username,
-            //             "password": username,
-            //             "role": "Child",
-            //             "point": 0
-            //         }
-            //     })
-            // }
-            // catch {
-            //     alert("백엔드 에러")
-            // }
-            route.push('/child/signin')
+            try {
+                const response = axios.post('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/signup/child',
+                {
+                    age: age,    
+                    phoneNum: phoneNumber,
+                    selectedGender: selectedGender,
+                    username: name,
+                    password: password,
+                    role: "Child",
+                    name: username,
+                    point: 0,
+                     
+                });
+                console.log("회원가입 성공");  
+                router.push('/child/signin');
+                alert("성공");
+            } catch (error) {
+                console.error("회원가입 중 오류 발생:", error);
+                alert("오류");
+            }
         }
     }
 
