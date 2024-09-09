@@ -7,18 +7,43 @@ import { globalStyles } from '../../styles/global';
 import { router } from 'expo-router';
 
 const App = () => {
-    const [userData, setUserData] = useState(null); 
+const [userData, setUserData] = useState(null);
+const [logoutMessage, setLogoutMessage] = useState('');
+const [userData, setUserData] = useState(null); 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/user');
+
+                setUserData(response.data);
+
                 setUserData(response.data); 
             } catch (error) {
                 console.error("데이터 불러오기 중 오류 발생:", error);
                 Alert.alert("오류", "데이터를 불러오는데 실패했습니다.");
             }
         };
+
+
+        fetchData();
+    }, []);
+
+    const handleLogout = async () => {
+        try {
+            const response = await axios.post('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/logout', {});
+            if (response.status === 200) {
+                setLogoutMessage(response.data); 
+                setTimeout(() => {
+                    router.push('/'); 
+                }, 2000); 
+            } else {
+                console.log('로그아웃 실패');
+            }
+        } catch (error) {
+            console.error('로그아웃 중 오류 발생:', error);
+        }
+    };
 
         fetchData(); 
     }, []);
@@ -54,12 +79,21 @@ const App = () => {
                     상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
                 </Text>
               
-                <TouchableOpacity onPress={() => {router.push('/child/mypage')}} style={styles.levelContainer}>
+                <TouchableOpacity onPress={() => {router.push('/child/home')}} style={styles.levelContainer}>
                     <Image source={require("../../assets/images/image.png")} style={styles.levelImage} />
                     <Text style={styles.levelText}>LV.{userData?.point ?? '...'}</Text>
                 </TouchableOpacity>
             </View>
+            
             <Calendar style={styles.calendar} />
+            
+            <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+                <Text style={styles.logoutButtonText}>로그아웃</Text>
+            </TouchableOpacity>
+            
+            {logoutMessage ? (
+                <Text style={styles.logoutMessage}>{logoutMessage}</Text>
+            ) : null}
         </View>
     );
 };
@@ -90,7 +124,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     calendar: {
-        marginTop: "4",
+        marginTop: 4,
         width: '130%',  
         alignSelf: 'center',  
     },
@@ -121,7 +155,24 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: "gray",
     },
-
+    logoutButton: {
+        marginTop: 20,
+        alignSelf: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        marginRight: 240,
+    },
+    logoutButtonText: {
+        color: '#898989',
+        fontSize: 16,
+        fontWeight: '400',
+    },
+    logoutMessage: {
+        marginTop: 20,
+        alignSelf: 'center',
+        fontSize: 16,
+        color: '#898989',
+    },
 });
 
 export default App;
