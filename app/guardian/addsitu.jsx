@@ -8,14 +8,13 @@ export default function MemoryGameAnswer() {
   const [situation, setSituation] = useState('');
   const [situations, setSituations] = useState([]);
 
-  // Fetch existing situations on component mount
   useEffect(() => {
     const fetchSituations = async () => {
       try {
         const response = await axios.get(
           'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations'
         );
-        setSituations(response.data); // Updated to handle the correct response format (array of objects)
+        setSituations(response.data); 
       } catch (error) {
         console.error('상황 조회 실패:', error);
       }
@@ -59,7 +58,7 @@ export default function MemoryGameAnswer() {
         }
       );
       console.log('삭제 성공:', response.status);
-      // After deletion, refresh the situation list
+    
       setSituations(situations.filter(item => item.situationId !== situationId));
     } catch (error) {
       console.error('삭제 실패:', error);

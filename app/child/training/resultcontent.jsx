@@ -1,10 +1,30 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
+import axios from 'axios';
 import { globalStyles } from '../../../styles/global';
 
 const ResultScreen = () => {
     const router = useRouter();
+    const [feedbackTop, setFeedbackTop] = useState('');  // Top section feedback
+    const [feedbackBottom, setFeedbackBottom] = useState(''); // Bottom section feedback
+
+    // Fetch feedback from API on component mount
+    useEffect(() => {
+        const fetchFeedback = async () => {
+            try {
+                const response = await axios.get(
+                    'https://your-api-endpoint.com/feedback' // Replace with your actual API URL
+                );
+                setFeedbackTop(response.data.feedBackTop);   // Set the top section feedback
+                setFeedbackBottom(response.data.feedBackBottom); // Set the bottom section feedback
+            } catch (error) {
+                console.error('피드백 가져오기 실패:', error);
+            }
+        };
+
+        fetchFeedback();
+    }, []);
 
     const handleSubmit = () => {
         console.log('완료 버튼이 클릭되었습니다.');
@@ -19,18 +39,11 @@ const ResultScreen = () => {
             </View>
 
             <View style={styles.messageBox}>
-                <Text style={styles.messageText}>희성아, 빨리 나아서 학교에서 보자.</Text>
-                <Text style={styles.messageText}>희성아, 많이 <Text style={styles.highlight}>아프질 않길</Text> 바래 폭쉬어</Text>
-                <Text style={styles.messageText}>희성아, 필요할게 있으면 언제든 말해</Text>
-            </View>
-
-            <View style={styles.imageContainer}>
+                <Text style={styles.messageText}>{feedbackTop || '값을 가지고 오지 못했어요.'}</Text>
             </View>
 
             <View style={styles.suggestions}>
-                <Text style={styles.suggestionText}>희성아, 빨리 나아서 학교에서 보자.</Text>
-                <Text style={styles.suggestionText}>희성아, 많이 <Text style={styles.highlight}>아프질 않길</Text> 바래 폭쉬어</Text>
-                <Text style={styles.suggestionText}>희성아, 필요할게 있으면 언제든 말해</Text>
+                <Text style={styles.suggestionText}>{feedbackBottom || '값을 가지고 오지 못했어요.'}</Text>
             </View>
 
             <View style={styles.footer}>
@@ -83,20 +96,6 @@ const styles = StyleSheet.create({
     },
     highlight: {
         color: '#5772FF',
-    },
-    imageContainer: {
-        width: 60,
-        height: 60,
-        position: 'relative',
-        top: -50,
-        zIndex: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    image: {
-        width: '100%',
-        height: '100%',
-        borderRadius: 10,
     },
     suggestions: {
         width: 294,
