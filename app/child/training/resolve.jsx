@@ -18,7 +18,6 @@ const ChatScreen = () => {
   const sendMessage = async () => {
     if (message.trim()) {
       try {
-        // Send user message to API
         const response = await axios.post(
           'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/stt/threads/{threadId}',
           {
