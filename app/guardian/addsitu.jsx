@@ -15,7 +15,7 @@ export default function MemoryGameAnswer() {
         const response = await axios.get(
           'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations'
         );
-        setSituations(response.data); // Assuming the response is an array of situations
+        setSituations(response.data); // Updated to handle the correct response format (array of objects)
       } catch (error) {
         console.error('상황 조회 실패:', error);
       }
