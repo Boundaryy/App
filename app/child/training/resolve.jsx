@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
+import axios from 'axios';
 import { globalStyles } from '../../../styles/global';
 
 const ChatScreen = () => {
@@ -14,15 +15,33 @@ const ChatScreen = () => {
     }
   }, [messageList, router]);
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (message.trim()) {
-      setMessageList([...messageList, message]);
-      setMessage("");
+      try {
+        const response = await axios.post(
+          'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/stt/threads/{threadId}',
+          {
+            userMessage: message,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        const botMessage = response.data.botMessage;
+
+        setMessageList([...messageList, { sender: 'user', text: message }, { sender: 'bot', text: botMessage }]);
+        setMessage('');
+      } catch (error) {
+        console.error('메시지 전송 실패:', error);
+      }
     }
   };
 
   const handleBackClick = () => {
-    router.push("child/home"); 
+    router.push('child/home');
   };
 
   return (
@@ -30,28 +49,32 @@ const ChatScreen = () => {
       <TouchableOpacity style={globalStyles.backButton} onPress={handleBackClick}>
         <Text style={globalStyles.backText}>뒤로가기</Text>
       </TouchableOpacity>
-      <View style={globalStyles.header} >
+      <View style={globalStyles.header}>
         <Text style={globalStyles.subtitle}>상황 대처 지능 테스트</Text>
       </View>
 
       <ScrollView style={styles.chatArea}>
         <View style={styles.speechBubbleContainer}>
-          <Image 
-            source={{ uri: 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Robot.png' }} 
-            style={styles.icon} 
+          <Image
+            source={{ uri: 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Robot.png' }}
+            style={styles.icon}
           />
           <View style={styles.speechBubble}>
             <Text style={styles.bubbleText}>오늘 희성이가 아파서 학교에 가지 못했다.</Text>
           </View>
         </View>
         {messageList.map((mes, key) => (
-          <View key={key} style={styles.mySpeechBubbleContainer}>
-            <Image 
-              source={{ uri: 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Astonished%20Face.png' }} 
-              style={styles.icon} 
+          <View key={key} style={mes.sender === 'user' ? styles.mySpeechBubbleContainer : styles.speechBubbleContainer}>
+            <Image
+              source={{
+                uri: mes.sender === 'user'
+                  ? 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Astonished%20Face.png'
+                  : 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Robot.png',
+              }}
+              style={styles.icon}
             />
-            <View style={styles.mySpeechBubble}>
-              <Text style={styles.myBubbleTextContent}>{mes}</Text>
+            <View style={mes.sender === 'user' ? styles.mySpeechBubble : styles.speechBubble}>
+              <Text style={mes.sender === 'user' ? styles.myBubbleTextContent : styles.bubbleText}>{mes.text}</Text>
             </View>
           </View>
         ))}
@@ -78,7 +101,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-
   backText: {
     fontSize: 18,
     color: '#808080',
@@ -114,26 +136,26 @@ const styles = StyleSheet.create({
   },
   speechBubble: {
     backgroundColor: '#F3F4F6',
-    padding: 16, 
+    padding: 16,
     borderRadius: 16,
     borderTopLeftRadius: 0,
-    maxWidth: '80%', 
+    maxWidth: '80%',
     marginLeft: 16,
     marginTop: 4,
     justifyContent: 'center',
   },
   mySpeechBubble: {
     backgroundColor: '#5772FF',
-    padding: 16, 
+    padding: 16,
     borderRadius: 16,
     borderTopRightRadius: 0,
-    maxWidth: '80%', 
+    maxWidth: '80%',
     marginRight: 10,
     marginTop: 4,
     justifyContent: 'center',
   },
   bubbleText: {
-    fontSize: 15, 
+    fontSize: 15,
   },
   myBubbleTextContent: {
     color: 'white',
@@ -150,7 +172,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     marginTop: 20,
-    width: "90%",
+    width: '90%',
   },
   input: {
     flex: 1,

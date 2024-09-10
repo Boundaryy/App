@@ -1,11 +1,28 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const App = () => {
     const [selectedSession, setSelectedSession] = useState(null);
+    const [situations, setSituations] = useState([]);
+    const [loading, setLoading] = useState(true); 
     const navigation = useNavigation();
+
+    useEffect(() => {
+        const fetchSituations = async () => {
+            try {
+                const response = await axios.get('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations');
+                setSituations(response.data);
+            } catch (error) {
+                console.error('Failed to fetch situations:', error);
+            } finally {
+                setLoading(false); 
+            }
+        };
+        fetchSituations();
+    }, []);
 
     const handleSessionPress = (index) => {
         setSelectedSession(index);
@@ -14,6 +31,15 @@ const App = () => {
     const handleNextButtonPress = () => {
         navigation.navigate('child/training/resolve'); 
     };
+
+    if (loading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="#5772FF" />
+                <Text>상황을 불러오는 중...</Text>
+            </View>
+        );
+    }
 
     return (
         <View style={globalStyles.container}>
@@ -26,6 +52,7 @@ const App = () => {
                     AI와 부모님이 만들어 준 상황을 선택해보세요.
                 </Text>
             </View>
+
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={[
@@ -43,10 +70,10 @@ const App = () => {
                         <Text style={styles.buttonExplain}>부모님픽!</Text>
                     </View>
                 </TouchableOpacity>
-                
-                {['식당에서 주문하기', '전화 통화하기', '친구 위로하기', '상점에서 계산하기'].map((title, index) => (
+
+                {situations.map((situation, index) => (
                     <TouchableOpacity
-                        key={index + 1}
+                        key={situation.situationId}
                         style={[
                             styles.session,
                             selectedSession === index + 1 && styles.selectedSession
@@ -58,7 +85,7 @@ const App = () => {
                             style={styles.buttonImage}
                         />
                         <View style={styles.buttonTextContainer}>
-                            <Text style={styles.buttonTitle}>{title}</Text>
+                            <Text style={styles.buttonTitle}>{situation.content}</Text>
                             <Text style={styles.buttonExplain}>AI 생성</Text>
                         </View>
                     </TouchableOpacity>
@@ -72,6 +99,11 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     backButton: {
         marginBottom: 10,
     },
@@ -89,7 +121,7 @@ const styles = StyleSheet.create({
         padding: 14,
         marginBottom: 8,
         borderWidth: 3,
-        borderColor: 'transparent', 
+        borderColor: 'transparent',
     },
     selectedSession: {
         borderColor: '#A5B3FF',
@@ -110,7 +142,7 @@ const styles = StyleSheet.create({
     },
     buttonTitle: {
         fontSize: 18,
-        fontWeight:"900",
+        fontWeight: "900",
     },
     buttonExplain: {
         color: '#808080',
