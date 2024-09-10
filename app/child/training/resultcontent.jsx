@@ -25,9 +25,19 @@ const ResultScreen = () => {
         fetchFeedback();
     }, []);
 
-    const handleSubmit = () => {
-        console.log('완료 버튼이 클릭되었습니다.');
-        router.push('/child/training/point'); 
+    const handleSubmit = async () => {
+        try {
+            const response = await axios.post(
+                'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/stt/threads/{threadId}', 
+                { status: 'complete' } 
+            );
+            if (response.status === 202) {
+                console.log('학습 종료 성공:', response.status);
+                router.push('/child/training/point'); 
+            }
+        } catch (error) {
+            console.error('학습 종료 실패:', error);
+        }
     };
 
     return (
