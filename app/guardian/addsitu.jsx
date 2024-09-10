@@ -1,20 +1,69 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
+import axios from 'axios';
 
 export default function MemoryGameAnswer() {
   const router = useRouter();
+  const [situation, setSituation] = useState('');
+  const [situations, setSituations] = useState([]);
 
-  const handleSubmit = () => {
-    router.push('/guardian/succesadd');
+  // Fetch existing situations on component mount
+  useEffect(() => {
+    const fetchSituations = async () => {
+      try {
+        const response = await axios.get(
+          'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations'
+        );
+        setSituations(response.data); // Assuming the response is an array of situations
+      } catch (error) {
+        console.error('상황 조회 실패:', error);
+      }
+    };
+
+    fetchSituations();
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations',
+        {
+          situation,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log('등록 성공:', response.data);
+      router.push('/guardian/succesadd');
+    } catch (error) {
+      console.error('등록 실패:', error);
+    }
   };
 
   const handleBack = () => {
     router.push('/guardian/home');
   };
 
-  const handleDelete = (item) => {
-    console.log(`${item} 삭제`);
+  const handleDelete = async (situationId) => {
+    try {
+      const response = await axios.delete(
+        `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations/${situationId}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log('삭제 성공:', response.status);
+      // After deletion, refresh the situation list
+      setSituations(situations.filter(item => item.situationId !== situationId));
+    } catch (error) {
+      console.error('삭제 실패:', error);
+    }
   };
 
   return (
@@ -27,24 +76,27 @@ export default function MemoryGameAnswer() {
       <Text style={styles.greeting}>아이에게 필요한 상황을 추가해보세요.</Text>
 
       <View style={styles.content}>
-        <Text style={styles.question}>
-          <Text style={styles.highlight}>이미 있는 상황</Text>
-          <View style={styles.checkboxContainer}>
-            {['친구와 약속 조정', '식당에서 주문하기', '전화 통화하기', '친구 위로하기', '상점에서 계산하기'].map((item, index) => (
-              <View key={index} style={styles.checkboxItem}>
-                <Text style={styles.checkboxText}>{item}</Text>
-                <TouchableOpacity style={styles.deleteButton} onPress={() => handleDelete(item)}>
-                  <Text style={styles.deleteButtonText}>삭제</Text>
-                </TouchableOpacity>
-              </View>
-            ))}
-          </View>
-        </Text>
+        <Text style={styles.highlight}>이미 있는 상황</Text>
+        <View style={styles.checkboxContainer}>
+          {situations.map((item) => (
+            <View key={item.situationId} style={styles.checkboxItem}>
+              <Text style={styles.checkboxText}>{item.content}</Text>
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => handleDelete(item.situationId)}
+              >
+                <Text style={styles.deleteButtonText}>삭제</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
 
         <TextInput
           style={styles.input}
           placeholder="예시) ~~하는 상황"
           placeholderTextColor="#808080"
+          value={situation}
+          onChangeText={setSituation}
         />
 
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
@@ -87,12 +139,6 @@ const styles = StyleSheet.create({
   content: {
     marginTop: 24,
     alignItems: 'center',
-  },
-  question: {
-    fontSize: 18,
-    marginBottom: 24,
-    color: '#000',
-    textAlign: 'center',
   },
   highlight: {
     color: '#5772FF',
@@ -142,7 +188,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     color: '#393939',
     flex: 1,
-    width: 240, 
+    width: 240,
     marginLeft: 8,
   },
   deleteButton: {
@@ -152,7 +198,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingVertical: 8,
     paddingHorizontal: 16,
-    marginLeft: 12, 
+    marginLeft: 12,
   },
   deleteButtonText: {
     color: 'red',
