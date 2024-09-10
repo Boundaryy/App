@@ -6,18 +6,17 @@ import { globalStyles } from '../../../styles/global';
 
 const ResultScreen = () => {
     const router = useRouter();
-    const [feedbackTop, setFeedbackTop] = useState('');  // Top section feedback
-    const [feedbackBottom, setFeedbackBottom] = useState(''); // Bottom section feedback
+    const [feedbackTop, setFeedbackTop] = useState('');  
+    const [feedbackBottom, setFeedbackBottom] = useState(''); 
 
-    // Fetch feedback from API on component mount
     useEffect(() => {
         const fetchFeedback = async () => {
             try {
                 const response = await axios.get(
-                    'https://your-api-endpoint.com/feedback' // Replace with your actual API URL
+                    'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/stt/threads/{thredId}' 
                 );
-                setFeedbackTop(response.data.feedBackTop);   // Set the top section feedback
-                setFeedbackBottom(response.data.feedBackBottom); // Set the bottom section feedback
+                setFeedbackTop(response.data.feedBackTop);   
+                setFeedbackBottom(response.data.feedBackBottom); 
             } catch (error) {
                 console.error('피드백 가져오기 실패:', error);
             }
