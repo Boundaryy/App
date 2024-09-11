@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { globalStyles } from '../../styles/global';
 import { useRouter } from 'expo-router';
-import { Calendar } from 'react-native-calendars'; 
+import { Calendar } from 'react-native-calendars';
+import axios from 'axios';
 
 const results = [
   {
@@ -21,6 +22,20 @@ const results = [
 
 const MyPage = () => {
   const router = useRouter();
+  const [points, setPoints] = useState(0); // 여기가 포인트 API 연결한거에용! 슷지 비꾸면 api 연결 안했을 때 이 숫자 나옵니다. 현재는 0 
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/user');  
+        setPoints(response.data.point);  
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleBackButtonClick = () => {
     router.back(); 
@@ -39,7 +54,7 @@ const MyPage = () => {
           source={require('../../assets/images/image.png')} 
           style={styles.headerImage} 
         />
-        <Text style={styles.headerText}>LV.8 (24 포인트)</Text>
+        <Text style={styles.headerText}>LV.8 ({points} 포인트)</Text>
       </View>
 
       <View style={[styles.profileContainer, { marginTop: 30 }]}>
