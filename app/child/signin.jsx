@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 import axios from 'axios';
 import { useRouter } from 'expo-router';
 import { globalStyles } from '../../styles/global';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
     const [username, setUsername] = useState('');
@@ -14,11 +15,21 @@ const LoginScreen = () => {
             alert("빈칸없이 작성해주세요");
         } else {
             try {
-                const response = await axios.post('http://boundary.main.oyunchan.com:5001/login',
-                {
+                const response = await axios.post('http://boundary.main.oyunchan.com:5001/login', {
                     userId: username,
                     password: password,
                 });
+    
+                const accessToken = response.data.tokens.accessToken;
+                await AsyncStorage.setItem("accessToken", accessToken);
+    
+                // 사용자 정보 요청 시 헤더에 access_token 추가
+                const user = await axios.get('http://boundary.main.oyunchan.com:5001/user', {
+                    headers: {
+                        access_token: accessToken
+                    }
+                });
+                console.log(user);
                 console.log("로그인 성공");  
                 router.push('/child/home');
 
