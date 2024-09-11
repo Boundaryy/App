@@ -20,7 +20,7 @@ const ChatScreen = () => {
     const fetchFirstMessage = async () => {
       try {
         const response = await axios.get(
-          'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/stt/{situationId}',
+          'http://boundary.main.oyunchan.com:5001/stt/{situationId}',
           {
             headers: {
               'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const ChatScreen = () => {
     if (message.trim()) {
       try {
         const response = await axios.post(
-          'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/stt/threads/{threadId}',
+          'http://boundary.main.oyunchan.com:5001/stt/threads/{threadId}',
           {
             userMessage: message,
           },
