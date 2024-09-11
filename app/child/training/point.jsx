@@ -8,7 +8,7 @@ export default function AnswerScreen() {
 
   const handlePress = async () => {
     try {
-      const response = await axios.post('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/cognition', {
+      const response = await axios.post('http://boundary.main.oyunchan.com:5001/cognition', {
         addPoint: 100 
       });
 

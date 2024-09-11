@@ -48,7 +48,7 @@ export default function SignUp() {
         }
         else {
             try {
-                const response = axios.post('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/signup/child',
+                const response = axios.post('http://boundary.main.oyunchan.com:5001/signup/child',
                 {
                     age: age,    
                     phoneNum: phoneNumber,

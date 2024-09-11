@@ -31,25 +31,25 @@ const SignupScreen = () => {
             createTwoButtonAlert()
         }
         else {
-            // try {
-            //     axios({
-            //         url:"https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/signup/parent",
-            //         method:"post",
-            //         data : {
-            //             "name": name,
-            //             "age": age,
-            //             "phoneNum": phoneNumber,
-            //             "gender": selectedGender,
-            //             "userId": username,
-            //             "password": username,
-            //             "role": "Child",
-            //             "point": 0
-            //         }
-            //     })
-            // }
-            // catch {
-            //     alert("백엔드 에러")
-            // }
+            try {
+                 axios({
+                     url:"http://boundary.main.oyunchan.com:5001/signup/parent",
+                     method:"post",
+                     data : {
+                         "name": name,
+                         "age": age,
+                         "phoneNum": phoneNumber,
+                         "gender": selectedGender,
+                         "userId": username,
+                         "password": username,
+                         "role": "Child",
+                         "point": 0
+                     }
+                 })
+             }
+             catch {
+                 alert("백엔드 에러")
+             }
             route.push('/guardian/signin')
         }
     }

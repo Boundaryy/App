@@ -14,7 +14,7 @@ const LoginScreen = () => {
             alert("빈칸없이 작성해주세요");
         } else {
             try {
-                const response = await axios.post('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/login',
+                const response = await axios.post('http://boundary.main.oyunchan.com:5001/login',
                 {
                     userId: username,
                     password: password,

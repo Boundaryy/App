@@ -13,7 +13,7 @@ const ResultScreen = () => {
         const fetchFeedback = async () => {
             try {
                 const response = await axios.get(
-                    'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/stt/threads/{thredId}' 
+                    'http://boundary.main.oyunchan.com:5001/stt/threads/{thredId}' 
                 );
                 setFeedbackTop(response.data.feedBackTop);   
                 setFeedbackBottom(response.data.feedBackBottom); 

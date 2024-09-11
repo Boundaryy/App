@@ -13,7 +13,7 @@ const App = () => {
     useEffect(() => {
         const fetchSituations = async () => {
             try {
-                const response = await axios.get('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations');
+                const response = await axios.get('http://boundary.main.oyunchan.com:5001/situations');
                 setSituations(response.data);
             } catch (error) {
                 console.error('Failed to fetch situations:', error);

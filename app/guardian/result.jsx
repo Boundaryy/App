@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from "axios"
 
 const axiosFunction = () => {
-    const response = axios.get("https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations")
+    const response = axios.get("http://boundary.main.oyunchan.com:5001/situations")
 }
 
 const results = [

@@ -27,7 +27,7 @@ const MyPage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/user');  
+        const response = await axios.get('http://boundary.main.oyunchan.com:5001/user');  
         setPoints(response.data.point);  
       } catch (error) {
         console.error('Error fetching user data:', error);

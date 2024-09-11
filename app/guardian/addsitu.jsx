@@ -12,7 +12,7 @@ export default function MemoryGameAnswer() {
     const fetchSituations = async () => {
       try {
         const response = await axios.get(
-          'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations'
+          'http://boundary.main.oyunchan.com:5001/situations'
         );
         setSituations(response.data); 
       } catch (error) {
@@ -26,7 +26,7 @@ export default function MemoryGameAnswer() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations',
+        'http://boundary.main.oyunchan.com:5001/situations',
         {
           situation,
         },
@@ -50,7 +50,7 @@ export default function MemoryGameAnswer() {
   const handleDelete = async (situationId) => {
     try {
       const response = await axios.delete(
-        `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations/${situationId}`,
+        `http://boundary.main.oyunchan.com:5001/situations/${situationId}`,
         {
           headers: {
             'Content-Type': 'application/json',

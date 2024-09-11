@@ -13,7 +13,7 @@ const App = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/user');
+                const response = await axios.get('http://boundary.main.oyunchan.com:5001/user');
                 setUserData(response.data);
             } catch (error) {
                 console.error("데이터 불러오기 중 오류 발생:", error);
@@ -26,7 +26,7 @@ const App = () => {
 
     const handleLogout = async () => {
         try {
-            const response = await axios.post('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/logout', {});
+            const response = await axios.post('http://boundary.main.oyunchan.com:5001/logout', {});
             if (response.status === 200) {
                 setLogoutMessage(response.data); 
                 setTimeout(() => {
