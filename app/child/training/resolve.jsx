@@ -8,12 +8,35 @@ const ChatScreen = () => {
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState('');
   const router = useRouter();
+  const [botFirstMessage, setBotFirstMessage] = useState('');
 
   useEffect(() => {
     if (messageList.length >= 3) {
       router.push('/child/training/resultcontent');
     }
   }, [messageList, router]);
+
+  useEffect(() => {
+    const fetchFirstMessage = async () => {
+      try {
+        const response = await axios.get(
+          'https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/stt/{situationId}',
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        const firstMessage = response.data.botFirstMessage;
+        setBotFirstMessage(firstMessage);
+        setMessageList([{ sender: 'bot', text: firstMessage }]);
+      } catch (error) {
+        console.error('첫 메시지 불러오기 실패:', error);
+      }
+    };
+
+    fetchFirstMessage();
+  }, []);
 
   const sendMessage = async () => {
     if (message.trim()) {
@@ -54,15 +77,6 @@ const ChatScreen = () => {
       </View>
 
       <ScrollView style={styles.chatArea}>
-        <View style={styles.speechBubbleContainer}>
-          <Image
-            source={{ uri: 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Robot.png' }}
-            style={styles.icon}
-          />
-          <View style={styles.speechBubble}>
-            <Text style={styles.bubbleText}>오늘 희성이가 아파서 학교에 가지 못했다.</Text>
-          </View>
-        </View>
         {messageList.map((mes, key) => (
           <View key={key} style={mes.sender === 'user' ? styles.mySpeechBubbleContainer : styles.speechBubbleContainer}>
             <Image
