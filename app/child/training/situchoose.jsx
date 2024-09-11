@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, ActivityIndicator } fr
 import { globalStyles } from '../../../styles/global';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const App = () => {
     const [selectedSession, setSelectedSession] = useState(null);
@@ -13,8 +14,12 @@ const App = () => {
     useEffect(() => {
         const fetchSituations = async () => {
             try {
-                const response = await axios.get('http://boundary.main.oyunchan.com:5001/situations');
-                setSituations(response.data);
+                // const response = await axios.get('http://boundary.main.oyunchan.com:5001/situations');
+                //setSituations(response.data);
+
+                const accessToken = await AsyncStorage.getItem("accessToken");
+                console.log(accessToken);
+
             } catch (error) {
                 console.error('Failed to fetch situations:', error);
             } finally {
