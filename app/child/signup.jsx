@@ -1,35 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, SafeAreaView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { globalStyles } from '../../styles/global'
-import { Button } from '../../components/Button';
 import { useRouter } from 'expo-router';
+import { globalStyles } from '../../styles/global';
+import { Button } from '../../components/Button';
 import axios from 'axios';
 
 export default function SignUp() {
-    const [selectedGender, setSelectedGender] = useState('남자');
+    const [gender, setSelectedGender] = useState('남자');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [age, setAge] = useState(0);
+    const [age, setAge] = useState('');
     const [name, setName] = useState('');
-    const [username, setUsername] = useState('');
+    const [userId, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
-    
-    const navigation = useNavigation();
 
     const createTwoButtonAlert = () => {
-        alert("빈칸없이 작성해주세요!")
+        Alert.alert("빈칸없이 작성해주세요!");
     };
-    
 
     const handleGenderClick = (gender) => {
         setSelectedGender(gender);
-    };
-
-    const handleKeyDown = (event, gender) => {
-        if (event.nativeEvent.key === 'Enter' || event.nativeEvent.key === ' ') {
-            handleGenderClick(gender);
-        }
     };
 
     const formatPhoneNumber = (text) => {
@@ -42,33 +32,30 @@ export default function SignUp() {
         setPhoneNumber(input);
     };
 
-    const handleClick = () => {
-        if (!phoneNumber || !age || !name || !selectedGender || !username || !password){
-            createTwoButtonAlert()
+    const handleClick = async () => {
+        if (!name || !age || !phoneNumber || !gender || !userId || !password) {
+            createTwoButtonAlert();
+            return;
         }
-        else {
-            try {
-                const response = axios.post('http://boundary.main.oyunchan.com:5001/signup/child',
-                {
-                    age: age,    
-                    phoneNum: phoneNumber,
-                    selectedGender: selectedGender,
-                    username: name,
-                    password: password,
-                    role: "Child",
-                    name: username,
-                    point: 0,
-                     
-                });
-                console.log("회원가입 성공");  
-                router.push('/child/signin');
-                alert("성공");
-            } catch (error) {
-                console.error("회원가입 중 오류 발생:", error);
-                alert("오류");
-            }
+
+        try {
+            const response = await axios.post('http://boundary.main.oyunchan.com:5001/signup/child', {
+                name,
+                age: parseInt(age, 10),
+                phoneNum: phoneNumber,
+                gender,
+                userId,
+                password,
+                point: 0
+            });
+            console.log("회원가입 성공");
+            Alert.alert("회원가입 성공", "로그인 페이지로 이동합니다.");
+            router.push('/child/signin');
+        } catch (error) {
+            console.error("회원가입 중 오류 발생:", error.response?.data || error.message);
+            Alert.alert("회원가입 오류", error.response?.data?.message || "다시 시도해 주세요.");
         }
-    }
+    };
 
     return (
         <View style={globalStyles.logincontainer}>
@@ -114,18 +101,16 @@ export default function SignUp() {
                 <Text style={globalStyles.label}>성별을 선택해주세요.</Text>
                 <View style={styles.genderContainer}>
                     <TouchableOpacity
-                        style={[styles.genderOption, selectedGender === '남자' && styles.selectedGender]}
+                        style={[styles.genderOption, gender === '남자' && styles.selectedGender]}
                         onPress={() => handleGenderClick('남자')}
-                        onKeyPress={(e) => handleKeyDown(e, '남자')}
                     >
-                        <Text style={selectedGender === '남자' ? styles.selectedText : styles.text}>남자</Text>
+                        <Text style={gender === '남자' ? styles.selectedText : styles.text}>남자</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.genderOption, selectedGender === '여자' && styles.selectedGender]}
+                        style={[styles.genderOption, gender === '여자' && styles.selectedGender]}
                         onPress={() => handleGenderClick('여자')}
-                        onKeyPress={(e) => handleKeyDown(e, '여자')}
                     >
-                        <Text style={selectedGender === '여자' ? styles.selectedText : styles.text}>여자</Text>
+                        <Text style={gender === '여자' ? styles.selectedText : styles.text}>여자</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -135,7 +120,7 @@ export default function SignUp() {
                 <TextInput
                     style={globalStyles.input}
                     placeholder="ex) boundary_baby"
-                    value={username}
+                    value={userId}
                     onChangeText={setUsername}
                 />
             </View>
@@ -151,30 +136,12 @@ export default function SignUp() {
                 />
             </View>
 
-            <Button onPress={handleClick} title={"회원가입"}/>
+            <Button onPress={handleClick} title={"회원가입"} />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        display:"flex",
-        justifyContent:"flex-start"
-    },
-    formGroup: {
-        marginBottom: 20,
-    },
-    label: {
-        fontSize: 18,
-        marginBottom: 5,
-    },
-    input: {
-        borderBottomWidth: 2,
-        borderBottomColor: '#5772FF',
-        fontSize: 20,
-        paddingVertical: 5,
-        color: '#5772FF',
-    },
     genderContainer: {
         flexDirection: 'row',
         marginTop: 10,
@@ -197,18 +164,5 @@ const styles = StyleSheet.create({
     },
     selectedText: {
         color: '#fff',
-    },
-    genderOptionRight: {
-        marginRight: 20,  // 오른쪽 버튼을 왼쪽으로 50만큼 이동
-    },
-    button: {
-        backgroundColor: '#5772FF',
-        padding: 15,
-        borderRadius: 25,
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 18,
     },
 });
