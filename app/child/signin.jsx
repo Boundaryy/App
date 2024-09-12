@@ -26,7 +26,7 @@ const LoginScreen = () => {
                 // 사용자 정보 요청 시 헤더에 access_token 추가
                 const user = await axios.get('http://boundary.main.oyunchan.com:5001/user', {
                     headers: {
-                        access_token: accessToken
+                        access_token: s
                     }
                 });
                 console.log(user);

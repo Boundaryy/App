@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { useRouter } from 'expo-router';
 import axios from 'axios';
 import { globalStyles } from '../../../styles/global';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ResultScreen = () => {
     const router = useRouter();
@@ -10,19 +11,19 @@ const ResultScreen = () => {
     const [feedbackBottom, setFeedbackBottom] = useState(''); 
 
     useEffect(() => {
-        const fetchFeedback = async () => {
+        const fetchData = async () => {
             try {
+                const threadId = await AsyncStorage.getItem("thread");
                 const response = await axios.get(
-                    'http://boundary.main.oyunchan.com:5001/stt/threads/{thredId}' 
+                    `http://boundary.main.oyunchan.com:5001/stt/threads/${threadId}` 
                 );
-                setFeedbackTop(response.data.feedBackTop);   
+                setFeedbackTop(response.data.feedback);   
                 setFeedbackBottom(response.data.feedBackBottom); 
             } catch (error) {
                 console.error('피드백 가져오기 실패:', error);
             }
-        };
-
-        fetchFeedback();
+        }
+        fetchData();
     }, []);
 
     const handleSubmit = async () => {

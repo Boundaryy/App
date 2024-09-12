@@ -3,15 +3,19 @@ import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView,
 import { useRouter } from 'expo-router';
 import axios from 'axios';
 import { globalStyles } from '../../../styles/global';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const ChatScreen = () => {
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState('');
+  const [threads, setThreads] = useState('');
+  
   const router = useRouter();
-  const [botFirstMessage, setBotFirstMessage] = useState('');
 
   useEffect(() => {
-    if (messageList.length >= 3) {
+    if (messageList.length >= 6) {
+      AsyncStorage.setItem("thread", threads);
       router.push('/child/training/resultcontent');
     }
   }, [messageList, router]);
@@ -19,17 +23,18 @@ const ChatScreen = () => {
   useEffect(() => {
     const fetchFirstMessage = async () => {
       try {
-        const response = await axios.get(
-          'http://boundary.main.oyunchan.com:5001/stt/{situationId}',
+        const response = await axios.post(
+          `http://boundary.main.oyunchan.com:5001/sst/1`,
           {
             headers: {
-              'Content-Type': 'application/json',
+              access_token:'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQ2hpbGQiLCJpc3MiOiJncmV5Ym94IiwiZXhwIjoxNzI5NzAxNTQ2LCJpYXQiOjE3MjYxMDE1NDYsIm1lbWJlcklkIjo4fQ.eoF9O7YtIr5WhxVEmsR0xr5MwTLpf6XHNUJuVzJ5f6HpcMY1ZDkU20uOaRN-GHV3rLZrzvQuheocVsfxr8fTPg',
             },
           }
         );
-        const firstMessage = response.data.botFirstMessage;
-        setBotFirstMessage(firstMessage);
-        setMessageList([{ sender: 'bot', text: firstMessage }]);
+        console.log(response.data.botFirstMessage)
+        setThreads(response.data.threadId)
+        setMessageList([...messageList, response.data.botFirstMessage])
+        // setMessageList([{ sender: 'bot', text: firstMessage }]);
       } catch (error) {
         console.error('첫 메시지 불러오기 실패:', error);
       }
@@ -39,29 +44,31 @@ const ChatScreen = () => {
   }, []);
 
   const sendMessage = async () => {
-    if (message.trim()) {
       try {
+        console.log(threads)
+        console.log(message)
         const response = await axios.post(
-          'http://boundary.main.oyunchan.com:5001/stt/threads/{threadId}',
+          `http://boundary.main.oyunchan.com:5001/sst/threads/${threads}`,
           {
             userMessage: message,
           },
           {
             headers: {
-              'Content-Type': 'application/json',
+              access_token:'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQ2hpbGQiLCJpc3MiOiJncmV5Ym94IiwiZXhwIjoxNzI5NjY4MjU4LCJpYXQiOjE3MjYwNjgyNTgsIm1lbWJlcklkIjo4fQ.F3Cbsh8SbtTiVSL-gI6ISjWrYNvBwRIpx5UUyfjQ0YNxDamvRAwO96ie9YNgmnYsVMc-v1V-mqrd0LP6Fj7TDw',
             },
           }
         );
 
+        console.log(response)
+
         const botMessage = response.data.botMessage;
 
-        setMessageList([...messageList, { sender: 'user', text: message }, { sender: 'bot', text: botMessage }]);
+        setMessageList([...messageList, message, botMessage]);
         setMessage('');
       } catch (error) {
         console.error('메시지 전송 실패:', error);
       }
-    }
-  };
+    };
 
   const handleBackClick = () => {
     router.push('child/home');
@@ -78,17 +85,17 @@ const ChatScreen = () => {
 
       <ScrollView style={styles.chatArea}>
         {messageList.map((mes, key) => (
-          <View key={key} style={mes.sender === 'user' ? styles.mySpeechBubbleContainer : styles.speechBubbleContainer}>
+          <View key={key} style={key%2 == 1 ? styles.mySpeechBubbleContainer : styles.speechBubbleContainer}>
             <Image
               source={{
-                uri: mes.sender === 'user'
+                uri: key%2 == 1
                   ? 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Astonished%20Face.png'
                   : 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Robot.png',
               }}
               style={styles.icon}
             />
-            <View style={mes.sender === 'user' ? styles.mySpeechBubble : styles.speechBubble}>
-              <Text style={mes.sender === 'user' ? styles.myBubbleTextContent : styles.bubbleText}>{mes.text}</Text>
+            <View style={key%2 == 1 ? styles.mySpeechBubble : styles.speechBubble}>
+              <Text style={key%2 == 1 ? styles.myBubbleTextContent : styles.bubbleText}>{mes}</Text>
             </View>
           </View>
         ))}
