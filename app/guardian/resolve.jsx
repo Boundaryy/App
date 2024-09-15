@@ -13,7 +13,7 @@ const ResultScreen = () => {
         const fetchFeedback = async () => {
             try {
                 const response = await axios.get(
-                    'http://boundary.main.oyunchan.com:5001/stt/threads/{thredId}' 
+                    `${process.env.REACT_APP_API_URL}/stt/threads/{thredId}` 
                 );
                 setFeedbackTop(response.data.feedBackTop);   
                 setFeedbackBottom(response.data.feedBackBottom); 

@@ -12,11 +12,11 @@ export default function MemoryGameAnswer() {
     const fetchSituations = async () => {
       try {
         const response = await axios.get(
-          'http://boundary.main.oyunchan.com:5001/situations'
+          `${process.env.REACT_APP_API_URL}/situations`
         );
         setSituations(response.data); 
       } catch (error) {
-        console.error('상황 조회 실패:', error);
+        console.error(`상황 조회 실패:`, error);
       }
     };
 
@@ -26,7 +26,7 @@ export default function MemoryGameAnswer() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        'http://boundary.main.oyunchan.com:5001/situations',
+        `${process.env.REACT_APP_API_URL}/situations`,
         {
           situation,
         },

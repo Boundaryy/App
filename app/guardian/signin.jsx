@@ -14,7 +14,7 @@ const LoginScreen = () => {
             alert("빈칸없이 작성해주세요");
         } else {
             try {
-                const response = await axios.post('http://boundary.main.oyunchan.com:5001/login', {
+                const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
                     userId: username,
                     password: password,
                 });

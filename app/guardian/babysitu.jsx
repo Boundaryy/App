@@ -27,7 +27,7 @@ const MyPage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://boundary.main.oyunchan.com:5001/user');  
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/user`);  
         setPoints(response.data.point);  
       } catch (error) {
         console.error('Error fetching user data:', error);

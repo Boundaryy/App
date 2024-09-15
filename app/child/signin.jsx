@@ -15,7 +15,7 @@ const LoginScreen = () => {
             alert("빈칸없이 작성해주세요");
         } else {
             try {
-                const response = await axios.post('http://boundary.main.oyunchan.com:5001/login', {
+                const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
                     userId: username,
                     password: password,
                 });
@@ -24,7 +24,7 @@ const LoginScreen = () => {
                 await AsyncStorage.setItem("accessToken", accessToken);
     
                 // 사용자 정보 요청 시 헤더에 access_token 추가
-                const user = await axios.get('http://boundary.main.oyunchan.com:5001/user', {
+                const user = await axios.get(`${process.env.REACT_APP_API_URL}/user`, {
                     headers: {
                         access_token: s
                     }

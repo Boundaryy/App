@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from "axios"
 
 const axiosFunction = () => {
-    const response = axios.get("http://boundary.main.oyunchan.com:5001/situations")
+    const response = axios.get(`${process.env.REACT_APP_API_URL}/situations`)
 }
 
 const results = [

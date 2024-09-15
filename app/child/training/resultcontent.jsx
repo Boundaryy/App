@@ -15,7 +15,7 @@ const ResultScreen = () => {
             try {
                 const threadId = await AsyncStorage.getItem("thread");
                 const response = await axios.get(
-                    `http://boundary.main.oyunchan.com:5001/stt/threads/${threadId}` 
+                    `${process.env.REACT_APP_API_URL}/stt/threads/${threadId}` 
                 );
                 setFeedbackTop(response.data.feedback);   
                 setFeedbackBottom(response.data.feedBackBottom); 
@@ -29,7 +29,7 @@ const ResultScreen = () => {
     const handleSubmit = async () => {
         try {
             const response = await axios.post(
-                'http://boundary.main.oyunchan.com:5001/stt/threads/{threadId}', 
+                `${process.env.REACT_APP_API_URL}/stt/threads/{threadId}`, 
                 { status: 'complete' } 
             );
             if (response.status === 202) {

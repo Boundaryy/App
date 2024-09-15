@@ -33,7 +33,7 @@ const SignupScreen = () => {
         else {
             try {
                  axios({
-                     url:"http://boundary.main.oyunchan.com:5001/signup/parent",
+                     url:`${process.env.REACT_APP_API_URL}/signup/parent`,
                      method:"post",
                      data : {
                          "name": name,

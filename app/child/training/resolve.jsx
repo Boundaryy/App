@@ -24,7 +24,7 @@ const ChatScreen = () => {
     const fetchFirstMessage = async () => {
       try {
         const response = await axios.post(
-          `http://boundary.main.oyunchan.com:5001/sst/1`,
+          `${process.env.REACT_APP_API_URL}/sst/1`,
           {
             headers: {
               access_token:'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQ2hpbGQiLCJpc3MiOiJncmV5Ym94IiwiZXhwIjoxNzI5NzAxNTQ2LCJpYXQiOjE3MjYxMDE1NDYsIm1lbWJlcklkIjo4fQ.eoF9O7YtIr5WhxVEmsR0xr5MwTLpf6XHNUJuVzJ5f6HpcMY1ZDkU20uOaRN-GHV3rLZrzvQuheocVsfxr8fTPg',
