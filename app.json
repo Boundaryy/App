@@ -2,7 +2,7 @@
   "scheme": "A",
   "expo": {
     "name": "StickerSmash",
-    "slug": "StickerSmash",
+    "slug": "boundary",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,13 +19,20 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.huise0ng.boundary"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2310b494-ba13-4a99-b7e6-520b694b5600"
+      }
+    },
+    "owner": "huise0ng"
   }
 }
