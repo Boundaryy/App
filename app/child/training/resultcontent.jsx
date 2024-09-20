@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
 import axios from 'axios';
 import { globalStyles } from '../../../styles/global';
@@ -10,35 +10,47 @@ const ResultScreen = () => {
     const [feedbackTop, setFeedbackTop] = useState('');  
     const [feedbackBottom, setFeedbackBottom] = useState(''); 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const threadId = await AsyncStorage.getItem("thread");
-                const response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/stt/threads/${threadId}` 
-                );
-                setFeedbackTop(response.data.feedback);   
-                setFeedbackBottom(response.data.feedBackBottom); 
-            } catch (error) {
-                console.error('피드백 가져오기 실패:', error);
-            }
+    const deleteData = async () => {
+        try {
+            console.log("deleteData")
+            const threadId = await AsyncStorage.getItem("thread");
+            const response = await axios.delete(
+                `http://52.79.202.25:5001/sst/threads/${threadId}` ,{
+                    headers: {
+                      access_token:AsyncStorage.getItem("accessToken"),
+                    },
+                  }
+            );
+            console.log("deleteData2")
+            await fetchData();
+        } catch (error) {
+            console.error('피드백 가져오기 실패:', error);
+            deleteData();
         }
-        fetchData();
-    }, []);
+    }
+
+    const fetchData = async () => {
+        try {
+            console.log("fetchData")
+            const threadId = await AsyncStorage.getItem("thread");
+            const response = await axios.get(
+                `http://52.79.202.25:5001/sst/threads/${threadId}`,{
+                    headers: {
+                      access_token:AsyncStorage.getItem("accessToken"),
+                    },
+                  } 
+            );
+            console.log("fetchData2")
+            setFeedbackTop(response.data.feedBack);   
+        } catch (error) {
+            console.error('피드백 가져오기 실패:', error);
+            fetchData();
+        }
+    }
 
     const handleSubmit = async () => {
-        try {
-            const response = await axios.post(
-                `${process.env.REACT_APP_API_URL}/stt/threads/{threadId}`, 
-                { status: 'complete' } 
-            );
-            if (response.status === 202) {
-                console.log('학습 종료 성공:', response.status);
-                router.push('/child/training/point'); 
-            }
-        } catch (error) {
-            console.error('학습 종료 실패:', error);
-        }
+        console.log('학습 종료 성공:', response.status);
+        router.push('/child/training/point'); 
     };
 
     return (
@@ -47,14 +59,14 @@ const ResultScreen = () => {
                 <Text style={globalStyles.subtitle}>결과</Text>
                 <Text style={globalStyles.description}>7월 17일 결과에요</Text>
             </View>
-
-            <View style={styles.messageBox}>
-                <Text style={styles.messageText}>{feedbackTop || '값을 가지고 오지 못했어요.'}</Text>
-            </View>
-
-            <View style={styles.suggestions}>
-                <Text style={styles.suggestionText}>{feedbackBottom || '값을 가지고 오지 못했어요.'}</Text>
-            </View>
+            
+            <TouchableOpacity style={styles.messageBox}  onPress={() => deleteData()}>
+                <SafeAreaView style={styles.scrollView}>
+                    <ScrollView>
+                        <Text style={styles.messageText}>{feedbackTop || '터치하면 피드백을 볼 수 있어요.'}</Text>
+                    </ScrollView>
+                </SafeAreaView>
+            </TouchableOpacity>
 
             <View style={styles.footer}>
                 <Text style={styles.footerText}>테스트에서{'\n'}희성이를 걱정하는 말을 해주셔야 해요.</Text>
@@ -88,19 +100,26 @@ const styles = StyleSheet.create({
         marginLeft: -140,  
     },
     messageBox: {
-        width: 294,
-        height: 177,
+        width: "85%",
+        height: "70%",
         backgroundColor: '#F9F9F9',
         borderRadius: 10,
         padding: 16,
-        marginBottom: 30,
+        marginTop: 110,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
+    scrollView: {
+        width: "90%",
+        height: "90%",
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
     },
     messageText: {
         color: '#565656',
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: '500',
         textAlign: 'center',
     },
@@ -119,12 +138,11 @@ const styles = StyleSheet.create({
     suggestionText: {
         color: '#565656',
         fontSize: 16,
-        marginBottom: 8,
     },
     footer: {
         width: '100%',
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 10,
     },
     footerText: {
         color: '#909090',
@@ -138,7 +156,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 40,
+        marginTop: 10,
     },
     buttonText: {
         color: '#FFFFFF',

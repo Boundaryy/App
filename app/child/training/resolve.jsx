@@ -10,51 +10,58 @@ const ChatScreen = () => {
   const [messageList, setMessageList] = useState([]);
   const [message, setMessage] = useState('');
   const [threads, setThreads] = useState('');
+  const [isVisible, setIsVisible] = useState(true);
+
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
   
   const router = useRouter();
 
   useEffect(() => {
-    if (messageList.length >= 6) {
-      AsyncStorage.setItem("thread", threads);
-      router.push('/child/training/resultcontent');
+    if (messageList.length >= 5) {
+      setTimeout(function () {
+        AsyncStorage.setItem("thread", threads);
+        router.push('/child/training/resultcontent');
+      }, 3000);
+
     }
   }, [messageList, router]);
 
-  useEffect(() => {
-    const fetchFirstMessage = async () => {
-      try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_API_URL}/sst/1`,
-          {
-            headers: {
-              access_token:'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQ2hpbGQiLCJpc3MiOiJncmV5Ym94IiwiZXhwIjoxNzI5NzAxNTQ2LCJpYXQiOjE3MjYxMDE1NDYsIm1lbWJlcklkIjo4fQ.eoF9O7YtIr5WhxVEmsR0xr5MwTLpf6XHNUJuVzJ5f6HpcMY1ZDkU20uOaRN-GHV3rLZrzvQuheocVsfxr8fTPg',
-            },
-          }
-        );
-        console.log(response.data.botFirstMessage)
-        setThreads(response.data.threadId)
-        setMessageList([...messageList, response.data.botFirstMessage])
-        // setMessageList([{ sender: 'bot', text: firstMessage }]);
-      } catch (error) {
-        console.error('첫 메시지 불러오기 실패:', error);
-      }
-    };
+  const fetchFirstMessage = async () => {
+    toggleVisibility();
+    try {
 
-    fetchFirstMessage();
-  }, []);
+      const response = await axios.post(
+        `http://52.79.202.25:5001/sst/1`,
+        {
+          headers: {
+            access_token:AsyncStorage.getItem("accessToken"),
+          },
+        }
+      );
+      console.log(response.data.botFirstMessage)
+      setThreads(response.data.threadId)
+      setMessageList([...messageList, response.data.botFirstMessage])
+      // setMessageList([{ sender: 'bot', text: firstMessage }]);
+    } catch (error) {
+      console.error('첫 메시지 불러오기 실패:', error);
+      fetchFirstMessage();
+    }
+  };
 
   const sendMessage = async () => {
       try {
         console.log(threads)
         console.log(message)
         const response = await axios.post(
-          `http://boundary.main.oyunchan.com:5001/sst/threads/${threads}`,
+          `http://52.79.202.25:5001/sst/threads/${threads}`,
           {
             userMessage: message,
           },
           {
             headers: {
-              access_token:'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiQ2hpbGQiLCJpc3MiOiJncmV5Ym94IiwiZXhwIjoxNzI5NjY4MjU4LCJpYXQiOjE3MjYwNjgyNTgsIm1lbWJlcklkIjo4fQ.F3Cbsh8SbtTiVSL-gI6ISjWrYNvBwRIpx5UUyfjQ0YNxDamvRAwO96ie9YNgmnYsVMc-v1V-mqrd0LP6Fj7TDw',
+              access_token:AsyncStorage.getItem("accessToken"),
             },
           }
         );
@@ -67,6 +74,7 @@ const ChatScreen = () => {
         setMessage('');
       } catch (error) {
         console.error('메시지 전송 실패:', error);
+        sendMessage();
       }
     };
 
@@ -76,6 +84,9 @@ const ChatScreen = () => {
 
   return (
     <View style={globalStyles.container}>
+      {isVisible && (<TouchableOpacity style={styles.startButton} onPress={fetchFirstMessage}>
+        <Text style={styles.startText}>시작하기</Text>
+      </TouchableOpacity>)}
       <TouchableOpacity style={globalStyles.backButton} onPress={handleBackClick}>
         <Text style={globalStyles.backText}>뒤로가기</Text>
       </TouchableOpacity>
@@ -122,8 +133,22 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
+  startButton: {
+    position:"absolute",
+    top:"50%",
+    left:"50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "#5772FF",
+    padding: "20px",
+    borderRadius: "24px",
+    color: '#808080',
+  },
+  startText: {
+    fontWeight: "bold",
+    fontSize: "36px",
+    color: '#FFFFFF',
+  },
   backText: {
-    fontSize: 18,
     color: '#808080',
     marginTop: 40,
     marginLeft: 30,
