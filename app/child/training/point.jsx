@@ -1,28 +1,29 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'; 
 import { useRouter } from 'expo-router';
-import axios from 'axios'; 
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function AnswerScreen() {
   const router = useRouter();
 
   const handlePress = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/cognition`, {
-        addPoint: 100 
-      });
-
-      if (response.status === 200) {
-        console.log('포인트가 성공적으로 전달되었습니다:', response.data);
-        router.push('/child/home');
-      }
+      const accessToken = await AsyncStorage.getItem("accessToken");
+      const response = await axios.post(
+        `http://52.79.202.25:5001/cognition`,
+        { addPoint: 100 },
+        {
+          headers: {
+            access_token: `${accessToken}`,
+          },
+        }
+      );
+      console.log('포인트가 성공적으로 전달되었습니다:', response.data);
+      router.push('/child/home');
     } catch (error) {
       console.error('포인트 전달 중 오류 발생:', error);
-      Alert.alert(
-        '오류',
-        '포인트를 성공적으로 전달하지 못했습니다.',
-        [{ text: '확인' }]
-      );
+      alert('포인트 전달 중 오류 발생');
     }
   };
 
@@ -35,7 +36,7 @@ export default function AnswerScreen() {
         />
       </View>
       <Text style={styles.message}>성공적으로 학습을 마쳤어요!</Text>
-      <Text style={styles.pointsMessage}>{' '}포인트가 지급되었습니다.</Text>
+      <Text style={styles.pointsMessage}>100포인트가 지급되었습니다.</Text>
       <TouchableOpacity
         style={styles.button}
         onPress={handlePress}

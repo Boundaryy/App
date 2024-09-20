@@ -11,21 +11,23 @@ const ResultScreen = () => {
     const [feedbackBottom, setFeedbackBottom] = useState(''); 
 
     const deleteData = async () => {
-        try {
-            console.log("deleteData")
-            const threadId = await AsyncStorage.getItem("thread");
-            const response = await axios.delete(
-                `http://52.79.202.25:5001/sst/threads/${threadId}` ,{
-                    headers: {
-                      access_token:AsyncStorage.getItem("accessToken"),
-                    },
-                  }
-            );
-            console.log("deleteData2")
-            await fetchData();
-        } catch (error) {
-            console.error('피드백 가져오기 실패:', error);
-            deleteData();
+        if (feedbackTop == ''){
+            try {
+                console.log("deleteData")
+                const threadId = await AsyncStorage.getItem("thread");
+                const response = await axios.delete(
+                    `http://52.79.202.25:5001/sst/threads/${threadId}` ,{
+                        headers: {
+                          access_token:AsyncStorage.getItem("accessToken"),
+                        },
+                      }
+                );
+                console.log("deleteData2")
+                await fetchData();
+            } catch (error) {
+                console.error('피드백 가져오기 실패:', error);
+                deleteData();
+            }
         }
     }
 
@@ -49,7 +51,6 @@ const ResultScreen = () => {
     }
 
     const handleSubmit = async () => {
-        console.log('학습 종료 성공:', response.status);
         router.push('/child/training/point'); 
     };
 
