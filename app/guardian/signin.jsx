@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 import axios from 'axios';
 import { useRouter } from 'expo-router';
 import { globalStyles } from '../../styles/global';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
     const [username, setUsername] = useState('');
@@ -14,18 +15,19 @@ const LoginScreen = () => {
             alert("빈칸없이 작성해주세요");
         } else {
             try {
-                const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
+                const response = await axios.post(`http://52.79.202.25:5001/login`, {
                     userId: username,
                     password: password,
                 });
+                const accessToken = response.data.tokens.accessToken;
+                const refreshToken = response.data.tokens.refreshToken;
 
-                if (response.data.success) {
-                    console.log("로그인 성공");  
-                    router.push('/child/home');
-                } else {
-                    console.log("로그인 실패");
-                    Alert.alert("로그인 실패", "아이디 또는 비밀번호를 확인하세요.");
-                }
+                console.log(accessToken);
+                await AsyncStorage.setItem("accessToken", accessToken);
+                await AsyncStorage.setItem("refreshToken", refreshToken);
+
+                console.log("로그인 성공");  
+                router.push('/child/home');
             } catch (error) {
                 console.error("로그인 중 오류 발생:", error);
                 Alert.alert("오류", "서버와의 연결이 원활하지 않습니다.");

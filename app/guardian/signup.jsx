@@ -4,6 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from '../../components/Button';
 import { useRouter } from 'expo-router';
 import { globalStyles } from '../../styles/global';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const SignupScreen = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -33,22 +36,18 @@ const SignupScreen = () => {
         else {
             try {
                  axios({
-                     url:`${process.env.REACT_APP_API_URL}/signup/parent`,
+                     url:`http://52.79.202.25:5001/signup/parent`,
                      method:"post",
                      data : {
-                         "name": name,
-                         "age": age,
                          "phoneNum": phoneNumber,
-                         "gender": selectedGender,
+                         "childId": childUsername,
                          "userId": username,
-                         "password": username,
-                         "role": "Child",
-                         "point": 0
+                         "password": password,
                      }
                  })
              }
-             catch {
-                 alert("백엔드 에러")
+             catch (error) {
+                 alert(error+"백엔드 에러")
              }
             route.push('/guardian/signin')
         }

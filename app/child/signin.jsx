@@ -15,18 +15,23 @@ const LoginScreen = () => {
             alert("빈칸없이 작성해주세요");
         } else {
             try {
-                const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
+                const response = await axios.post(`http://52.79.202.25:5001/login`, {
                     userId: username,
                     password: password,
                 });
     
                 const accessToken = response.data.tokens.accessToken;
+                const refreshToken = response.data.tokens.refreshToken;
+
+                console.log(accessToken);
+                console.log(`http://52.79.202.25:5001/login`);
                 await AsyncStorage.setItem("accessToken", accessToken);
-    
+                await AsyncStorage.setItem("refreshToken", refreshToken);
+
                 // 사용자 정보 요청 시 헤더에 access_token 추가
                 const user = await axios.get(`${process.env.REACT_APP_API_URL}/user`, {
                     headers: {
-                        access_token: s
+                        access_token: accessToken
                     }
                 });
                 console.log(user);

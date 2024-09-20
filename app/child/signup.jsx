@@ -39,7 +39,7 @@ export default function SignUp() {
         }
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/signup/child`, {
+            const response = await axios.post(`http://52.79.202.25:5001/signup/child`, {
                 name,
                 age: parseInt(age, 10),
                 phoneNum: phoneNumber,
