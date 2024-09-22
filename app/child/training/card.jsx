@@ -1,10 +1,13 @@
+/* 반응형 적용 못함 */
+
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const cards = [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]; 
 const { width } = Dimensions.get('window');
-const cardSize = width / 4 - 5; 
+const numColumns = 4;
+const cardSize = (width / numColumns) - 10;
 
 const CardGame = () => {
     const [flipped, setFlipped] = useState(Array(cards.length).fill(false));
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        marginTop: 20, 
+        marginTop: 20,
     },
     card: {
         width: cardSize,

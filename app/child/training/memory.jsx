@@ -1,25 +1,24 @@
 import React, { useEffect } from 'react';
-import { View, Text, Image, ImageBackground, StyleSheet, Animated } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
+
+const { width, height } = Dimensions.get('window');
 
 export default function MemoryGame() {
   const emojis = ['🍎', '🍊', '🍌'];
   const emojiCount = 5; 
   const router = useRouter(); 
 
-
   const getRandomPosition = () => {
-    const top = Math.floor(Math.random() * 800);  
-    const left = Math.floor(Math.random() * 350); 
+    const top = Math.floor(Math.random() * (height - 100));
+    const left = Math.floor(Math.random() * (width - 100));
     return { top, left };
   };
 
- 
   useEffect(() => {
     const timer = setTimeout(() => {
       router.push('/child/training/memoryscanf');
     }, 3000); 
-
 
     return () => clearTimeout(timer);
   }, [router]);
@@ -30,45 +29,45 @@ export default function MemoryGame() {
       style={styles.background}
     >
       <View style={styles.header}>
-        <View style={styles.headerContent}>
-          <Text style={styles.title}>메모리게임</Text>
-        </View>
+        <Text style={styles.title}>메모리게임</Text>
       </View>
       
-      {emojis.map((emoji, index) => (
-        Array.from({ length: emojiCount }).map((_, i) => {
-          const position = getRandomPosition();
-          return (
-            <Text 
-              key={`${emoji}-${index}-${i}`} 
-              style={[styles.emoji, { top: position.top, left: position.left }]}>
-              {emoji}
-            </Text>
-          );
-        })
-      ))}
-      
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {emojis.map((emoji, index) => (
+          Array.from({ length: emojiCount }).map((_, i) => {
+            const position = getRandomPosition();
+            return (
+              <Text 
+                key={`${emoji}-${index}-${i}`} 
+                style={[styles.emoji, { top: position.top, left: position.left }]}
+              >
+                {emoji}
+              </Text>
+            );
+          })
+        ))}
+      </ScrollView>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   background: {
-    width: 416,  
-    height: 930, 
+    width: '100%',  
+    height: '100%', 
     resizeMode: 'cover', 
   },
   header: {
-    width: 200, 
-    marginLeft: 40, 
-    marginTop: 90,
-
-},
-  headerContent: {
-    flexDirection: 'row',  
-    alignItems: 'center', 
+    width: '80%', 
+    marginLeft: '10%', 
+    marginTop: height * 0.1, 
+    position: 'absolute',
+    zIndex: 1, 
   },
-
+  scrollContainer: {
+    flexGrow: 1,
+    marginTop: height * 0.15, 
+  },
   title: {
     fontSize: 28,
     color: '#000',
