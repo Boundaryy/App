@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { BarButton } from "../../../components/Bar-Button";
 import { globalStyles } from '../../../styles/global';
 import { useNavigation } from '@react-navigation/native'; 
+
+const { height } = Dimensions.get('window');
 
 const App = () => {
     const navigation = useNavigation(); 
@@ -45,8 +47,8 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'column',
         width: "85%",
-        marginTop: -280, 
-        marginBottom: 20,
+        marginTop: height * 0.1,
+        marginBottom: height * 0.05,
     },
 });
 

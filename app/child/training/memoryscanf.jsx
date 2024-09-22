@@ -1,18 +1,17 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router'; 
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { useRouter } from 'expo-router';
 
 export default function MemoryGameAnswer() {
-  const router = useRouter(); 
+  const router = useRouter();
 
   const handleSubmit = () => {
-    router.push('/child/training/point'); 
+    router.push('/child/training/point');
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header}>메모리게임 정답</Text>
-
       <Text style={styles.subHeader}>질문에 대한 답을 입력하세요.</Text>
 
       <View style={styles.content}>
@@ -30,29 +29,29 @@ export default function MemoryGameAnswer() {
           <Text style={styles.buttonText}>완료하기</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#F8F8F8',
-    paddingHorizontal: 16,
+    paddingHorizontal: '5%',
     paddingVertical: 32,
   },
   header: {
     fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 4, 
-    marginTop: '60px',
-    marginLeft: '24px',
+    marginBottom: 4,
+    marginTop: 60,
+    marginLeft: '5%',
   },
   subHeader: {
-    fontSize: 16, 
-    color: '#888888', 
-    marginBottom: 172, 
-    marginLeft: '24px',
+    fontSize: 16,
+    color: '#888888',
+    marginBottom: 24, 
+    marginLeft: '5%',
   },
   content: {
     marginTop: 24,
@@ -62,25 +61,26 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     color: '#565656',
     fontWeight: '600',
-    marginLeft: '24px'
+    marginLeft: '5%',
   },
   input: {
     borderBottomWidth: 2,
     borderBottomColor: '#5772FF',
     paddingVertical: 8,
-    marginBottom: 300,
+    marginBottom: 24,
     fontSize: 18,
-    marginLeft: '24px',
-    width: '320px',
+    marginLeft: '5%',
+    width: '90%', 
   },
   button: {
-    width: '280', 
+    width: '90%', 
     height: 60,
     backgroundColor: '#5772FF',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
+    alignSelf: 'center', 
   },
   buttonText: {
     color: '#FFFF',

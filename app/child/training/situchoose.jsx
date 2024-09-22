@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ActivityIndicator, ScrollView, Dimensions } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const { width, height } = Dimensions.get('window');
 
 const App = () => {
     const [selectedSession, setSelectedSession] = useState(null);
@@ -14,9 +16,6 @@ const App = () => {
     useEffect(() => {
         const fetchSituations = async () => {
             try {
-                // const response = await axios.get('http://boundary.main.oyunchan.com:5001/situations');
-                //setSituations(response.data);
-
                 const accessToken = await AsyncStorage.getItem("accessToken");
                 console.log(accessToken);
 
@@ -47,59 +46,61 @@ const App = () => {
     }
 
     return (
-        <View style={globalStyles.container}>
-            <View style={globalStyles.header}>
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                    <Text style={styles.backText}>뒤로가기</Text>
-                </TouchableOpacity>
-                <Text style={globalStyles.subtitle}>상황 선택하기</Text>
-                <Text style={globalStyles.description}>
-                    AI와 부모님이 만들어 준 상황을 선택해보세요.
-                </Text>
-            </View>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
+            <View style={[globalStyles.container, { minHeight: height }]}>
+                <View style={globalStyles.header}>
+                    <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                        <Text style={styles.backText}>뒤로가기</Text>
+                    </TouchableOpacity>
+                    <Text style={globalStyles.subtitle}>상황 선택하기</Text>
+                    <Text style={globalStyles.description}>
+                        AI와 부모님이 만들어 준 상황을 선택해보세요.
+                    </Text>
+                </View>
 
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                    style={[
-                        styles.session,
-                        selectedSession === 0 && styles.selectedSession
-                    ]}
-                    onPress={() => handleSessionPress(0)}
-                >
-                    <Image
-                        source={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Family%20Man%2C%20Woman%2C%20Girl%2C%20Boy.png" }}
-                        style={styles.buttonImage}
-                    />
-                    <View style={styles.buttonTextContainer}>
-                        <Text style={styles.buttonTitle}>친구들이 놀릴 때 대처하기</Text>
-                        <Text style={styles.buttonExplain}>부모님픽!</Text>
-                    </View>
-                </TouchableOpacity>
-
-                {situations.map((situation, index) => (
+                <View style={styles.buttonContainer}>
                     <TouchableOpacity
-                        key={situation.situationId}
                         style={[
                             styles.session,
-                            selectedSession === index + 1 && styles.selectedSession
+                            selectedSession === 0 && styles.selectedSession
                         ]}
-                        onPress={() => handleSessionPress(index + 1)}
+                        onPress={() => handleSessionPress(0)}
                     >
                         <Image
-                            source={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Robot.png" }}
+                            source={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Family%20Man%2C%20Woman%2C%20Girl%2C%20Boy.png" }}
                             style={styles.buttonImage}
                         />
                         <View style={styles.buttonTextContainer}>
-                            <Text style={styles.buttonTitle}>{situation.content}</Text>
-                            <Text style={styles.buttonExplain}>AI 생성</Text>
+                            <Text style={styles.buttonTitle}>친구들이 놀릴 때 대처하기</Text>
+                            <Text style={styles.buttonExplain}>부모님픽!</Text>
                         </View>
                     </TouchableOpacity>
-                ))}
+
+                    {situations.map((situation, index) => (
+                        <TouchableOpacity
+                            key={situation.situationId}
+                            style={[
+                                styles.session,
+                                selectedSession === index + 1 && styles.selectedSession
+                            ]}
+                            onPress={() => handleSessionPress(index + 1)}
+                        >
+                            <Image
+                                source={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Robot.png" }}
+                                style={styles.buttonImage}
+                            />
+                            <View style={styles.buttonTextContainer}>
+                                <Text style={styles.buttonTitle}>{situation.content}</Text>
+                                <Text style={styles.buttonExplain}>AI 생성</Text>
+                            </View>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+                <TouchableOpacity style={styles.nextButton} onPress={handleNextButtonPress}>
+                    <Text style={styles.nextButtonText}>선택하기</Text>
+                </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.nextButton} onPress={handleNextButtonPress}>
-                <Text style={styles.nextButtonText}>선택하기</Text>
-            </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 };
 
@@ -155,14 +156,14 @@ const styles = StyleSheet.create({
     },
     nextButton: {
         backgroundColor: '#5772FF',
-        width: 340,
+        width: width * 0.85,
         height: 50,
         paddingVertical: 12,
         borderRadius: 8,
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'absolute',
-        bottom: 40,
+        alignSelf: 'center',
+        marginTop: 20,
     },
     nextButtonText: {
         color: '#FFFFFF',
