@@ -27,7 +27,7 @@ const LoginScreen = () => {
                 await AsyncStorage.setItem("refreshToken", refreshToken);
 
                 console.log("로그인 성공");  
-                router.push('/child/home');
+                router.push('/guardian/home');
             } catch (error) {
                 console.error("로그인 중 오류 발생:", error);
                 Alert.alert("오류", "서버와의 연결이 원활하지 않습니다.");

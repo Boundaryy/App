@@ -111,7 +111,7 @@ const App = () => {
 const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'column',
-        marginBottom: 30, // 버튼 컨테이너의 하단 마진 증가
+        marginBottom: 10, // 버튼 컨테이너의 하단 마진 증가
         marginTop: 10, // 버튼 컨테이너의 상단 마진 감소
     },
     calendar: {

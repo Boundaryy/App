@@ -2,19 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function MemoryGameAnswer() {
   const router = useRouter();
   const [situation, setSituation] = useState('');
   const [situations, setSituations] = useState([]);
 
-  useEffect(() => {
+  ￼
+
     const fetchSituations = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/situations`
+          `http://52.79.202.25:5001/situations`
         );
-        setSituations(response.data); 
+        await console.log(response)
+        await setSituations(response.data);
+         
       } catch (error) {
         console.error(`상황 조회 실패:`, error);
       }
@@ -26,17 +30,17 @@ export default function MemoryGameAnswer() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/situations`,
+        `http://52.79.202.25:5001/situations`,
         {
-          situation,
+          "situation": situation
         },
         {
           headers: {
-            'Content-Type': 'application/json',
+            access_token: AsyncStorage.getItem("accessToken"),
           },
         }
       );
-      console.log('등록 성공:', response.data);
+      console.log('등록 성공:', response);
       router.push('/guardian/succesadd');
     } catch (error) {
       console.error('등록 실패:', error);
@@ -77,7 +81,8 @@ export default function MemoryGameAnswer() {
       <View style={styles.content}>
         <Text style={styles.highlight}>이미 있는 상황</Text>
         <View style={styles.checkboxContainer}>
-          {situations.map((item) => (
+          {
+          situations == 0 ? situations.map((item) => (
             <View key={item.situationId} style={styles.checkboxItem}>
               <Text style={styles.checkboxText}>{item.content}</Text>
               <TouchableOpacity
@@ -87,7 +92,7 @@ export default function MemoryGameAnswer() {
                 <Text style={styles.deleteButtonText}>삭제</Text>
               </TouchableOpacity>
             </View>
-          ))}
+          )) : "상황이 추가되지 않았어요"}
         </View>
 
         <TextInput
