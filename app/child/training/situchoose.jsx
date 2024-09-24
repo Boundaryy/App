@@ -49,7 +49,7 @@ const App = () => {
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
             <View style={[globalStyles.container, { minHeight: height }]}>
                 <View style={globalStyles.header}>
-                    <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+                    <TouchableOpacity onPress={() => navigation.navigate('child/home') } style={styles.backButton}>
                         <Text style={styles.backText}>뒤로가기</Text>
                     </TouchableOpacity>
                     <Text style={globalStyles.subtitle}>상황 선택하기</Text>
@@ -62,6 +62,7 @@ const App = () => {
                     <TouchableOpacity
                         style={[
                             styles.session,
+                            styles.centerButton,
                             selectedSession === 0 && styles.selectedSession
                         ]}
                         onPress={() => handleSessionPress(0)}
@@ -81,6 +82,7 @@ const App = () => {
                             key={situation.situationId}
                             style={[
                                 styles.session,
+                                styles.centerButton,
                                 selectedSession === index + 1 && styles.selectedSession
                             ]}
                             onPress={() => handleSessionPress(index + 1)}
@@ -124,14 +126,15 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderColor: 'transparent',
         padding: 14,
-
+        marginBottom: 10, // Add space between buttons
     },
     selectedSession: {
         borderColor: '#A5B3FF',
     },
     buttonContainer: {
         flexDirection: 'column',
-        width: "85%",
+        width: "100%",
+        alignItems: 'center',
     },
     buttonImage: {
         width: 60,
@@ -165,6 +168,10 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 16,
         fontWeight: '600',
+    },
+    centerButton: {
+        width: '85%', // Match the width of the next button
+        justifyContent: 'center',
     },
 });
 

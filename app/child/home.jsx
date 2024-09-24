@@ -45,7 +45,7 @@ const App = () => {
     const buttonWidth = width > 400 ? '85%' : '95%';
     const levelImageSize = width > 400 ? 80 : 60;
     const calendarWidth = width > 400 ? '100%' : '120%';
-    const headerMarginTop = height > 700 ? 110 : 80; 
+    const headerMarginTop = height > 700 ? 80 : 50; // 버튼 컨테이너의 상단 마진 감소
 
     return (
         <ScrollView 
@@ -100,11 +100,6 @@ const App = () => {
                 </View>
                 
                 <Calendar style={[styles.calendar, { width: calendarWidth }]} />
-                
-                <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-                    <Text style={styles.logoutButtonText}>로그아웃</Text>
-                </TouchableOpacity>
-                
                 {logoutMessage ? (
                     <Text style={styles.logoutMessage}>{logoutMessage}</Text>
                 ) : null}
@@ -116,12 +111,12 @@ const App = () => {
 const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'column',
-        marginBottom: 20,
-        marginTop: 20, // 상단 여백 추가
+        marginBottom: 30, // 버튼 컨테이너의 하단 마진 증가
+        marginTop: 10, // 버튼 컨테이너의 상단 마진 감소
     },
     calendar: {
-        marginTop: 20, // 상단 여백 증가
-        marginBottom: 20, // 하단 여백 추가
+        marginTop: 30, // 캘린더의 상단 마진 증가
+        marginBottom: 30, // 캘린더의 하단 마진 증가
         alignSelf: 'center',  
     },
     header: {

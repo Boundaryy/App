@@ -81,18 +81,17 @@ const ChatScreen = () => {
   return (
     <View style={globalStyles.container}>
       {isVisible && (
-        <TouchableOpacity style={styles.startButton} onPress={fetchFirstMessage}>
-          <Text style={styles.startText}>시작하기</Text>
-        </TouchableOpacity>
+        <View style={styles.startButtonContainer}>
+          <TouchableOpacity style={styles.startButton} onPress={fetchFirstMessage}>
+            <Text style={styles.startText}>시작하기</Text>
+          </TouchableOpacity>
+        </View>
       )}
-      <TouchableOpacity style={globalStyles.backButton} onPress={handleBackClick}>
-        <Text style={globalStyles.backText}>뒤로가기</Text>
+      <TouchableOpacity style={globalStyles.header} onPress={handleBackClick}>
+        <Text style={globalStyles.subtitle}>← 상황 대처 지능 테스트</Text>
       </TouchableOpacity>
-      <View style={globalStyles.header}>
-        <Text style={globalStyles.subtitle}>상황 대처 지능 테스트</Text>
-      </View>
 
-      <ScrollView style={styles.chatArea}>
+      <ScrollView style={styles.chatArea} contentContainerStyle={styles.chatContent}>
         {messageList.map((mes, key) => (
           <View key={key} style={key % 2 === 1 ? styles.mySpeechBubbleContainer : styles.speechBubbleContainer}>
             <Image
@@ -110,29 +109,40 @@ const ChatScreen = () => {
         ))}
       </ScrollView>
 
-      <SafeAreaView style={styles.sendBox}>
-        <TextInput
-          style={styles.input}
-          placeholder="여기에 메시지를 입력하세요"
-          placeholderTextColor="#A0A0A0"
-          value={message}
-          onChangeText={setMessage}
-        />
-        <TouchableOpacity onPress={sendMessage}>
-          <Image source={require('../../../assets/image.png')} style={styles.sendIcon} />
-        </TouchableOpacity>
-      </SafeAreaView>
+      <View style={styles.inputContainer}>
+        <SafeAreaView style={styles.sendBox}>
+          <TextInput
+            style={styles.input}
+            placeholder="여기에 메시지를 입력하세요"
+            placeholderTextColor="#A0A0A0"
+            value={message}
+            onChangeText={setMessage}
+          />
+          <TouchableOpacity onPress={sendMessage}>
+            <Image source={require('../../../assets/image.png')} style={styles.sendIcon} />
+          </TouchableOpacity>
+        </SafeAreaView>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  startButton: {
+  startButtonContainer: {
     position: 'absolute',
+    backgroundColor:"rgba(1,1,1,.6)",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  startButton: {
     backgroundColor: "#5772FF",
     padding: width * 0.05,
     borderRadius: 24,
-    color: '#808080',
   },
   startText: {
     fontWeight: "bold",
@@ -155,6 +165,10 @@ const styles = StyleSheet.create({
   chatArea: {
     flex: 1,
     marginTop: height * 0.1,
+  },
+  chatContent: {
+    paddingHorizontal: width * 0.05,
+    paddingBottom: height * 0.02,
   },
   speechBubbleContainer: {
     flexDirection: 'row',
@@ -224,6 +238,14 @@ const styles = StyleSheet.create({
     width: width * 0.06,
     height: width * 0.06,
     tintColor: '#5772FF',
+  },
+  inputContainer: {
+    width: '100%',
+    alignItems: 'center',
+    paddingBottom: height * 0.02,
+  },
+  backButtonSpacing: {
+    marginBottom: height * 0.03, // Add spacing below the back button
   },
 });
 
