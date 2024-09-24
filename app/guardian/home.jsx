@@ -51,12 +51,12 @@ const ParentDashboard = () => {
                     toLink={"/guardian/result"} 
                     imgLink={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Face%20with%20Peeking%20Eye.png" }}
                 />
-                <BarButton 
+                {/* <BarButton 
                     title={"조언 상담"} 
                     explain={"아이 학습에 대한 이야기를 나눠요"} 
                     toLink={"/guardian/advice"} 
                     imgLink={{ uri: "https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Heart%20Decoration.png" }}
-                />
+                /> */}
             </View>
         </ScrollView>
     );

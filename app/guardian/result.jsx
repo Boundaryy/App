@@ -2,28 +2,32 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from "axios"
-
-const axiosFunction = () => {
-    const response = axios.get(`${process.env.REACT_APP_API_URL}/situations`)
-}
-
-const results = [
-    {
-        date: "6월 29일",
-        title: "상황 대처 학습",
-        status: "correct",
-        summary: "잘했어요 (10 문제중 9개 정답)",
-    },
-    {
-        date: "6월 28일",
-        title: "상황 대처 학습",
-        status: "incorrect",
-        summary: "못했어요 (10 문제중 3개 정답)",
-    }
-];
+import { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LearningResults = () => {
     const navigation = useNavigation();
+    const [results, setResults] = useState([]);
+
+    useEffect(() => {
+        const fetchResults = async () => {
+            const token = await AsyncStorage.getItem('accessToken')
+            try {
+                const response = await axios.get(`http://52.79.202.25:5001/sst/treads`,
+                    {
+                        headers: {
+                            'access_token': token 
+                        }
+                    }
+                );
+                console.log(response)
+                setResults(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchResults();
+    }, []);
 
     const handlePress = () => {
         navigation.navigate('guardian/resolve'); 

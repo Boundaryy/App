@@ -87,12 +87,6 @@ export default function MemoryGameAnswer() {
             situations.map((item) => (
               <View key={item.situationId} style={styles.checkboxItem}>
                 <Text style={styles.checkboxText}>{item.content}</Text>
-                <TouchableOpacity
-                  style={styles.deleteButton}
-                  onPress={() => handleDelete(item.situationId)}
-                >
-                  <Text style={styles.deleteButtonText}>삭제</Text>
-                </TouchableOpacity>
               </View>
             ))
           )}
