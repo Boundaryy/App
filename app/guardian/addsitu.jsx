@@ -9,12 +9,17 @@ export default function MemoryGameAnswer() {
   const [situation, setSituation] = useState('');
   const [situations, setSituations] = useState([]);
 
-  ￼
-
+  useEffect(() => {
     const fetchSituations = async () => {
       try {
+        const token = await AsyncStorage.getItem("accessToken");
         const response = await axios.get(
-          `http://52.79.202.25:5001/situations`
+          `http://52.79.202.25:5001/situations`,
+          {
+            headers: {
+              access_token: token,
+            },
+          }
         );
         await console.log(response)
         await setSituations(response.data);
@@ -29,6 +34,7 @@ export default function MemoryGameAnswer() {
 
   const handleSubmit = async () => {
     try {
+      const token = await AsyncStorage.getItem("accessToken");
       const response = await axios.post(
         `http://52.79.202.25:5001/situations`,
         {
@@ -36,7 +42,7 @@ export default function MemoryGameAnswer() {
         },
         {
           headers: {
-            access_token: AsyncStorage.getItem("accessToken"),
+            access_token: token,
           },
         }
       );
@@ -82,17 +88,11 @@ export default function MemoryGameAnswer() {
         <Text style={styles.highlight}>이미 있는 상황</Text>
         <View style={styles.checkboxContainer}>
           {
-          situations == 0 ? situations.map((item) => (
+          situations.length != 0 ? situations.map((item) => (
             <View key={item.situationId} style={styles.checkboxItem}>
               <Text style={styles.checkboxText}>{item.content}</Text>
-              <TouchableOpacity
-                style={styles.deleteButton}
-                onPress={() => handleDelete(item.situationId)}
-              >
-                <Text style={styles.deleteButtonText}>삭제</Text>
-              </TouchableOpacity>
             </View>
-          )) : "상황이 추가되지 않았어요"}
+          )) : null}
         </View>
 
         <TextInput
@@ -160,14 +160,12 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#5772FF',
-    width: 340,
+    width: "90%",
     height: 50,
-    paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    marginTop: 120,
   },
   buttonText: {
     color: '#fff',
@@ -176,10 +174,10 @@ const styles = StyleSheet.create({
   },
   checkboxContainer: {
     display: 'flex',
-    marginBottom: 20,
   },
   checkboxItem: {
     flexDirection: 'row',
+    width:"100%",
     alignItems: 'center',
     marginBottom: 8,
   },
@@ -200,9 +198,6 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     borderRadius: 4,
     backgroundColor: '#fff',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    marginLeft: 12,
   },
   deleteButtonText: {
     color: 'red',

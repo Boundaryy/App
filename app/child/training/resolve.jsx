@@ -31,12 +31,13 @@ const ChatScreen = () => {
 
   const fetchFirstMessage = async () => {
     toggleVisibility();
+
     try {
       const response = await axios.post(
-        `http://52.79.202.25:5001/sst/1`,
+        `http://52.79.202.25:5001/sst/${await AsyncStorage.getItem("situationId")}`,
         {
           headers: {
-            access_token: AsyncStorage.getItem("accessToken"),
+            access_token: await AsyncStorage.getItem("accessToken"),
           },
         }
       );

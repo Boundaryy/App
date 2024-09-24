@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react'; // useState 추가
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function MemoryGameAnswer() {
   const router = useRouter();
+  const [inputValue, setInputValue] = useState(''); // inputValue 상태 추가
 
-  const handleSubmit = () => {
-    router.push('/child/training/point');
+  const handleSubmit = async () => {
+    const emojiCount = await AsyncStorage.getItem("emojiCount")
+    if (inputValue == emojiCount) {
+      router.push('/child/training/point');
+    }
+    else {
+      router.push('/child/training/pointNot');
+    }
   };
 
   return (
@@ -23,6 +30,8 @@ export default function MemoryGameAnswer() {
           style={styles.input}
           placeholder="사과의 개수를 적어줘."
           placeholderTextColor="#aaa"
+          value={inputValue} // inputValue 상태 값 사용
+          onChangeText={setInputValue} // inputValue 상태 업데이트
         />
 
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>

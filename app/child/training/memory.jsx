@@ -1,13 +1,18 @@
 import React, { useEffect } from 'react';
 import { View, Text, ImageBackground, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const { width, height } = Dimensions.get('window');
 
 export default function MemoryGame() {
   const emojis = ['🍎', '🍊', '🍌'];
-  const emojiCount = 5; 
+  const list = [getRandomInt(3)+3, getRandomInt(3)+3, getRandomInt(3)+3]
+  AsyncStorage.setItem("emojiCount", list[0]);
   const router = useRouter(); 
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
 
   const getRandomPosition = () => {
     const top = Math.floor(Math.random() * (height - 100));
@@ -34,10 +39,10 @@ export default function MemoryGame() {
       
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {emojis.map((emoji, index) => (
-          Array.from({ length: emojiCount }).map((_, i) => {
+          Array.from({ length: list[index] }).map((_, i) => {
             const position = getRandomPosition();
             return (
-              <Text 
+              <Text
                 key={`${emoji}-${index}-${i}`} 
                 style={[styles.emoji, { top: position.top, left: position.left }]}
               >

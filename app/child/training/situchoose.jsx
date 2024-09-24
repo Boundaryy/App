@@ -8,42 +8,42 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const { width, height } = Dimensions.get('window');
 
 const App = () => {
-    const [selectedSession, setSelectedSession] = useState(null);
+    const [selectedSession, situchooseetSelectedSession] = useState(null);
     const [situations, setSituations] = useState([]);
     const [loading, setLoading] = useState(true); 
     const navigation = useNavigation();
 
+
     useEffect(() => {
         const fetchSituations = async () => {
             try {
-                const accessToken = await AsyncStorage.getItem("accessToken");
-                console.log(accessToken);
-
+              const token = await AsyncStorage.getItem("accessToken");
+              const response = await axios.get(
+                `http://52.79.202.25:5001/situations`,
+                {
+                  headers: {
+                    access_token: token,
+                  },
+                }
+              );
+              await console.log(response)
+              await setSituations(response.data);
+               
             } catch (error) {
-                console.error('Failed to fetch situations:', error);
-            } finally {
-                setLoading(false); 
+              console.error(`상황 조회 실패:`, error);
             }
-        };
-        fetchSituations();
+          };
+          fetchSituations();
     }, []);
 
     const handleSessionPress = (index) => {
-        setSelectedSession(index);
+        situchooseetSelectedSession(index);
     };
 
-    const handleNextButtonPress = () => {
-        navigation.navigate('child/training/resolve'); 
+    const handleNextButtonPress = async () => {
+        await AsyncStorage.setItem("situationId", situations[selectedSession].situationId);
+        await navigation.navigate('child/training/resolve'); 
     };
-
-    if (loading) {
-        return (
-            <View style={styles.loadingContainer}>
-                <ActivityIndicator size="large" color="#5772FF" />
-                <Text>상황을 불러오는 중...</Text>
-            </View>
-        );
-    }
 
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
@@ -72,7 +72,7 @@ const App = () => {
                             style={styles.buttonImage}
                         />
                         <View style={styles.buttonTextContainer}>
-                            <Text style={styles.buttonTitle}>친구들이 놀릴 때 대처하기</Text>
+                            <Text style={styles.buttonTitle} numberOfLines={1} ellipsizeMode="tail">친구들이 놀릴 때 대처하기</Text>
                             <Text style={styles.buttonExplain}>부모님픽!</Text>
                         </View>
                     </TouchableOpacity>
@@ -83,7 +83,7 @@ const App = () => {
                             style={[
                                 styles.session,
                                 styles.centerButton,
-                                selectedSession === index + 1 && styles.selectedSession
+                                selectedSession === index + 1 && styles.selectedSession // Update condition to match the correct index
                             ]}
                             onPress={() => handleSessionPress(index + 1)}
                         >
@@ -92,8 +92,8 @@ const App = () => {
                                 style={styles.buttonImage}
                             />
                             <View style={styles.buttonTextContainer}>
-                                <Text style={styles.buttonTitle}>{situation.content}</Text>
-                                <Text style={styles.buttonExplain}>AI 생성</Text>
+                                <Text style={styles.buttonTitle} numberOfLines={1} ellipsizeMode="tail">{situation.content}</Text>
+                                <Text style={styles.buttonExplain}>일반 생성</Text>
                             </View>
                         </TouchableOpacity>
                     ))}
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 3,
         borderColor: 'transparent',
-        padding: 14,
+        padding: 12,
         marginBottom: 10, // Add space between buttons
     },
     selectedSession: {
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonImage: {
-        width: 60,
-        height: 60,
+        width: 40,
+        height: 40,
         marginRight: 10,
     },
     buttonTextContainer: {
@@ -146,12 +146,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     buttonTitle: {
-        fontSize: 18,
+        fontSize: 14,
         fontWeight: "900",
     },
     buttonExplain: {
         color: '#808080',
-        fontSize: 16,
+        fontSize: 12,
     },
     nextButton: {
         backgroundColor: '#5772FF',
@@ -171,7 +171,6 @@ const styles = StyleSheet.create({
     },
     centerButton: {
         width: '85%', // Match the width of the next button
-        justifyContent: 'center',
     },
 });
 
