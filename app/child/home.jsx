@@ -129,18 +129,7 @@ const styles = StyleSheet.create({
         color: "#808080",
         marginBottom: 8,
     },
-    levelContainer: {
-        flexDirection: 'row',
-        alignItems: 'center', 
-    },
-    levelImage: {
-        marginRight: 0, 
-    },
-    levelText: {
-        fontSize: 20,
-        fontWeight: '600',
-        color: "gray",
-    },
+
     logoutButton: {
         marginTop: 20,
         alignSelf: 'center',
