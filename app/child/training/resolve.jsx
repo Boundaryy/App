@@ -129,9 +129,6 @@ const ChatScreen = () => {
 const styles = StyleSheet.create({
   startButton: {
     position: 'absolute',
-    top: height * 0.5,
-    left: width * 0.5,
-    transform: [{ translateX: -width * 0.25 }, { translateY: -height * 0.05 }],
     backgroundColor: "#5772FF",
     padding: width * 0.05,
     borderRadius: 24,

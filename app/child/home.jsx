@@ -48,8 +48,19 @@ const App = () => {
     const headerMarginTop = height > 700 ? 110 : 80; 
 
     return (
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={[globalStyles.container, { padding: containerPadding }]}>
+        <ScrollView 
+            contentContainerStyle={{ 
+                flexGrow: 1, 
+                paddingVertical: 20, // 상하 여백 추가
+            }}
+        >
+            <View style={[
+                globalStyles.container, 
+                { 
+                    padding: containerPadding,
+                    marginHorizontal: 10, // 좌우 여백 추가
+                }
+            ]}>
                 <View style={globalStyles.header}>
                     <Text style={globalStyles.title}>Boundary</Text>
                     <Text style={globalStyles.subtitle}>어렵지 않은 학습</Text>
@@ -79,7 +90,7 @@ const App = () => {
                         상황 대처, 게임을 통한 학습으로 지능을 향상시켜요
                     </Text>
                   
-                    <TouchableOpacity onPress={() => {router.push('/child/home')}} style={styles.levelContainer}>
+                    <TouchableOpacity style={styles.levelContainer}>
                         <Image 
                             source={require("../../assets/images/image.png")} 
                             style={[styles.levelImage, { width: levelImageSize, height: levelImageSize }]} 
@@ -106,9 +117,11 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'column',
         marginBottom: 20,
+        marginTop: 20, // 상단 여백 추가
     },
     calendar: {
-        marginTop: 4,
+        marginTop: 20, // 상단 여백 증가
+        marginBottom: 20, // 하단 여백 추가
         alignSelf: 'center',  
     },
     header: {

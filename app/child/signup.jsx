@@ -58,14 +58,14 @@ export default function SignUp() {
     };
 
     return (
-        <View style={globalStyles.logincontainer}>
+        <View style={globalStyles.container}>
             <View style={globalStyles.header}>
                 <Text style={globalStyles.title}>Boundary</Text>
                 <Text style={globalStyles.subtitle}>회원가입</Text>
                 <Text style={globalStyles.description}>서비스에서 사용될 정보를 알려주세요.</Text>
             </View>
 
-            <SafeAreaView style={globalStyles.formGroup}>
+            <View style={globalStyles.formGroup}>
                 <Text style={globalStyles.label}>전화 번호를 알려주세요.</Text>
                 <TextInput
                     style={globalStyles.input}
@@ -74,7 +74,7 @@ export default function SignUp() {
                     onChangeText={formatPhoneNumber}
                     keyboardType="numeric"
                 />
-            </SafeAreaView>
+            </View>
 
             <View style={globalStyles.formGroup}>
                 <Text style={globalStyles.label}>만 나이를 알려주세요.</Text>

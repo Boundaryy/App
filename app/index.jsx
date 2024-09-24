@@ -17,7 +17,7 @@ export default function Index() {
   };
 
   return (
-    <View style={globalStyles.container}>
+    <View style={styles.container}>
       <Image source={require('../assets/logo.png')} style={styles.logo} />
       <Button onPress={handle} title={"회원가입"} />
       <TouchableOpacity onPress={chooseLogin} style={{ margin: 20 }}>
@@ -29,6 +29,14 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    width:"100%",
+    height:"100%",
+  },
+  
   logo: {
     width: 170,
     marginBottom: 100,

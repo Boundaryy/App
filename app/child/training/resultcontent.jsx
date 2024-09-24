@@ -80,8 +80,6 @@ const ResultScreen = () => {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        padding: width * 0.05,
-        paddingTop: height * 0.1,
         backgroundColor: '#FFFFFF',
     },
     header: {

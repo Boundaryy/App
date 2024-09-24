@@ -119,15 +119,12 @@ const styles = StyleSheet.create({
     },
     session: {
         backgroundColor: "#F3F4F6",
-        width: "100%",
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
         borderRadius: 20,
-        padding: 14,
-        marginBottom: 8,
         borderWidth: 3,
         borderColor: 'transparent',
+        padding: 14,
+
     },
     selectedSession: {
         borderColor: '#A5B3FF',
@@ -135,7 +132,6 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'column',
         width: "85%",
-        marginTop: 20,
     },
     buttonImage: {
         width: 60,

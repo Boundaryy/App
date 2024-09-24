@@ -40,7 +40,7 @@ const LoginScreen = () => {
     };
 
     return (
-        <View style={globalStyles.logincontainer}>
+        <View style={globalStyles.container}>
                 <View style={globalStyles.header}>
                     <Text style={globalStyles.title}>Boundary</Text>
                     <Text style={globalStyles.subtitle}>로그인</Text>
@@ -61,7 +61,7 @@ const LoginScreen = () => {
             <View style={globalStyles.formGroup}>
                 <Text style={globalStyles.label}>비밀번호를 입력하세요.</Text>
                 <TextInput
-                    style={styles.input}
+                    style={globalStyles.input}
                     placeholder="예시) qwer!1234"
                     secureTextEntry
                     value={password}
@@ -69,13 +69,15 @@ const LoginScreen = () => {
                 />
             </View>
 
-            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                <Text style={styles.submitButtonText}>로그인</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+                    <Text style={styles.submitButtonText}>로그인</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity onPress={handleSignup}>
-                <Text style={styles.signupLink}>아직 회원가입을 하지 않았다면?</Text>
-            </TouchableOpacity>
+                <TouchableOpacity onPress={handleSignup}>
+                    <Text style={styles.signupLink}>아직 회원가입을 하지 않았다면?</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -124,7 +126,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         width: 310,
         height: 50,
-        marginTop: 150,
     },
     submitButtonText: {
         position: "absolute",
@@ -138,6 +139,10 @@ const styles = StyleSheet.create({
         fontWeight: '200',
         marginTop: 20,
         textAlign: 'center',
+    },
+    buttonContainer: {
+        alignItems: 'center',
+        marginTop: 150,
     },
 });
 

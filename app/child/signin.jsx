@@ -51,7 +51,7 @@ const LoginScreen = () => {
     const fontSize = width > 400 ? 20 : 16;
 
     return (
-        <View style={[globalStyles.logincontainer, { paddingVertical: height > 700 ? 20 : 10, flex: 1, justifyContent: 'center' }]}>
+        <View style={[globalStyles.container]}>
             <View style={globalStyles.header}>
                 <Text style={globalStyles.title}>Boundary</Text>
                 <Text style={globalStyles.subtitle}>로그인</Text>
@@ -78,16 +78,18 @@ const LoginScreen = () => {
                 />
             </View>
 
-            <TouchableOpacity
-                style={[styles.submitButton, { width: buttonWidth, marginTop: buttonMarginTop }]} 
-                onPress={handleSubmit}
-            >
-                <Text style={[styles.submitButtonText, { fontSize }]}>로그인</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                    style={[styles.submitButton, { width: buttonWidth, marginTop: buttonMarginTop }]} 
+                    onPress={handleSubmit}
+                >
+                    <Text style={[styles.submitButtonText, { fontSize }]}>로그인</Text>
+                </TouchableOpacity>
 
-            <TouchableOpacity onPress={handleSignup}>
-                <Text style={styles.signupLink}>아직 회원가입을 하지 않았다면?</Text>
-            </TouchableOpacity>
+                <TouchableOpacity onPress={handleSignup}>
+                    <Text style={styles.signupLink}>아직 회원가입을 하지 않았다면?</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -110,6 +112,10 @@ const styles = StyleSheet.create({
         fontWeight: '200',
         marginTop: 20,
         textAlign: 'center',
+    },
+    buttonContainer: {
+        alignItems: 'center',
+        width: '100%',
     },
 });
 

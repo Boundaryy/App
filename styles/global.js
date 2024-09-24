@@ -2,11 +2,8 @@ import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
   container: {
-    width:"100%",
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    flex: 1,
+    width: '100%', 
   },
   logincontainer: {
     width:"100%",
@@ -23,29 +20,29 @@ export const globalStyles = StyleSheet.create({
     color: '#808080',
   },
   header: {
-    position: "absolute",
-    top: "50px",
-    left: "50px",
+    padding: 15,
+    paddingTop: 20, // 상단 패딩 줄임
   },
   title: {
-    fontSize: 18,
+    fontSize: 16, // 폰트 크기 줄임
     fontWeight: 'bold',
     color: '#5772FF',
   },
   subtitle: {
-    fontSize: 28,
+    fontSize: 24, // 폰트 크기 줄임
     whiteSpace:"nowrap",
     fontWeight: '600',
   },
   description: {
-    fontSize: 16,
+    fontSize: 14, // 폰트 크기 줄임
     textAlign: 'left',
     color: '#898989',
-    marginBottom: 20,
+    marginBottom: 10, // 하단 마진 줄임
   },
   formGroup: {
-    width: "75%",
-    height:"11.5%",
+    width: '100%',
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
   backText: {
     fontSize: 18,
@@ -59,12 +56,15 @@ export const globalStyles = StyleSheet.create({
   label: {
     fontSize: 18,
     fontWeight: '400',
+    marginBottom: 5,
+    textAlign: 'left',
   },
   input: {
-      padding: 10,
-      borderBottomWidth: 2,
-      borderBottomColor: '#5772FF',
-      fontSize: 18,
-      color: '#5772FF',
+    padding: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: '#5772FF',
+    fontSize: 18,
+    color: '#5772FF',
+    width: '100%',
   },
 });

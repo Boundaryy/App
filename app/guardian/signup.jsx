@@ -54,7 +54,7 @@ const SignupScreen = () => {
     }
 
     return (
-            <View style={globalStyles.logincontainer}>
+            <View style={globalStyles.container}>
                 <View style={globalStyles.header}>
                     <Text style={globalStyles.title}>Boundary</Text>
                     <Text style={globalStyles.subtitle}>회원가입</Text>
@@ -108,14 +108,6 @@ const SignupScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-    },
-    header: {
-        marginBottom: 20,
-        paddingTop: 60,
-    },
     headerTitle: {
         color: '#5772FF',
         fontSize: 18,
