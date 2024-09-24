@@ -74,26 +74,14 @@ const styles = StyleSheet.create({
         marginBottom: 40,
         alignItems: 'left',
     },
-    headerTitle: {
-        fontSize: 28,
-        fontWeight: '700',
-        color: '#000',
-        marginTop: -140,
-        marginLeft: 10,
-    },
-    headerSubtitle: {
-        fontSize: 16,
-        fontWeight: '500',
-        color: '#808080',
-        marginLeft: 10,
-    },
+
     userInfo: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: -30,
         justifyContent: 'center',
         marginLeft: -70,
-        marginTop: -80,
+        marginTop: 10,
     },
     userAvatar: {
         width: 120,
@@ -137,7 +125,8 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
     },
     menu: {
-        marginTop: 30,
+        marginTop: 40,
+        marginLeft: 30,
     },
     menuItem: {
         paddingVertical: 15,
