@@ -23,13 +23,12 @@ export default function MemoryGameAnswer() {
         );
         await console.log(response)
         await setSituations(response.data);
-         
       } catch (error) {
         console.error(`상황 조회 실패:`, error);
       }
     };
 
-    fetchSituations();
+    fetchSituations(); 
   }, []);
 
   const handleSubmit = async () => {
@@ -61,14 +60,9 @@ export default function MemoryGameAnswer() {
     try {
       const response = await axios.delete(
         `http://boundary.main.oyunchan.com:5001/situations/${situationId}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
+        { headers: { 'Content-Type': 'application/json' } }
       );
       console.log('삭제 성공:', response.status);
-    
       setSituations(situations.filter(item => item.situationId !== situationId));
     } catch (error) {
       console.error('삭제 실패:', error);
@@ -87,12 +81,21 @@ export default function MemoryGameAnswer() {
       <View style={styles.content}>
         <Text style={styles.highlight}>이미 있는 상황</Text>
         <View style={styles.checkboxContainer}>
-          {
-          situations.length != 0 ? situations.map((item) => (
-            <View key={item.situationId} style={styles.checkboxItem}>
-              <Text style={styles.checkboxText}>{item.content}</Text>
-            </View>
-          )) : null}
+          {situations.length === 0 ? (
+            <Text>상황이 추가되지 않았어요</Text>
+          ) : (
+            situations.map((item) => (
+              <View key={item.situationId} style={styles.checkboxItem}>
+                <Text style={styles.checkboxText}>{item.content}</Text>
+                <TouchableOpacity
+                  style={styles.deleteButton}
+                  onPress={() => handleDelete(item.situationId)}
+                >
+                  <Text style={styles.deleteButtonText}>삭제</Text>
+                </TouchableOpacity>
+              </View>
+            ))
+          )}
         </View>
 
         <TextInput
