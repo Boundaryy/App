@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         borderColor: 'transparent',
         padding: 12,
-        marginBottom: 10, // Add space between buttons
+        marginBottom: 10, 
     },
     selectedSession: {
         borderColor: '#A5B3FF',
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     },
     buttonTitle: {
         fontSize: 14,
-        fontWeight: "900",
+        fontWeight: "500",
     },
     buttonExplain: {
         color: '#808080',
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     },
     nextButton: {
         backgroundColor: '#5772FF',
-        width: width * 0.85,
+        width: 320,
         height: 50,
         paddingVertical: 12,
         borderRadius: 8,
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     centerButton: {
-        width: '85%', // Match the width of the next button
+        width: '85%', 
     },
 });
 

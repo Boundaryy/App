@@ -6,6 +6,7 @@ import { globalStyles } from '../../../styles/global';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width, height } = Dimensions.get('window');
+const rem = width / 375;  // Base width of iPhone 11 is 375
 
 const ResultScreen = () => {
     const router = useRouter();
@@ -84,15 +85,16 @@ const styles = StyleSheet.create({
     },
     header: {
         alignItems: 'center',
-        marginBottom: height * 0.03,
+        marginBottom: -10 * rem,
+        marginTop: 50,
     },
     messageBox: {
         width: "85%",
-        height: height * 0.5, 
+        height: 400 * rem, 
         backgroundColor: '#F9F9F9',
-        borderRadius: 10,
-        padding: width * 0.04,
-        marginTop: height * 0.05,
+        borderRadius: 10 * rem,
+        padding: 15 * rem,
+        marginTop: 30 * rem,
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
@@ -105,32 +107,32 @@ const styles = StyleSheet.create({
     },
     messageText: {
         color: '#565656',
-        fontSize: width * 0.045,
+        fontSize: 17 * rem,
         fontWeight: '500',
         textAlign: 'center',
     },
     footer: {
         width: '100%',
         alignItems: 'center',
-        marginTop: height * 0.02,
+        marginTop: 20 * rem,
     },
     footerText: {
         color: '#909090',
-        fontSize: width * 0.04,
+        fontSize: 16 * rem,
         textAlign: 'center',
     },
     submitButton: {
         width: '80%',
-        height: height * 0.06,
+        height: 50 * rem,
         backgroundColor: '#5772FF',
-        borderRadius: 8,
+        borderRadius: 8 * rem,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: height * 0.02,
+        marginTop: '15 rem',
     },
     buttonText: {
         color: '#FFFFFF',
-        fontSize: width * 0.045,
+        fontSize: '17 rem', // ''를 쓰면 에러가 나지 않음. 하지만 그렇지 않다면 에러가 뜸.
         fontWeight: '600',
     },
 });
