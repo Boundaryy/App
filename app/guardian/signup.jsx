@@ -47,7 +47,8 @@ const SignupScreen = () => {
                  })
              }
              catch (error) {
-                 alert(error+"백엔드 에러")
+                console.error("로그인 중 오류 발생:", error.response.data.message);
+                alert("오류 : " + error.response.data.message);
              }
             route.push('/guardian/signin')
         }

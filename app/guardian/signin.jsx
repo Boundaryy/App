@@ -29,8 +29,8 @@ const LoginScreen = () => {
                 console.log("로그인 성공");  
                 router.push('/guardian/home');
             } catch (error) {
-                console.error("로그인 중 오류 발생:", error);
-                Alert.alert("오류", "서버와의 연결이 원활하지 않습니다.");
+                console.error("로그인 중 오류 발생:", error.response.data.message);
+                alert("오류 : " + error.response.data.message);
             }
         }
     };

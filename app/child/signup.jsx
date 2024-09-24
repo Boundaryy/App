@@ -52,8 +52,8 @@ export default function SignUp() {
             Alert.alert("회원가입 성공", "로그인 페이지로 이동합니다.");
             router.push('/child/signin');
         } catch (error) {
-            console.error("회원가입 중 오류 발생:", error.response?.data || error.message);
-            Alert.alert("회원가입 오류", error.response?.data?.message || "다시 시도해 주세요.");
+            console.error("로그인 중 오류 발생:", error.response.data.message);
+            alert("오류 : " + error.response.data.message);
         }
     };
 

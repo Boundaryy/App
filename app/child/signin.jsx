@@ -35,8 +35,8 @@ const LoginScreen = () => {
 
                 router.push('/child/home');
             } catch (error) {
-                console.error("로그인 중 오류 발생:", error);
-                alert("오류");
+                console.error("로그인 중 오류 발생:", error.response.data.message);
+                alert("오류 : " + error.response.data.message);
             }
         }
     };
