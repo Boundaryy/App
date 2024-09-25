@@ -11,19 +11,19 @@ const App = () => {
     const [logoutMessage, setLogoutMessage] = useState('');
     const { width, height } = useWindowDimensions(); 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://boundary.main.oyunchan.com:5001/user');
-                setUserData(response.data);
-            } catch (error) {
-                console.error("데이터 불러오기 중 오류 발생:", error);
-                Alert.alert("오류", "데이터를 불러오는데 실패했습니다.");
-            }
-        };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get('http://boundary.main.oyunchan.com:5001/user');
+    //             setUserData(response.data);
+    //         } catch (error) {
+    //             console.error("데이터 불러오기 중 오류 발생:", error);
+    //             Alert.alert("오류", "데이터를 불러오는데 실패했습니다.");
+    //         }
+    //     };
 
-        fetchData();
-    }, []);
+    //     fetchData();
+    // }, []);
 
     const handleLogout = async () => {
         try {

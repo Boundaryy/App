@@ -4,39 +4,70 @@ import axios from 'axios';
 import { useRouter } from 'expo-router';
 import { globalStyles } from '../../styles/global';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { useEffect } from 'react';
 const LoginScreen = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
     const { width, height } = useWindowDimensions();
 
+
+    useEffect(() => {
+        const checkInternetConnection = async () => {
+            try {
+                const response = await axios.head('https://www.google.com');
+                alert(response.status === 200);
+                return response.status === 200;
+            } catch (error) {
+                alert(error.message);
+                return false;
+            }
+        };
+        checkInternetConnection();
+    }, []);
+
     const handleSubmit = async () => {
         if (!username || !password) {
             alert("빈칸없이 작성해주세요");
         } else {
             try {
-                const response = await axios.post(`http://52.79.202.25:5001/login`, {
-                    userId: username,
-                    password: password,
+                const response = await fetch(`https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/login`, {
+                    method: 'POST',
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId: username,
+                        password: password,
+                    }),
                 });
 
-                const accessToken = response.data.tokens.accessToken;
-                const refreshToken = response.data.tokens.refreshToken;
+                if (!response.ok) {
+                    throw new Error('로그인 실패');
+                }
+
+                const data = await response.json();
+                const accessToken = data.tokens.accessToken;
+                const refreshToken = data.tokens.refreshToken;
 
                 await AsyncStorage.setItem("accessToken", accessToken);
                 await AsyncStorage.setItem("refreshToken", refreshToken);
 
-                await axios.get(`${process.env.REACT_APP_API_URL}/user`, {
+                const userResponse = await fetch(`${process.env.REACT_APP_API_URL}/user`, {
                     headers: {
-                        access_token: accessToken
+                        'access_token': accessToken
                     }
                 });
 
+                if (!userResponse.ok) {
+                    throw new Error('사용자 정보 가져오기 실패');
+                }
+
                 router.push('/child/home');
             } catch (error) {
-                console.error("로그인 중 오류 발생:", error.response.data.message);
-                alert("오류 : " + error.response.data.message);
+                console.error("로그인 중 오류 발생:", error.message);
+                alert("오류 : " + error.message);
             }
         }
     };

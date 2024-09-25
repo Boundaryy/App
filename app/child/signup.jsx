@@ -39,7 +39,7 @@ export default function SignUp() {
         }
 
         try {
-            const response = await axios.post(`http://52.79.202.25:5001/signup/child`, {
+            const response = await axios.post('https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/signup/child', {
                 name,
                 age: parseInt(age, 10),
                 phoneNum: phoneNumber,
@@ -47,13 +47,15 @@ export default function SignUp() {
                 userId,
                 password,
                 point: 0
+            },{
+                withCredentials: true 
             });
+            
             console.log("회원가입 성공");
-            Alert.alert("회원가입 성공", "로그인 페이지로 이동합니다.");
             router.push('/child/signin');
         } catch (error) {
-            console.error("로그인 중 오류 발생:", error.response.data.message);
-            alert("오류 : " + error.response.data.message);
+            console.error("회원가입 중 오류 발생:", error.response?.data?.message || error.message);
+            alert("오류 : " + (error.response?.data?.message || error.message));
         }
     };
 

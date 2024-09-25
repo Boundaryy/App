@@ -21,7 +21,21 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.huise0ng.boundary"
+      "networkSecurityConfig": {
+        "domain-config": [
+          {
+            "domain": "*",
+            "cleartextTrafficPermitted": true
+          }
+        ]
+      },
+      "package": "com.huise0ng.boundary",
+      "permissions": [
+        "INTERNET"
+      ],
+      "config": {
+        "usesCleartextTraffic": true
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -31,9 +45,9 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "2310b494-ba13-4a99-b7e6-520b694b5600"
+        "projectId": "30d31b9f-b289-4672-a8a9-fa5f1621abc6"
       }
     },
-    "owner": "huise0ng"
+    "owner": "wbhaao"
   }
 }
