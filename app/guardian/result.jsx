@@ -13,7 +13,7 @@ const LearningResults = () => {
         const fetchResults = async () => {
             const accessToken = await AsyncStorage.getItem("accessToken");
             try {
-                const response = await axios.post(
+                const response = await axios.get(
                     `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/sst/treads`,
                         {
                         withCredentials: true,
@@ -22,7 +22,7 @@ const LearningResults = () => {
                         },
                     }
                 );
-                console.log(response)
+                console.log(response.data)
                 setResults(response.data);
             } catch (error) {
                 console.error(error);
@@ -31,8 +31,9 @@ const LearningResults = () => {
         fetchResults();
     }, []);
 
-    const handlePress = () => {
-        navigation.navigate('guardian/resolve'); 
+    const handlePress = async (th) => {
+        await AsyncStorage.setItem("threadId", th);
+        await navigation.navigate('guardian/resolve'); 
     };
 
     const handleBackPress = () => {
@@ -50,7 +51,7 @@ const LearningResults = () => {
                     <Text style={styles.subtitle}>최근 학습 결과를 확인해보세요.</Text>
                 </View>
             {results.map((result, index) => (
-                <TouchableOpacity key={index} style={styles.resultItem} onPress={handlePress}>
+                <TouchableOpacity key={index} style={styles.resultItem} onPress={() => {handlePress(result.threadId)}}>
                     <Image
                         source={{
                             uri: result.status === 'correct'
