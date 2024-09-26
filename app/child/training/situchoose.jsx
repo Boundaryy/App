@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ActivityIndicator, ScrollView, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, Dimensions } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -8,11 +8,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const { width, height } = Dimensions.get('window');
 
 const App = () => {
-    const [selectedSession, situchooseetSelectedSession] = useState(null);
+    const [selectedSession, setSelectedSession] = useState(null);
     const [situations, setSituations] = useState([]);
     const [loading, setLoading] = useState(true); 
     const navigation = useNavigation();
-
 
     useEffect(() => {
         const fetchSituations = async () => {
@@ -26,9 +25,8 @@ const App = () => {
                   },
                 }
               );
-              await console.log(response)
+              await console.log(response);
               await setSituations(response.data);
-               
             } catch (error) {
               console.error(`상황 조회 실패:`, error);
             }
@@ -37,12 +35,21 @@ const App = () => {
     }, []);
 
     const handleSessionPress = (index) => {
-        situchooseetSelectedSession(index);
+        setSelectedSession(index);
     };
 
     const handleNextButtonPress = async () => {
-        await AsyncStorage.setItem("situationId", situations[selectedSession].situationId);
-        await navigation.navigate('child/training/resolve'); 
+        if (selectedSession === null || !situations[selectedSession]) {
+            console.error('세션이 선택되지 않았거나 잘못된 세션 인덱스입니다.');
+            return;
+        }
+        
+        try {
+            await AsyncStorage.setItem("situationId", situations[selectedSession].situationId);
+            await navigation.navigate('child/training/resolve'); 
+        } catch (error) {
+            console.error('세션 저장 또는 페이지 이동 중 오류 발생:', error);
+        }
     };
 
     return (
@@ -83,7 +90,7 @@ const App = () => {
                             style={[
                                 styles.session,
                                 styles.centerButton,
-                                selectedSession === index + 1 && styles.selectedSession // Update condition to match the correct index
+                                selectedSession === index + 1 && styles.selectedSession // 인덱스 맞춤
                             ]}
                             onPress={() => handleSessionPress(index + 1)}
                         >
