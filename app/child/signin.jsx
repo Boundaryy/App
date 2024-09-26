@@ -11,20 +11,6 @@ const LoginScreen = () => {
     const router = useRouter();
     const { width, height } = useWindowDimensions();
 
-    useEffect(() => {
-        const checkInternetConnection = async () => {
-            try {
-                const response = await axios.head('https://www.google.com');
-                console.log('인터넷 연결 상태:', response.status === 200);
-                return response.status === 200;
-            } catch (error) {
-                console.error('인터넷 연결 오류:', error.message);
-                return false;
-            }
-        };
-        checkInternetConnection();
-    }, []);
-
     const handleSubmit = async () => {
         if (!username || !password) {
             alert("빈칸없이 작성해주세요");
@@ -38,7 +24,6 @@ const LoginScreen = () => {
                     },
                     {
                         withCredentials: true,
-                        
                     }
                 );
 
@@ -51,15 +36,15 @@ const LoginScreen = () => {
                 await AsyncStorage.setItem("accessToken", accessToken);
                 await AsyncStorage.setItem("refreshToken", refreshToken);
 
-                const userResponse = await axios.get(`${process.env.REACT_APP_API_URL}/user`, {
-                    headers: {
-                        'access_token': accessToken,
-                    },
-                });
+                // const userResponse = await axios.get(`https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/user`, {
+                //     headers: {
+                //         'access_token': accessToken,
+                //     },
+                // });
 
-                if (userResponse.status !== 200) {
-                    throw new Error('사용자 정보 가져오기 실패');
-                }
+                // if (userResponse.status !== 200) {
+                //     throw new Error('사용자 정보 가져오기 실패');
+                // }
 
                 router.push('/child/home');
             } catch (error) {
