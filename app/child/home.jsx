@@ -5,25 +5,34 @@ import { Calendar } from 'react-native-calendars';
 import { BarButton } from "../../components/Bar-Button";
 import { globalStyles } from '../../styles/global';
 import { router } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const App = () => {
     const [userData, setUserData] = useState(null);
     const [logoutMessage, setLogoutMessage] = useState('');
     const { width, height } = useWindowDimensions(); 
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get('http://boundary.main.oyunchan.com:5001/user');
-    //             setUserData(response.data);
-    //         } catch (error) {
-    //             console.error("데이터 불러오기 중 오류 발생:", error);
-    //             Alert.alert("오류", "데이터를 불러오는데 실패했습니다.");
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        const fetchSituations = async () => {
+            try {
+              const token = await AsyncStorage.getItem("accessToken");
+              const response = await axios.get(
+                `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/user`,
+                {
+                  withCredentials: true,
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  }
+                }
+              );
+              await console.log(response);
+              await setUserData(response.data)
+            } catch (error) {
+              console.error(`유저 조회 실패:`, error);
+            }
+          };
+          fetchSituations();
+    }, []);
 
     // const handleLogout = async () => {
     //     try {
@@ -95,7 +104,10 @@ const App = () => {
                             source={require("../../assets/images/image.png")} 
                             style={[styles.levelImage, { width: levelImageSize, height: levelImageSize }]} 
                         />
-                        <Text style={styles.levelText}>LV.{userData?.point ?? '...'}</Text>
+                        <View>
+                            <Text style={styles.nameText}>{userData?.name ?? '...'}</Text>
+                            <Text style={styles.pointText}>POINT: {userData?.point ?? '...'}</Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
                 
@@ -146,6 +158,31 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontSize: 16,
         color: '#898989',
+    },
+    levelContainer: {
+        backgroundColor: "#f9f9f9",
+        borderRadius:"10px",
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    levelImage: {
+        marginRight: 10,
+    },
+    levelText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    nameText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    pointText: {
+        fontSize: 16,
+        color: '#666',
     },
 });
 

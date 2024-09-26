@@ -20,9 +20,10 @@ const App = () => {
               const response = await axios.get(
                 `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations`,
                 {
+                  withCredentials: true,
                   headers: {
                     Authorization: `Bearer ${token}`,
-                  },
+                  }
                 }
               );
               await console.log(response);
@@ -35,11 +36,13 @@ const App = () => {
     }, []);
 
     const handleSessionPress = (index) => {
-        setSelectedSession(index);
+        setSelectedSession(index-1);
     };
 
     const handleNextButtonPress = async () => {
         if (selectedSession === null || !situations[selectedSession]) {
+            alert(selectedSession)
+            console.log(situations)
             console.error('세션이 선택되지 않았거나 잘못된 세션 인덱스입니다.');
             return;
         }
@@ -66,7 +69,7 @@ const App = () => {
                 </View>
 
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={[
                             styles.session,
                             styles.centerButton,
@@ -82,7 +85,7 @@ const App = () => {
                             <Text style={styles.buttonTitle} numberOfLines={1} ellipsizeMode="tail">친구들이 놀릴 때 대처하기</Text>
                             <Text style={styles.buttonExplain}>부모님픽!</Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     {situations.map((situation, index) => (
                         <TouchableOpacity
@@ -90,7 +93,7 @@ const App = () => {
                             style={[
                                 styles.session,
                                 styles.centerButton,
-                                selectedSession === index + 1 && styles.selectedSession // 인덱스 맞춤
+                                selectedSession === index && styles.selectedSession // 인덱스 맞춤
                             ]}
                             onPress={() => handleSessionPress(index + 1)}
                         >

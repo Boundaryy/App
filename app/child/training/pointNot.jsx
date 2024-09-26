@@ -14,11 +14,9 @@ export default function AnswerScreen() {
         `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/cognition`,
         { addPoint: 100 },
         {
-            withCredentials: true,
-        },
-        {
+          withCredentials: true,
           headers: {
-            access_token: `${accessToken}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );

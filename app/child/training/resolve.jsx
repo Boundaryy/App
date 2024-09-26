@@ -38,45 +38,59 @@ const ChatScreen = () => {
       
       const response = await axios.post(
         `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/sst/${situationId}`,
+        {},
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      console.log(response.data.botFirstMessage);
-      setThreads(response.data.threadId);
-      setMessageList([...messageList, response.data.botFirstMessage]);
+      await console.log(response.data.botFirstMessage);
+      await setThreads(response.data.threadId);
+      await setMessageList([...messageList, response.data.botFirstMessage]);
     } catch (error) {
-      console.error('첫 메시지 불러오기 실패:', error);
+      console.log('첫 메시지 불러오기:', error);
       fetchFirstMessage();
     }
   };
 
   const sendMessage = async () => {
-      try {
-        console.log(threads);
-        console.log(message);
-        const response = await axios.post(
-          `http://52.79.202.25:5001/sst/threads/${threads}`,
-          {
-            userMessage: message,
-          },
-          {
-            headers: {
-              access_token: AsyncStorage.getItem("accessToken"),
-            },
-          }
-        );
+    if (!message.trim()) {
+      alert('메시지가 비어있습니다.');
+      return;
+    }
 
-        const botMessage = response.data.botMessage;
-        setMessageList([...messageList, message, botMessage]);
-        setMessage('');
-      } catch (error) {
-        console.error('메시지 전송 실패:', error);
-        sendMessage();
+    try {
+      const token = await AsyncStorage.getItem("accessToken");
+      if (!token) {
+        console.error('토큰이 없습니다.');
+        return;
       }
-    };
+
+      console.log('Threads:', threads);
+      console.log('Message:', message);
+
+      const response = await axios.post(
+        `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/sst/threads/${threads}`,
+        {
+          userMessage: message,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const botMessage = response.data.botMessage;
+      setMessageList(prevList => [...prevList, message, botMessage]);
+      setMessage('');
+    } catch (error) {
+      console.error('메시지 전송 실패:', error.response?.data || error.message);
+      // 에러 발생 시 재귀 호출 대신 사용자에게 알림
+      sendMessage()
+    }
+  };
 
   const handleBackClick = () => {
     router.push('child/home');

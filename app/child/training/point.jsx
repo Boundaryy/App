@@ -15,11 +15,9 @@ export default function AnswerScreen() {
         { addPoint: 100 },
         {
           withCredentials: true,
-        },
-        {
           headers: {
-            access_token: `${accessToken}`,
-          }
+            Authorization: `Bearer ${accessToken}`,
+          },
         }
       );
       console.log('포인트가 성공적으로 전달되었습니다:', response.data);
