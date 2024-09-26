@@ -160,8 +160,10 @@ const styles = StyleSheet.create({
         color: '#898989',
     },
     levelContainer: {
+        display:"flex",
+        alignItems:"flex-start",
         backgroundColor: "#f9f9f9",
-        borderRadius:"10px",
+        borderRadius:"50px",
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 10,
@@ -169,6 +171,7 @@ const styles = StyleSheet.create({
     },
     levelImage: {
         marginRight: 10,
+        marginLeft: 10,
     },
     levelText: {
         fontSize: 20,
@@ -176,6 +179,7 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     nameText: {
+        marginTop:"-5%",
         fontSize: 24,
         fontWeight: 'bold',
         color: '#333',
