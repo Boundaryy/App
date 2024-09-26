@@ -11,13 +11,15 @@ const LearningResults = () => {
 
     useEffect(() => {
         const fetchResults = async () => {
-            const token = await AsyncStorage.getItem('accessToken')
+            const accessToken = await AsyncStorage.getItem("accessToken");
             try {
-                const response = await axios.get(`http://52.79.202.25:5001/sst/treads`,
-                    {
+                const response = await axios.post(
+                    `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/sst/treads`,
+                        {
+                        withCredentials: true,
                         headers: {
-                            'access_token': token 
-                        }
+                            Authorization: `Bearer ${accessToken}`,
+                        },
                     }
                 );
                 console.log(response)

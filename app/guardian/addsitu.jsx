@@ -12,43 +12,69 @@ export default function MemoryGameAnswer() {
   useEffect(() => {
     const fetchSituations = async () => {
       try {
-        const token = await AsyncStorage.getItem("accessToken");
+        const accessToken = await AsyncStorage.getItem("accessToken");
         const response = await axios.get(
-          `http://52.79.202.25:5001/situations`,
+          `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations`,
           {
+            withCredentials: true,
             headers: {
-              access_token: token,
+              Authorization: `Bearer ${accessToken}`,  
             },
           }
         );
-        await console.log(response)
-        await setSituations(response.data);
+
+        if (response.status !== 200) {
+          throw new Error('상황 조회 실패');
+        }
+
+        console.log(response.data);
+        setSituations(response.data);
       } catch (error) {
-        console.error(`상황 조회 실패:`, error);
+        console.error('상황 조회 실패:', error.message); // Error message for console only
       }
     };
 
-    fetchSituations(); 
+    fetchSituations();
   }, []);
 
   const handleSubmit = async () => {
-    try {
-      const token = await AsyncStorage.getItem("accessToken");
-      const response = await axios.post(
-        `http://52.79.202.25:5001/situations`,
-        {
-          "situation": situation
-        },
-        {
-          headers: {
-            access_token: token,
+    if (!situation) {
+      alert("빈칸없이 작성해주세요");
+    } else {
+      try {
+        const accessToken = await AsyncStorage.getItem("accessToken");
+        console.log("Access Token:", accessToken);  // 토큰 확인
+
+        const response = await axios.post(
+          `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations`,
+          {
+            situation: situation,
           },
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${accessToken}`,  
+            },
+          }
+        );
+
+        // 응답 상태 코드가 201인 경우 처리
+        if (response.status === 201) {
+          console.log('등록 성공');
+          router.push('/guardian/succesadd');  // 상황 등록 성공 후 화면 이동
+        } else {
+          console.error('등록 실패, 상태 코드:', response.status);
+          alert('등록 실패, 상태 코드: ' + response.status);
         }
-      );
-      console.log('등록 성공:', response);
-      router.push('/guardian/succesadd');
-    } catch (error) {
-      console.error('등록 실패:', error);
+      } catch (error) {
+        // 상세 에러 출력
+        console.error('등록 실패:', error.message);
+        if (error.response) {
+          console.error('서버 응답:', error.response.data);
+          console.error('응답 상태 코드:', error.response.status);
+        }
+        alert('등록 실패: ' + error.message);
+      }
     }
   };
 
@@ -58,14 +84,25 @@ export default function MemoryGameAnswer() {
 
   const handleDelete = async (situationId) => {
     try {
+      const accessToken = await AsyncStorage.getItem("accessToken");
       const response = await axios.delete(
-        `http://boundary.main.oyunchan.com:5001/situations/${situationId}`,
-        { headers: { 'Content-Type': 'application/json' } }
+        `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations/${situationId}`,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${accessToken}`,  
+          },
+        }
       );
+
+      if (response.status !== 200) {
+        throw new Error('삭제 실패');
+      }
+
       console.log('삭제 성공:', response.status);
       setSituations(situations.filter(item => item.situationId !== situationId));
     } catch (error) {
-      console.error('삭제 실패:', error);
+      console.error('삭제 실패:', error.message); // Error message for console only
     }
   };
 
@@ -174,7 +211,7 @@ const styles = StyleSheet.create({
   },
   checkboxItem: {
     flexDirection: 'row',
-    width:"100%",
+    width: "100%",
     alignItems: 'center',
     marginBottom: 8,
   },
@@ -189,16 +226,5 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 240,
     marginLeft: 8,
-  },
-  deleteButton: {
-    borderWidth: 1,
-    borderColor: 'red',
-    borderRadius: 4,
-    backgroundColor: '#fff',
-  },
-  deleteButtonText: {
-    color: 'red',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
 });
