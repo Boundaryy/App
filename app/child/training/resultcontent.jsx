@@ -17,10 +17,11 @@ const ResultScreen = () => {
         if (feedbackTop === '') {
             try {
                 const threadId = await AsyncStorage.getItem("thread");
+                const accessToken = await AsyncStorage.getItem("accessToken");
                 await axios.delete(
-                    `http://52.79.202.25:5001/sst/threads/${threadId}`, {
+                    `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/sst/threads/${threadId}`, {
                         headers: {
-                          access_token: await AsyncStorage.getItem("accessToken"),
+                            Authorization: `Bearer ${accessToken}`,
                         },
                     }
                 );

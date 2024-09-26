@@ -11,8 +11,11 @@ export default function AnswerScreen() {
     try {
       const accessToken = await AsyncStorage.getItem("accessToken");
       const response = await axios.post(
-        `http://52.79.202.25:5001/cognition`,
+        `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/cognition`,
         { addPoint: 100 },
+        {
+            withCredentials: true,
+        },
         {
           headers: {
             access_token: `${accessToken}`,

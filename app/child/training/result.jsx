@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
-
-const results = [
-    {
-        date: "6월 29일",
-        title: "상황 대처 학습",
-        status: "correct",
-        summary: "잘했어요 (10 문제중 9개 정답)",
-    },
-    {
-        date: "6월 28일",
-        title: "상황 대처 학습",
-        status: "incorrect",
-        summary: "잘했어요 (10 문제중 9개 정답)",
-    }
-];
+import axios from 'axios';
 
 const LearningResults = () => {
+    const [results, setResults] = useState([]);
     const router = useRouter();
+
+    useEffect(() => {
+        fetchResults();
+    }, []);
+
+    const fetchResults = async () => {
+        try {
+            const response = await axios.get('YOUR_BACKEND_API_URL/results');
+            setResults(response.data);
+        } catch (error) {
+            console.error('Error fetching results:', error);
+        }
+    };
 
     const handlePress = () => {
         router.push('child/training/resultcontent');

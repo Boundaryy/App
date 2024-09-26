@@ -18,10 +18,10 @@ const App = () => {
             try {
               const token = await AsyncStorage.getItem("accessToken");
               const response = await axios.get(
-                `http://52.79.202.25:5001/situations`,
+                `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/situations`,
                 {
                   headers: {
-                    access_token: token,
+                    Authorization: `Bearer ${token}`,
                   },
                 }
               );

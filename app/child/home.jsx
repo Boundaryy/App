@@ -25,21 +25,21 @@ const App = () => {
     //     fetchData();
     // }, []);
 
-    const handleLogout = async () => {
-        try {
-            const response = await axios.post('http://boundary.main.oyunchan.com:5001/logout', {});
-            if (response.status === 200) {
-                setLogoutMessage(response.data); 
-                setTimeout(() => {
-                    router.push('/'); 
-                }, 2000); 
-            } else {
-                console.log('로그아웃 실패');
-            }
-        } catch (error) {
-            console.error('로그아웃 중 오류 발생:', error);
-        }
-    };
+    // const handleLogout = async () => {
+    //     try {
+    //         const response = await axios.post('http://boundary.main.oyunchan.com:5001/logout', {});
+    //         if (response.status === 200) {
+    //             setLogoutMessage(response.data); 
+    //             setTimeout(() => {
+    //                 router.push('/'); 
+    //             }, 2000); 
+    //         } else {
+    //             console.log('로그아웃 실패');
+    //         }
+    //     } catch (error) {
+    //         console.error('로그아웃 중 오류 발생:', error);
+    //     }
+    // };
 
     const containerPadding = width > 400 ? 20 : 10; 
     const buttonWidth = width > 400 ? '85%' : '95%';

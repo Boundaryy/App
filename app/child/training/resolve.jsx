@@ -33,17 +33,20 @@ const ChatScreen = () => {
     toggleVisibility();
 
     try {
+      const token = await AsyncStorage.getItem("accessToken");
+      const situationId = await AsyncStorage.getItem("situationId");
+      
       const response = await axios.post(
-        `http://52.79.202.25:5001/sst/${await AsyncStorage.getItem("situationId")}`,
+        `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/sst/${situationId}`,
         {
           headers: {
-            access_token: await AsyncStorage.getItem("accessToken"),
+            Authorization: `Bearer ${token}`,
           },
         }
       );
-      console.log(response.data.botFirstMessage)
-      setThreads(response.data.threadId)
-      setMessageList([...messageList, response.data.botFirstMessage])
+      console.log(response.data.botFirstMessage);
+      setThreads(response.data.threadId);
+      setMessageList([...messageList, response.data.botFirstMessage]);
     } catch (error) {
       console.error('첫 메시지 불러오기 실패:', error);
       fetchFirstMessage();
