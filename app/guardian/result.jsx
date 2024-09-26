@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import axios from "axios"
+import axios from "axios";
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -15,14 +15,14 @@ const LearningResults = () => {
             try {
                 const response = await axios.get(
                     `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/sst/treads`,
-                        {
+                    {
                         withCredentials: true,
                         headers: {
                             Authorization: `Bearer ${accessToken}`,
                         },
                     }
                 );
-                console.log(response.data)
+                console.log(response.data);
                 setResults(response.data);
             } catch (error) {
                 console.error(error);
@@ -33,12 +33,12 @@ const LearningResults = () => {
 
     const handlePress = async (th) => {
         await AsyncStorage.setItem("threadId", th);
-        await navigation.navigate('guardian/resolve'); 
+        await navigation.navigate('guardian/resolve');
     };
 
     const handleBackPress = () => {
-        console.log('뒤로가기 버튼 누름');  
-        navigation.goBack(); 
+        console.log('뒤로가기 버튼 누름');
+        navigation.goBack();
     };
 
     return (
@@ -46,10 +46,10 @@ const LearningResults = () => {
             <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
                 <Text style={styles.backButtonText}>뒤로가기</Text>
             </TouchableOpacity>
-                <View style={styles.header}>
-                    <Text style={styles.title}>학습 결과</Text>
-                    <Text style={styles.subtitle}>최근 학습 결과를 확인해보세요.</Text>
-                </View>
+            <View style={styles.header}>
+                <Text style={styles.title}>학습 결과</Text>
+                <Text style={styles.subtitle}>최근 학습 결과를 확인해보세요.</Text>
+            </View>
             {results.map((result, index) => (
                 <TouchableOpacity key={index} style={styles.resultItem} onPress={() => {handlePress(result.threadId)}}>
                     <Image
@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
     },
-
     backButtonText: {
         fontSize: 18,
         color: '#808080',  
@@ -107,8 +106,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 16,
+        paddingHorizontal: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#E0E0E0',
+        backgroundColor: '#F5F5F5', // Light gray background
+        borderRadius: 8, // Rounded corners
+        marginBottom: 10, // Space between each session
     },
     resultIcon: {
         width: 68,
@@ -133,12 +136,12 @@ const styles = StyleSheet.create({
     },
     resultSummary: {
         fontSize: 16,
-        color: '#4CAF50', 
+        color: '#4CAF50',
         marginTop: 4,
         marginLeft: -7,
     },
     incorrectSummary: {
-        color: '#FF0000', 
+        color: '#FF0000', // Red for incorrect results
     },
 });
 
