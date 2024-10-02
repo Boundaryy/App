@@ -1,3 +1,4 @@
+// 이 코드에 AI 추가해야함 (부모님 조언 페이지)
 import React, { useState } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
