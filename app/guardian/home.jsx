@@ -53,6 +53,10 @@ const ParentDashboard = () => {
                     />
                 
                 </View>
+
+                <TouchableOpacity style={styles.logoutButton}>
+                    <Text style={styles.logoutText}>로그아웃</Text>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     );
@@ -143,6 +147,16 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#808080',
         fontFamily: 'Pretendard',
+    },
+    logoutButton: {
+        marginTop: 60,
+        alignSelf: 'flex-start',
+        marginLeft: 30,
+    },
+    logoutText: {
+        color: '#9F9F9F',
+        fontFamily: 'Pretendard',
+        fontSize: 16,
     },
 });
 
