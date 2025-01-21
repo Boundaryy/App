@@ -12,6 +12,7 @@ const ChatScreen = () => {
   const [message, setMessage] = useState('');
   const [threads, setThreads] = useState('');
   const [isVisible, setIsVisible] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
@@ -31,6 +32,7 @@ const ChatScreen = () => {
 
   const fetchFirstMessage = async () => {
     toggleVisibility();
+    setLoading(true);
 
     try {
       const token = await AsyncStorage.getItem("accessToken");
@@ -51,6 +53,8 @@ const ChatScreen = () => {
     } catch (error) {
       console.log('첫 메시지 불러오기:', error);
       fetchFirstMessage();
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,6 +107,11 @@ const ChatScreen = () => {
           <TouchableOpacity style={styles.startButton} onPress={fetchFirstMessage}>
             <Text style={styles.startText}>시작하기</Text>
           </TouchableOpacity>
+        </View>
+      )}
+      {loading && (
+        <View style={styles.loadingContainer}>
+          <Text>로딩 중...</Text>
         </View>
       )}
       <TouchableOpacity style={globalStyles.header} onPress={handleBackClick}>
@@ -264,6 +273,17 @@ const styles = StyleSheet.create({
   },
   backButtonSpacing: {
     marginBottom: 24,
+  },
+  loadingContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(1,1,1,0.5)',
+    zIndex: 2,
   },
 });
 
