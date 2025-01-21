@@ -7,7 +7,7 @@ export const BarButton = ({ toLink, imgLink, title, explain }) => {
 
     const handleClick = () => {
         router.push(toLink);
-      };
+    };
     
     return (
         <TouchableOpacity onPress={handleClick} style={styles.barBtn}>
@@ -15,8 +15,8 @@ export const BarButton = ({ toLink, imgLink, title, explain }) => {
                 <Image source={imgLink} style={styles.iconImg} />
             </View>
             <View style={styles.textBg}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.desc}>{explain}</Text>
+                <Text style={[styles.title, { fontFamily: 'Pretendard' }]}>{title}</Text>
+                <Text style={[styles.desc, { fontFamily: 'Pretendard' }]}>{explain}</Text>
             </View>
 
         </TouchableOpacity>
