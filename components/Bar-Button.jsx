@@ -25,47 +25,49 @@ export const BarButton = ({ toLink, imgLink, title, explain }) => {
 
 const styles = StyleSheet.create({
     barBtn: {
-        width: "100%",
+        width: 330,
+        height: 108,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
         gap: 5,
         marginTop: 10,
         backgroundColor: '#FFFFFF',
-        borderRadius: 20,
+        borderRadius: 16,
         padding: 10,
-        elevation: 2, // Android shadow effect
+        elevation: 2, 
     },
     iconBg: {
         backgroundColor: '#FFFFFF',
-        height: 50,
+        height: 40,
         width: 50,
         borderRadius: 100,
         alignItems: 'center',
         justifyContent: 'center',
     },
     iconImg: {
-        height: 40,
-        width: 40,
+        height: 54,
+        width: 54,
     },
     textBg: {
-        marginLeft: 10,
+        marginLeft: 6,
         gap: 3,
     },
     title: {
         fontSize: 20,
-        fontWeight: '600',
+        fontWeight: '550',
     },
     desc: {
-        fontSize: 12,
+        fontSize: 14,
         color: '#808080',
+        fontWeight: '500',
     },
     arrowBox: {
         position: 'absolute',
         right: 40,
     },
     arrow: {
-        transform: [{ rotate: '180deg' }], // 45도 회전
+        transform: [{ rotate: '180deg' }], 
         height:  20,
         width:20,
         

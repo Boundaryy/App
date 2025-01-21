@@ -29,15 +29,16 @@ export const globalStyles = StyleSheet.create({
     color: '#5772FF',
   },
   subtitle: {
-    fontSize: 24, // 폰트 크기 줄임
+    fontSize: 26, // 폰트 크기 줄임
     whiteSpace:"nowrap",
-    fontWeight: '600',
+    fontWeight: '700',
   },
   description: {
-    fontSize: 14, // 폰트 크기 줄임
+    fontSize: 15, // 폰트 크기 줄임
     textAlign: 'left',
     color: '#898989',
     marginBottom: 10, // 하단 마진 줄임
+    marginTop: -10,
   },
   formGroup: {
     width: '100%',
