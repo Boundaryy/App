@@ -8,7 +8,7 @@ const ParentDashboard = () => {
     const navigation = useNavigation();
     const route = useRoute();
     
-    const { username = '@Boundary' } = route.params || {};
+    const { username = 'a27856374@outlook.com' } = route.params || {};
     
     const [selectedDate, setSelectedDate] = useState('');
 
@@ -21,9 +21,9 @@ const ParentDashboard = () => {
                 </View>
 
                 <View style={styles.userInfo}>
-                    <Image source={require('../../assets/pro.png')} style={styles.userAvatar}/>
+                    <Image source={require('../../assets/face.svg')} style={styles.userAvatar}/>
                     <View style={styles.userDetails}>
-                        <Text style={styles.userName}>김바운</Text>
+                        <Text style={styles.userName}>신희성</Text>
                         <Text style={styles.userHandle}>{username}</Text>
                     </View>
                 </View>
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     header: {
         marginBottom: 40,
         alignItems: 'left',
+        fontFamily: 'Pretendard',
     },
 
     userInfo: {
@@ -80,11 +81,12 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     userAvatar: {
-        width: 120,
-        height: 120,
+        width: 80,
+        height: 80,
         backgroundColor: '#5772FF',
-        borderRadius: 20,
+        borderRadius: 60,
         marginRight: 30,
+        marginLeft: 40,
         borderColor: 'gray',
     },
     userDetails: {
@@ -94,10 +96,12 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '700',
         color: '#000000',
+        fontFamily: 'Pretendard',
     },
     userHandle: {
         fontSize: 16,
         color: '#4A4A4A',
+        fontFamily: 'Pretendard',
     },
     progressBarContainer: {
         width: 320,
@@ -129,6 +133,16 @@ const styles = StyleSheet.create({
     },
     menuItemContent: {
         flexDirection: 'column',
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: '600',
+        fontFamily: 'Pretendard',
+    },
+    desc: {
+        fontSize: 12,
+        color: '#808080',
+        fontFamily: 'Pretendard',
     },
 });
 
