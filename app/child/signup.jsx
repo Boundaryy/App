@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { globalStyles } from '../../styles/global';
-import { Button } from '../../components/Button';
+import Button  from '../../components/Button';
 import axios from 'axios';
 
 export default function SignUp() {

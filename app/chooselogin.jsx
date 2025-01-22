@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { globalStyles } from '../styles/global';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Button } from '../components/Button';
+import Button  from '../components/Button';
 
 const ChooseScreen = () => {
   const [selectedOption, setSelectedOption] = useState('/child/signin');

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { globalStyles } from '../../../styles/global';
-import { Button } from '../../../components/Button';
+import Button from '../../../components/Button';
 
 const App = () => {
     const handleLoginClick = () => {

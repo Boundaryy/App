@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Button } from '../../components/Button';
+import Button  from '../../components/Button';
 import { useRouter } from 'expo-router';
 import { globalStyles } from '../../styles/global';
 import axios from 'axios';

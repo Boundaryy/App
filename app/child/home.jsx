@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { BarButton } from "../../components/Bar-Button";
+import { BarButton}  from "../../components/Bar-Button";
 import { globalStyles } from '../../styles/global';
 
 const ParentDashboard = () => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { globalStyles } from '../styles/global';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Button } from '../components/Button.jsx';
+import  Button  from '../components/Button.jsx';
 
 export default function Index() {
   const router = useRouter();
