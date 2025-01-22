@@ -3,10 +3,11 @@ import { globalStyles } from '../styles/global';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import  Button  from '../components/Button.jsx';
+import WhiteButton from '../components/White-Button.jsx';
 
 export default function Index() {
   const router = useRouter();
-  const [fontSize, setFontSize] = useState(16);  // 초기 글자 크기 설정
+  const [fontSize, setFontSize] = useState(16);  
 
   const handle = () => {
     router.push('/choose');
@@ -18,12 +19,16 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/logo.png')} style={styles.logo} />
-      <Button onPress={handle} title={"회원가입"} />
-      <TouchableOpacity onPress={chooseLogin} style={{ margin: 20 }}>
-        <Text style={[styles.loginText, { fontSize }]} >로그인</Text>
-      </TouchableOpacity>
-      <Text style={globalStyles.footer}>©Barder</Text>
+      <Image source={require('../assets/main.svg')} style={styles.mainImage} />
+      <View style={styles.textContainer}>
+        <Text style={styles.mainText}>경계선 지능인 학습</Text>
+        <Text style={styles.subText}>바운더리에서 시작해요.</Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button onPress={chooseLogin} title="로그인" />
+        <View style={{ height: 60 }} />
+        <WhiteButton onPress={handle} title="회원가입" />
+      </View>
     </View>
   );
 }
@@ -35,16 +40,48 @@ const styles = StyleSheet.create({
     alignItems:"center",
     width:"100%",
     height:"100%",
+    backgroundColor: "#F3F4F6",
   },
   
   logo: {
-    width: 170,
+    width: 320,
     marginBottom: 100,
-    height: 122,
+    height: 240,
   },
   loginText: {
+    fontFamily: 'Pretendard',
     fontWeight: '400',
     fontSize: 16,
     color: 'gray',
+  },
+  mainImage: {
+    width: 320,
+    height: 240,
+    marginBottom: 20,
+  },
+  textContainer: {
+    alignItems: 'center',
+    marginBottom: 40,
+    gap: 3,
+  },
+  mainText: {
+    fontFamily: 'Pretendard',
+    fontSize: 26,
+    fontWeight: '700',
+    color: '#333333',
+    textAlign: 'center',
+  },
+  subText: {
+    fontFamily: 'Pretendard',
+    fontSize: 24,
+    fontWeight: '500',
+    color: '#666666',
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: -50,
   },
 });
