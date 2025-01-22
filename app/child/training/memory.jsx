@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { globalStyles } from '../../../styles/global';
 const { width, height } = Dimensions.get('window');
 
-// 배경 이미지 배열
 const backgroundImages = [
   require('../../../assets/memorygame1.jpg'),
   require('../../../assets/memorygame2.jpg'),
@@ -60,7 +59,7 @@ export default function MemoryGame() {
       style={styles.background}
     >
       <View style={globalStyles.header}>
-        <Text style={[globalStyles.subtitle, { fontFamily: 'Pretendard' }]}>메모리게임</Text>
+        <Text style={[globalStyles.subtitle, { fontFamily: 'Pretendard' }]}>숨은 과일 찾기</Text>
       </View>
 
       <Text style={[styles.countdown, { fontSize: 140, fontWeight: 'bold', position: 'absolute', top: '50%', left: '50%', transform: [{ translateX: -70 }, { translateY: -70 }] }]}> {countdown} </Text>
