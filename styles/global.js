@@ -27,12 +27,7 @@ export const globalStyles = StyleSheet.create({
     paddingTop: 20,
     fontFamily: 'Pretendard',
   },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#5772FF',
-    fontFamily: 'Pretendard',
-  },
+
   subtitle: {
     fontSize: 26,
     whiteSpace: "nowrap",
@@ -50,7 +45,30 @@ export const globalStyles = StyleSheet.create({
     fontFamily: 'Pretendard',
     letterSpacing: -0.5, 
     marginTop: 5,
+    marginLeft: 20,
   },
+
+  backsubtitle: {
+    fontSize: 26,
+    whiteSpace: "nowrap",
+    fontWeight: '700',
+    marginLeft: 50,
+    fontFamily: 'Pretendard',
+    marginTop: 60,
+  },
+
+  backdescription: {
+    fontSize: 16,
+    textAlign: 'left',
+    color: '#898989',
+    marginBottom: 10,
+    marginLeft: 20,
+    fontFamily: 'Pretendard',
+    letterSpacing: -0.5, 
+    marginTop: 5,
+    marginLeft: 50,
+  },
+
   formGroup: {
     width: '100%',
     paddingHorizontal: 20,
@@ -64,8 +82,17 @@ export const globalStyles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 20,
-    left: 20,
+    top: 86,
+    left: 40,
+  },
+  backButtonText: {
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#000000',
+  },
+  backButtonImage: {
+    width: 12,
+    height: 18,
   },
   label: {
     marginTop: 30,
