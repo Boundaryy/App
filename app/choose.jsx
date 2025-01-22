@@ -43,7 +43,7 @@ const ChooseScreen = () => {
               source={require('../assets/images/baby.png')}
               style={styles.iconImage}
             />
-            <Text style={styles.iconText}>아이로 회원가입</Text>
+            <Text style={styles.iconText}>학습자 회원가입</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
@@ -60,7 +60,7 @@ const ChooseScreen = () => {
               source={require('../assets/images/parents.png')}
               style={styles.iconImage}
             />
-            <Text style={styles.iconText}>부모로 회원가입</Text>
+            <Text style={styles.iconText}>보호자 회원가입</Text>
           </TouchableOpacity>
         </View>
         <Button onPress={handleClick} title={"다음으로"}/>
