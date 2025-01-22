@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useRouter } from 'expo-router';
 import { globalStyles } from '../../styles/global';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Button from '../../components/Button';
 
 const LoginScreen = () => {
     const [username, setUsername] = useState('');
@@ -38,7 +39,7 @@ const LoginScreen = () => {
 
                 // const userResponse = await axios.get(`https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/user`, {
                 //     headers: {
-                //         'access_token': accessToken,
+                //         'access-token': accessToken,
                 //     },
                 // });
 
@@ -49,7 +50,7 @@ const LoginScreen = () => {
                 router.push('/child/home');
             } catch (error) {
                 console.error("로그인 중 오류 발생:", error.message); // 콘솔에만 에러 표시
-            }
+            }   
         }
     };
 
@@ -63,11 +64,9 @@ const LoginScreen = () => {
     const fontSize = width > 400 ? 20 : 16;
 
     return (
-        <View style={[globalStyles.container]}>
+        <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
             <View style={globalStyles.header}>
-                <Text style={globalStyles.title}>Boundary</Text>
-                <Text style={globalStyles.subtitle}>로그인</Text>
-                <Text style={globalStyles.description}>로그인 정보를 입력해주세요</Text>
+                <Text style={[globalStyles.subtitle]}>로그인</Text>
             </View>
             <View style={globalStyles.formGroup}>
                 <Text style={globalStyles.label}>아이디를 입력하세요.</Text>
@@ -90,40 +89,22 @@ const LoginScreen = () => {
                 />
             </View>
 
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                    style={[styles.submitButton, { width: buttonWidth, marginTop: buttonMarginTop }]} 
-                    onPress={handleSubmit}
-                >
-                    <Text style={[styles.submitButtonText, { fontSize }]}>로그인</Text>
-                </TouchableOpacity>
+            <View style={[styles.buttonContainer, { marginTop: 100 }]}>
+                <Button onPress={handleSubmit} title="로그인" />
 
-                <TouchableOpacity onPress={handleSignup}>
-                    <Text style={styles.signupLink}>아직 회원가입을 하지 않았다면?</Text>
-                </TouchableOpacity>
             </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    submitButton: {
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: '#5772FF',
-        borderRadius: 8,
-        height: 50,
-    },
-    submitButtonText: {
-        color: '#FFFFFF',
-        fontWeight: '600',
-    },
     signupLink: {
         color: '#565656',
         fontSize: 16,
         fontWeight: '200',
         marginTop: 20,
         textAlign: 'center',
+        fontFamily: 'Pretendard',
     },
     buttonContainer: {
         alignItems: 'center',
