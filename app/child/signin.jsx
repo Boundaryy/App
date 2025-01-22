@@ -66,7 +66,8 @@ const LoginScreen = () => {
     return (
         <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
             <View style={globalStyles.header}>
-                <Text style={[globalStyles.subtitle]}>로그인</Text>
+                <Text style={[globalStyles.subtitle]}>학습자 로그인</Text>
+                <Text style={[globalStyles.description]}>로그인 정보를 입력해주세요</Text>
             </View>
             <View style={globalStyles.formGroup}>
                 <Text style={globalStyles.label}>아이디를 입력하세요.</Text>
@@ -89,7 +90,7 @@ const LoginScreen = () => {
                 />
             </View>
 
-            <View style={[styles.buttonContainer, { marginTop: 100 }]}>
+            <View style={[styles.buttonContainer, { marginTop: 10 }]}>
                 <Button onPress={handleSubmit} title="로그인" />
 
             </View>
