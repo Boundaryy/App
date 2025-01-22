@@ -3,6 +3,7 @@ import { globalStyles } from '../styles/global';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import  Button  from '../components/Button.jsx';
+import WhiteButton from '../components/White-Button.jsx';
 
 export default function Index() {
   const router = useRouter();
@@ -21,12 +22,12 @@ export default function Index() {
       <Image source={require('../assets/main.svg')} style={styles.mainImage} />
       <View style={styles.textContainer}>
         <Text style={styles.mainText}>경계선 지능인 학습</Text>
-        <Text style={styles.subText}>모두 바운더리에서</Text>
+        <Text style={styles.subText}>바운더리에서 시작해요.</Text>
       </View>
       <View style={styles.buttonContainer}>
         <Button onPress={chooseLogin} title="로그인" />
         <View style={{ height: 60 }} />
-        <Button onPress={handle} title="회원가입" />
+        <WhiteButton onPress={handle} title="회원가입" />
       </View>
     </View>
   );
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     alignItems:"center",
     width:"100%",
     height:"100%",
+    backgroundColor: "#F3F4F6",
   },
   
   logo: {
