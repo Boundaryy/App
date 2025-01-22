@@ -49,7 +49,7 @@ const LoginScreen = () => {
 
                 router.push('/child/home');
             } catch (error) {
-                console.error("로그인 중 오류 발생:", error.message); // 콘솔에만 에러 표시
+                console.error("로그인 중 오류 발생:", error.message);
             }   
         }
     };
