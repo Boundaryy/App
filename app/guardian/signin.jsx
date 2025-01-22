@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimensions } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimensions, Image } from 'react-native';
 import axios from 'axios';
-import { useRouter } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
 import { globalStyles } from '../../styles/global';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../../components/Button';
@@ -47,14 +47,28 @@ const LoginScreen = () => {
     const handleSignup = () => {
         router.push('/guardian/signup');
     };
-
+    
     const inputWidth = width > 400 ? '80%' : '90%';
 
     return (
         <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
+            <TouchableOpacity 
+                onPress={() => {
+                    console.log('Button pressed');
+                    router.replace('/chooselogin');
+                }} 
+                style={[globalStyles.backButton]}
+                hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}
+            >
+                <Image 
+                    source={require('../../assets/arrow.png')} 
+                    style={globalStyles.backButtonImage}
+                />
+            </TouchableOpacity>
+            
             <View style={globalStyles.header}>
-                <Text style={[globalStyles.subtitle]}>보호자 로그인</Text>
-                <Text style={[globalStyles.description]}>로그인 정보를 입력해주세요</Text>
+                <Text style={[globalStyles.backsubtitle]}>보호자 로그인</Text>
+                <Text style={[globalStyles.backdescription]}>로그인 정보를 입력해주세요</Text>
             </View>
             <View style={globalStyles.formGroup}>
                 <Text style={globalStyles.label}>아이디를 입력하세요.</Text>
