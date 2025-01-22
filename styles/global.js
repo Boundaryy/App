@@ -84,6 +84,7 @@ export const globalStyles = StyleSheet.create({
     position: 'absolute',
     top: 86,
     left: 40,
+    zIndex: 10 ,
   },
   backButtonText: {
     fontSize: 24,
@@ -93,6 +94,7 @@ export const globalStyles = StyleSheet.create({
   backButtonImage: {
     width: 12,
     height: 18,
+    zIndex: 10 ,
   },
   label: {
     marginTop: 30,

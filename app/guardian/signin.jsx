@@ -52,12 +52,19 @@ const LoginScreen = () => {
 
     return (
         <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
-            <Link href="/chooselogin" style={globalStyles.backButton}>
+            <TouchableOpacity 
+                onPress={() => {
+                    console.log('Button pressed');
+                    router.replace('/chooselogin');
+                }} 
+                style={[globalStyles.backButton]}
+                hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}
+            >
                 <Image 
                     source={require('../../assets/arrow.png')} 
                     style={globalStyles.backButtonImage}
                 />
-            </Link>
+            </TouchableOpacity>
             
             <View style={globalStyles.header}>
                 <Text style={[globalStyles.backsubtitle]}>보호자 로그인</Text>
