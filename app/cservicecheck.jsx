@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Platform, Alert } from 'react-native';
 import Button from '../components/Button';
+import { useRouter } from 'expo-router';
 
 const ServiceCheck = () => {
+    const router = useRouter();
     const [checked, setChecked] = useState([false, false, false]);
     
     const toggleCheck = (index) => {
@@ -25,9 +27,20 @@ const ServiceCheck = () => {
         if (Platform.OS === 'web') {
             window.open(`/assets/${pdfName}`, '_blank');
         } else {
-            // 네이티브 PDF 뷰어 구현 예정
             console.log('Native PDF viewer will be implemented');
         }
+    };
+
+    const handleNext = () => {
+        if (!checked[1] || !checked[2]) {
+            Alert.alert(
+                "알림",
+                "필수 약관을 선택해주세요.",
+                [{ text: "확인" }]
+            );
+            return;
+        }
+        router.push('/child/signup');
     };
 
     return (
@@ -36,8 +49,8 @@ const ServiceCheck = () => {
                 <Image source={require('../assets/logo2.svg')} style={styles.logo} />
             </View>
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>고객님</Text>
-                <Text style={styles.title}>환영합니다!</Text>
+                <Text style={styles.title}>학습자님</Text>
+                <Text style={styles.title}>아래 약관을 확인해주세요.</Text>
             </View>
             <View style={styles.checkboxContainer}>
                 <View style={styles.checkboxItem}>
@@ -80,7 +93,7 @@ const ServiceCheck = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <Button title="다음으로" onPress={() => { /* 다음 단계로 이동하는 로직 구현 필요*/ }} />
+            <Button title="다음으로" onPress={handleNext} />
         </ScrollView>
     );
 };
@@ -164,8 +177,7 @@ const styles = StyleSheet.create({
     },
 });
 
- export default ServiceCheck;
-
+export default ServiceCheck;
 
 // import React, { useState, useEffect } from 'react';
 // import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, Platform } from 'react-native';
@@ -376,3 +388,4 @@ const styles = StyleSheet.create({
 // });
 
 // export default ServiceCheck;
+

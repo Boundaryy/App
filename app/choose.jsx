@@ -5,13 +5,13 @@ import { useRouter } from 'expo-router';
 import Button  from '../components/Button';
 
 const ChooseScreen = () => {
-  const [selectedOption, setSelectedOption] = useState('/child/signup');
-  const [toLink, setToLink] = useState('/child/signup');
+  const [selectedOption, setSelectedOption] = useState('/child');
+  const [toLink, setToLink] = useState('/cservicecheck');
   const router = useRouter();
 
   const handleIconClick = (option) => {
-    setToLink(option+"/signup")
     setSelectedOption(option);
+    setToLink(option === '/child' ? '/cservicecheck' : '/pservicecheck');
   };
 
   const handleClick = () => {
