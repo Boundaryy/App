@@ -11,6 +11,19 @@ const LoginScreen = () => {
     const [password, setPassword] = useState('');
     const router = useRouter();
     const { width, height } = useWindowDimensions();
+    const [countdown, setCountdown] = useState(5);
+
+    useEffect(() => {
+        if (countdown > 0) {
+            const timer = setInterval(() => {
+                setCountdown(prev => prev - 1);
+            }, 1000);
+
+            return () => clearInterval(timer);
+        } else {
+            router.replace('/chooselogin');
+        }
+    }, [countdown]);
 
     const handleSubmit = async () => {
         if (!username || !password) {
@@ -51,14 +64,16 @@ const LoginScreen = () => {
     const inputWidth = width > 400 ? '80%' : '90%';
 
     return (
-        <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
+        <View style={[globalStyles.container, { backgroundColor: '#F3F4F6', justifyContent: 'center', alignItems: 'center' }]}>
+            <Text style={{ fontSize: 48, fontWeight: 'bold' }}>{countdown}</Text>
+            
             <TouchableOpacity 
                 onPress={() => {
                     console.log('Button pressed');
                     router.replace('/chooselogin');
                 }} 
-                style={[globalStyles.backButton]}
-                hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}
+                style={[globalStyles.backButton, { zIndex: 10 }]} 
+                hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }} 
             >
                 <Image 
                     source={require('../../assets/arrow.png')} 
@@ -93,7 +108,6 @@ const LoginScreen = () => {
 
             <View style={[styles.buttonContainer, { marginBottom: '100' }]}>
                 <Button onPress={handleSubmit} title="로그인" />
-
             </View>
         </View>
     );
