@@ -13,8 +13,8 @@ const ParentDashboard = () => {
         <ScrollView contentContainerStyle={globalStyles.container}>
             <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
                 <View style={globalStyles.header}>
-                    <Text style={[globalStyles.subtitle, { marginTop: 60 }]}>어렵지 않은 학습</Text>
-                    <Text style={[globalStyles.description, { marginTop: 5 }]}>상황 대처, 게임을 통한 학습으로 지능을 향상시켜요. </Text>
+                    <Text style={[globalStyles.subtitle]}>어렵지 않은 학습</Text>
+                    <Text style={[globalStyles.description]}>상황 대처, 게임을 통한 학습으로 지능을 향상시켜요. </Text>
                 </View>
 
                 <View style={[styles.menu, { marginTop: -40 }]}>

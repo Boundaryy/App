@@ -21,7 +21,6 @@ const ChooseScreen = () => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.headerContainer}>
-        <Text style={globalStyles.title}>Boundary</Text>
         <Text style={globalStyles.subtitle}>회원가입</Text>
         <Text style={globalStyles.description}>아이와 부모님을 선택해 주세요.</Text>
       </View>

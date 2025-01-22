@@ -39,16 +39,17 @@ export const globalStyles = StyleSheet.create({
     fontWeight: '700',
     marginLeft: 20,
     fontFamily: 'Pretendard',
+    marginTop: 60,
   },
   description: {
     fontSize: 16,
     textAlign: 'left',
     color: '#898989',
     marginBottom: 10,
-    marginTop: -10,
     marginLeft: 20,
     fontFamily: 'Pretendard',
     letterSpacing: -0.5, 
+    marginTop: 5,
   },
   formGroup: {
     width: '100%',

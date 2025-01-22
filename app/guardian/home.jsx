@@ -16,8 +16,8 @@ const ParentDashboard = () => {
         <ScrollView contentContainerStyle={globalStyles.container}>
             <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
                 <View style={globalStyles.header}>
-                    <Text style={[globalStyles.subtitle, { marginTop: 60 }]}>아이의 학습을 확인하세요.</Text>
-                    <Text style={[globalStyles.description, { marginTop: 5 }]}>아이의 학습 결과를 확인하며 도와주세요.</Text>
+                    <Text style={[globalStyles.subtitle]}>아이의 학습을 확인하세요.</Text>
+                    <Text style={[globalStyles.description]}>아이의 학습 결과를 확인하며 도와주세요.</Text>
                 </View>
 
                 <View style={styles.userInfo}>
