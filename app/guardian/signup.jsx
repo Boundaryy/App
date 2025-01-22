@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Button  from '../../components/Button';
 import { useRouter } from 'expo-router';
@@ -9,11 +9,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const SignupScreen = () => {
+    const { width, height } = useWindowDimensions();
     const [phoneNumber, setPhoneNumber] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [childUsername, setChildUsername] = useState('');
     const route = useRouter();
+
+    const inputWidth = width > 400 ? '80%' : '90%';
 
     const createTwoButtonAlert = () => {
         alert("빈칸없이 작성해주세요!")
@@ -55,87 +58,59 @@ const SignupScreen = () => {
     }
 
     return (
-            <View style={globalStyles.container}>
-                <View style={globalStyles.header}>
-                    <Text style={globalStyles.title}>Boundary</Text>
-                    <Text style={globalStyles.subtitle}>회원가입</Text>
-                    <Text style={globalStyles.description}>회원가입 정보를 입력해주세요</Text>
-                </View>
-                <View style={globalStyles.formGroup}>
-                    <Text style={globalStyles.label}>전화 번호를 알려주세요.</Text>
-                    <TextInput
-                        style={globalStyles.input}
-                        placeholder="예시) 010-1234-5678"
-                        value={phoneNumber}
-                        onChangeText={formatPhoneNumber}
-                        keyboardType="numeric"
-                    />
-                </View>
+        <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
+            <View style={globalStyles.header}>
+                <Text style={globalStyles.subtitle}>보호자 회원가입</Text>
+                <Text style={globalStyles.description}>회원가입 정보를 입력해주세요</Text>
+            </View>
 
-                <View style={globalStyles.formGroup}>
-                    <Text style={globalStyles.label}>사용할 아이디를 입력하세요.</Text>
-                    <TextInput
-                        style={globalStyles.input}
-                        placeholder="예시) wbhaao"
-                        value={username}
-                        onChangeText={setUsername}
-                    />
-                </View>
+            <View style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>전화 번호를 알려주세요.</Text>
+                <TextInput
+                    style={[globalStyles.input, { width: inputWidth }]}
+                    placeholder="예시) 010-1234-5678"
+                    value={phoneNumber}
+                    onChangeText={formatPhoneNumber}
+                    keyboardType="numeric"
+                />
+            </View>
 
-                <View style={globalStyles.formGroup}>
-                    <Text style={globalStyles.label}>사용할 비밀번호를 입력하세요.</Text>
-                    <TextInput
-                        style={globalStyles.input}
-                        placeholder="예시) qwer!1234"
-                        secureTextEntry
-                        value={password}
-                        onChangeText={setPassword}
-                    />
-                </View>
+            <View style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>사용할 아이디를 입력하세요.</Text>
+                <TextInput
+                    style={[globalStyles.input, { width: inputWidth }]}
+                    placeholder="예시) wbhaao"
+                    value={username}
+                    onChangeText={setUsername}
+                />
+            </View>
 
-                <View style={globalStyles.formGroup}>
-                    <Text style={globalStyles.label}>아이의 아이디를 입력하세요.</Text>
-                    <TextInput
-                        style={globalStyles.input}
-                        placeholder="예시) gyumingim"
-                        value={childUsername}
-                        onChangeText={setChildUsername}
-                    />
-                </View>
+            <View style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>사용할 비밀번호를 입력하세요.</Text>
+                <TextInput
+                    style={[globalStyles.input, { width: inputWidth }]}
+                    placeholder="예시) qwer!1234"
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                />
+            </View>
 
-                <Button title={"회원가입"} onPress={handleClick}></Button>
-                </View>
+            <View style={globalStyles.formGroup}>
+                <Text style={globalStyles.label}>아이의 아이디를 입력하세요.</Text>
+                <TextInput
+                    style={[globalStyles.input, { width: inputWidth }]}
+                    placeholder="예시) gyumingim"
+                    value={childUsername}
+                    onChangeText={setChildUsername}
+                />
+            </View>
+
+            <View style={{ marginBottom: 10 }}>
+                <Button title={"회원가입"} onPress={handleClick} />
+            </View>
+        </View>
     );
 };
-
-const styles = StyleSheet.create({
-    headerTitle: {
-        color: '#5772FF',
-        fontSize: 18,
-        fontWeight: '700',
-    },
-    headerSubtitle: {
-        fontSize: 28,
-        fontWeight: '700',
-        marginVertical: 10,
-    },
-    headerDescription: {
-        color: '#565656',
-        fontSize: 14,
-    },
-    submitButton: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#5772FF',
-        borderRadius: 8,
-        height: 50,
-        marginTop: 40,
-    },
-    submitButtonText: {
-        color: '#FFFFFF',
-        fontSize: 20,
-        fontWeight: '600',
-    },
-});
 
 export default SignupScreen;

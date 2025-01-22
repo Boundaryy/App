@@ -66,7 +66,7 @@ export default function SignUp() {
         <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
             <ScrollView style={{ width: '100%' }} contentContainerStyle={{ paddingBottom: 40 }}>
                 <View style={globalStyles.header}>
-                    <Text style={globalStyles.subtitle}>회원가입</Text>
+                    <Text style={globalStyles.subtitle}>학습자 회원가입</Text>
                     <Text style={globalStyles.description}>서비스에서 사용될 정보를 알려주세요.</Text>
                 </View>
 
