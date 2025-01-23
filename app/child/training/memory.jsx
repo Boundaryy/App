@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ImageBackground, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { globalStyles } from '../../../styles/global';
+
 const { width, height } = Dimensions.get('window');
 
 const backgroundImages = [
@@ -24,23 +25,31 @@ export default function MemoryGame() {
     return Math.floor(Math.random() * max);
   }
 
-  const getRandomPosition = () => {
-    const top = Math.floor(Math.random() * (height - 100));
-    const left = Math.floor(Math.random() * (width - 100));
-    return { top, left };
+  const getRandomPosition = (imageBounds) => {
+    const { top, left, width, height } = imageBounds;
+    const emojiTop = Math.floor(Math.random() * (height - 56)) + top; 
+    const emojiLeft = Math.floor(Math.random() * (width - 56)) + left;
+    return { top: emojiTop, left: emojiLeft };
   };
 
   useEffect(() => {
     const selectedBackground = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
     setRandomBackground(selectedBackground);
 
+    const imageBounds = {
+      top: height - 640 - 40, 
+      left: (width - 330) / 2,
+      width: 330,
+      height: 640,
+    };
+
     const newPositions = emojis.map((emoji, index) =>
-      Array.from({ length: list[index] }).map(() => getRandomPosition())
+      Array.from({ length: list[index] }).map(() => getRandomPosition(imageBounds))
     );
     setPositions(newPositions);
 
     const timer = setInterval(() => {
-      setCountdown(prev => {
+      setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
           router.push('/child/training/memoryscanf');
@@ -54,48 +63,60 @@ export default function MemoryGame() {
   }, [router]);
 
   return (
-    <ImageBackground
-      source={randomBackground}
-      style={styles.background}
-    >
-      <View style={globalStyles.header}>
-        <Text style={[globalStyles.subtitle, { fontFamily: 'Pretendard' }]}>숨은 과일 찾기</Text>
-      </View>
-
-      <Text style={[styles.countdown, { fontSize: 140, fontWeight: 'bold', position: 'absolute', top: '50%', left: '50%', transform: [{ translateX: -70 }, { translateY: -70 }] }]}> {countdown} </Text>
-
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {emojis.map((emoji, index) => (
-          positions[index] && positions[index].map((position, i) => (
+    <View style={styles.container}>
+      <ImageBackground
+        source={randomBackground}
+        style={styles.background}
+        imageStyle={styles.imageStyle} 
+      >
+        {emojis.map((emoji, index) =>
+          positions[index] &&
+          positions[index].map((position, i) => (
             <Text
               key={`${emoji}-${index}-${i}`}
-              style={[styles.emoji, { top: position.top, left: position.left, fontFamily: 'Pretendard' }]}
+              style={[
+                styles.emoji,
+                {
+                  top: position.top - (height - 640 - 40), 
+                  left: position.left - (width - 330) / 2,
+                },
+              ]}
             >
               {emoji}
             </Text>
           ))
-        ))}
-      </ScrollView>
-    </ImageBackground>
+        )}
+      </ImageBackground>
+
+      <View style={globalStyles.header}>
+        <Text style={[globalStyles.subtitle, { fontFamily: 'Pretendard' }]}>숨은 과일 찾기</Text>
+        <Text style={[globalStyles.description, { fontFamily: 'Pretendard' }]}>
+          과일들이 몇 개인지 잘 보세요.
+        </Text>
+      </View>
+
+      <Text style={styles.countdown}>{countdown}</Text>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    position: 'relative',
+    backgroundColor: '#FFF',
+  },
   background: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-  header: {
-    width: '80%',
-    marginLeft: '10%',
-    marginTop: height * 0.1,
+    width: 330,
+    height: 640,
     position: 'absolute',
-    zIndex: 1,
+    left: '50%',
+    bottom: 40,
+    transform: [{ translateX: -165 }],
+    overflow: 'hidden',
   },
-  scrollContainer: {
-    flexGrow: 1,
-    marginTop: height * 0.15,
+  imageStyle: {
+    borderRadius: 20, 
   },
   emoji: {
     position: 'absolute',
@@ -104,12 +125,13 @@ const styles = StyleSheet.create({
   },
   countdown: {
     position: 'absolute',
-    top: '50%',
+    top: '55%',
     left: '50%',
     transform: [{ translateX: -70 }, { translateY: -70 }],
     textAlign: 'center',
     fontSize: 140,
     color: '#FFFFFF',
     fontFamily: 'Pretendard',
+    marginLeft: 30,
   },
 });

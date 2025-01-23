@@ -1,8 +1,7 @@
-/* 반응형 적용 못함 */
-
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
+import { globalStyles } from '../../../styles/global';
 
 const cards = [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]; 
 const { width } = Dimensions.get('window');
@@ -52,27 +51,26 @@ const CardGame = () => {
     }, [matched]);
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.backButton} onPress={handleBackClick}>
-                <Text style={styles.backText}>뒤로가기</Text>
-            </TouchableOpacity>
-            <Text style={styles.title}>카드 뒤집기 게임</Text>
-            <Text style={styles.subtitle}>즐겁게 게임을 시작해 보세요!</Text>
+        <View style={[globalStyles.container]}>
+            <View style={globalStyles.header}>
+                <Text style={[globalStyles.subtitle, styles.text]}>카드 뒤집기</Text>
+                <Text style={[globalStyles.description]}>모양이 똑같은 카드 2장을 선택하세요.</Text>
 
-            <View style={styles.board}>
-                {cards.map((card, index) => (
-                    <TouchableOpacity
-                        key={index}
-                        onPress={() => handleCardPress(index)}
-                        style={[styles.card, (flipped[index] || matched[index]) && styles.cardFlipped]}
-                    >
-                        {flipped[index] || matched[index] ? (
-                            <Text style={styles.cardText}>{card}</Text>
-                        ) : (
-                            <Image source={require('../../../assets/card.png')} style={styles.cardImage} />
-                        )}
-                    </TouchableOpacity>
-                ))}
+                <View style={styles.board}>
+                    {cards.map((card, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            onPress={() => handleCardPress(index)}
+                            style={[styles.card, (flipped[index] || matched[index]) && styles.cardFlipped]}
+                        >
+                            {flipped[index] || matched[index] ? (
+                                <Text style={styles.cardText}>{card}</Text>
+                            ) : (
+                                <Image source={require('../../../assets/card.svg')} style={styles.cardImage} />
+                            )}
+                        </TouchableOpacity>
+                    ))}
+                </View>
             </View>
         </View>
     );

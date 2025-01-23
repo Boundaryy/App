@@ -64,11 +64,11 @@ const ResultScreen = () => {
             
             <TouchableOpacity style={styles.messageBox} onPress={deleteData}>
                 <SafeAreaView style={styles.scrollView}>
-                    <ScrollView contentContainerStyle={styles.scrollViewContent}>
+                    <View style={styles.scrollViewContent}>
                         <Text style={[styles.messageText, { fontFamily: 'Pretendard', textAlign: 'center' }]}>
                             {feedbackTop || '터치하면 피드백을 볼 수 있어요.'}
                         </Text>
-                    </ScrollView>
+                    </View>
                 </SafeAreaView>
             </TouchableOpacity>
 
