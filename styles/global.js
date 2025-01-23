@@ -5,6 +5,7 @@ export const globalStyles = StyleSheet.create({
     flex: 1,
     width: '100%',
     fontFamily: 'Pretendard',
+    backgroundColor: '#F3F4F6' 
   },
   logincontainer: {
     width: "100%",
