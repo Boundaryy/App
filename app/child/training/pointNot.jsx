@@ -1,91 +1,64 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'; 
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { useRouter } from 'expo-router';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { globalStyles } from '../../../styles/global';
+import Button from '../../../components/Button';
 
-export default function AnswerScreen() {
+export default function MemoryGameAnswer() {
   const router = useRouter();
 
-  const handlePress = async () => {
-    try {
-      const accessToken = await AsyncStorage.getItem("accessToken");
-      const response = await axios.post(
-        `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/cognition`,
-        { addPoint: 100 },
-        {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      console.log('다음번엔 더 잘할 수 있을 거에요:', response.data);
-      router.push('/child/home');
-    } catch (error) {
-      console.error('포인트 전달 중 오류 발생:', error);
-      alert('포인트 전달 중 오류 발생');
-    }
-  };
-
   return (
-    <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <Image
-          source={{ uri: 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Smiling%20Face%20with%20Heart-Eyes.png' }}
-          style={styles.icon}
-        />
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={globalStyles.subtitle}>포인트 지급</Text>
+      <Text style={globalStyles.description}>와, 완전 열심히 하셨어요!</Text>
+
+      <View style={styles.content}>
+        <View style={styles.imageContainer}>
+          <Image source={require('../../../assets/coin.svg')} style={styles.image} />
+        </View>
+        <Text style={styles.message}>
+          저금통에{"\n"} 
+          <Text style={styles.highlight}>80 포인트</Text>가 추가되었어요
+        </Text>
+        <View style={styles.buttonContainer}>
+          <Button title="홈으로" onPress={() => router.push('/child/home')} />
+        </View>
       </View>
-      <Text style={styles.message}>다음번엔 더 잘할 수 있을 거에요!</Text>
-      <Text style={styles.pointsMessage}>50포인트가 지급되었습니다.</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handlePress}
-      >
-        <Text style={styles.buttonText}>완료하기</Text>
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    flexGrow: 1,
+    backgroundColor: '#F3F4F6',
+    paddingHorizontal: '5%',
+    paddingVertical: 32,
+  },
+  content: {
+    marginTop: 140, 
+  },
+  imageContainer: {
     alignItems: 'center',
-    backgroundColor: '#F8F8F8',
+    marginBottom: 20,
   },
-  iconContainer: {
-    marginBottom: 8,
-  },
-  icon: {
-    width: 140,
-    height: 140,
+  image: {
+    width: 160,
+    height: 160,
   },
   message: {
-    fontSize: 28,
-    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 26,
+    marginBottom: 60,
+    fontFamily: 'Pretendard', 
+    fontWeight: 600,
+  },
+  highlight: {
     color: '#5772FF',
-    marginBottom: 8,
+    fontWeight: '700',
+    fontFamily: 'Pretendard', 
   },
-  pointsMessage: {
-    fontSize: 18,
-    color: '#808080',
-    marginBottom: 50,
-    fontWeight: '500',
-  },
-  button: {
-    backgroundColor: '#5772FF',
-    width: 310,
-    height: 56,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-    marginTop: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
+  buttonContainer: {
+    marginTop: 60,
   },
 });
