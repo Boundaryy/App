@@ -1,22 +1,51 @@
-/* 반응형 적용 못함 */
-
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
+import { globalStyles } from '../../../styles/global';
 
-const cards = [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]; 
+const cards = [1, 2, 3, 1, 2, 3];
 const { width } = Dimensions.get('window');
-const numColumns = 4;
-const cardSize = (width / numColumns) - 10;
+const numColumns = 3;
+const cardSize = 120;
+
+const formatTime = (milliseconds) => {
+    const secs = Math.floor(milliseconds / 1000);
+    const ms = Math.floor((milliseconds % 1000) / 10); 
+    const mins = Math.floor(secs / 60);
+    return `${mins.toString().padStart(2, '0')}:${(secs % 60).toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
+};
 
 const CardGame = () => {
     const [flipped, setFlipped] = useState(Array(cards.length).fill(false));
-    const [matched, setMatched] = useState(Array(cards.length).fill(false)); 
+    const [matched, setMatched] = useState(Array(cards.length).fill(false));
     const [firstCard, setFirstCard] = useState(null);
+    const [timer, setTimer] = useState(0); 
+    const [isTimerRunning, setIsTimerRunning] = useState(false);
     const router = useRouter();
 
+    useEffect(() => {
+        const initialDelay = setTimeout(() => {
+            setFlipped(Array(cards.length).fill(true)); 
+            const flipBackTimer = setTimeout(() => {
+                setFlipped(Array(cards.length).fill(false)); 
+                setIsTimerRunning(true); 
+            }, 1500); 
+            return () => clearTimeout(flipBackTimer);
+        }, 2000); 
+        return () => clearTimeout(initialDelay);
+    }, []);
+    useEffect(() => {
+        let interval;
+        if (isTimerRunning) {
+            interval = setInterval(() => {
+                setTimer((prevTimer) => prevTimer + 10); 
+            }, 10);
+        }
+        return () => clearInterval(interval);
+    }, [isTimerRunning]);
+
     const handleCardPress = (index) => {
-        if (flipped[index] || matched[index]) return; 
+        if (flipped[index] || matched[index]) return;
         const newFlipped = [...flipped];
         newFlipped[index] = true;
         setFlipped(newFlipped);
@@ -32,7 +61,7 @@ const CardGame = () => {
             } else {
                 setTimeout(() => {
                     const resetFlipped = flipped.map((f, i) =>
-                        (i === firstCard || i === index ? false : f)
+                        i === firstCard || i === index ? false : f
                     );
                     setFlipped(resetFlipped);
                 }, 1000);
@@ -42,37 +71,39 @@ const CardGame = () => {
     };
 
     const handleBackClick = () => {
-        router.back(); 
+        router.back();
     };
 
     useEffect(() => {
         if (matched.every(Boolean)) {
-            router.push('/child/training/point'); 
+            setIsTimerRunning(false);
+            router.push('/child/training/point');
         }
     }, [matched]);
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.backButton} onPress={handleBackClick}>
-                <Text style={styles.backText}>뒤로가기</Text>
-            </TouchableOpacity>
-            <Text style={styles.title}>카드 뒤집기 게임</Text>
-            <Text style={styles.subtitle}>즐겁게 게임을 시작해 보세요!</Text>
+        <View style={[globalStyles.container]}>
+            <View style={globalStyles.header}>
+                <Text style={[globalStyles.subtitle, styles.text]}>카드 뒤집기</Text>
+                <Text style={[globalStyles.description]}>모양이 똑같은 카드 2장을 선택하세요.</Text>
 
-            <View style={styles.board}>
-                {cards.map((card, index) => (
-                    <TouchableOpacity
-                        key={index}
-                        onPress={() => handleCardPress(index)}
-                        style={[styles.card, (flipped[index] || matched[index]) && styles.cardFlipped]}
-                    >
-                        {flipped[index] || matched[index] ? (
-                            <Text style={styles.cardText}>{card}</Text>
-                        ) : (
-                            <Image source={require('../../../assets/card.png')} style={styles.cardImage} />
-                        )}
-                    </TouchableOpacity>
-                ))}
+                <Text style={styles.timer}>{formatTime(timer)}</Text>
+
+                <View style={styles.board}>
+                    {cards.map((card, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            onPress={() => handleCardPress(index)}
+                            style={[styles.card, (flipped[index] || matched[index]) && styles.cardFlipped]}
+                        >
+                            {flipped[index] || matched[index] ? (
+                                <Text style={styles.cardText}>{card}</Text>
+                            ) : (
+                                <Image source={require('../../../assets/card.svg')} style={styles.cardImage} />
+                            )}
+                        </TouchableOpacity>
+                    ))}
+                </View>
             </View>
         </View>
     );
@@ -88,60 +119,44 @@ const styles = StyleSheet.create({
     board: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'center',
-        marginTop: 20,
+        justifyContent: 'center', 
+        marginTop: 50,
     },
     card: {
         width: cardSize,
-        height: cardSize * 1.2, 
+        height: 160,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
         borderColor: '#FFFFFF',
         borderRadius: 8,
-        margin: 5,
+        marginHorizontal: 13.5,
+        marginVertical: 13.5,
         backgroundColor: '#fff',
     },
     cardFlipped: {
-        backgroundColor: '#eee',
+        borderColor: '#5772FF',
+        borderWidth: 4,
+        backgroundColor: '#FFFFFF',
     },
     cardText: {
-        fontSize: 24,
+        fontSize: 32,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#5772FF',
+        fontFamily: 'Pretendard',
     },
     cardImage: {
         width: '100%',
         height: '100%',
         resizeMode: 'contain',
     },
-    backButton: {
-        position: 'absolute', 
-        top: 60, 
-        left: 36, 
-        flexDirection: 'row',
-        alignItems: 'center',
-        zIndex: 1, 
-    },
-    backText: {
-        fontSize: 18,
-        color: '#808080',
-        fontWeight: '400',
-    },
-    title: {
-        position: 'absolute',
-        top: 100, 
-        left: 36,
-        fontSize: 26, 
+    timer: {
+        fontSize: 28,
         fontWeight: 'bold',
-        color: '#000',
-    },
-    subtitle: {
-        position: 'absolute',
-        top: 140, 
-        left: 36, 
-        fontSize: 16,
-        color: '#808080', 
+        color: '#000000',
+        marginTop: 20,
+        marginBottom: -30,
+        marginLeft: 120,
     },
 });
 

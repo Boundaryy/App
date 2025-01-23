@@ -4,9 +4,10 @@ import { useRouter } from 'expo-router';
 import axios from 'axios';
 import { globalStyles } from '../../../styles/global';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Button from '../../../components/Button';
 
 const { width, height } = Dimensions.get('window');
-const rem = width / 375;  // Base width of iPhone 11 is 375
+const rem = width / 375; 
 
 const ResultScreen = () => {
     const router = useRouter();
@@ -55,50 +56,47 @@ const ResultScreen = () => {
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.header}>
-                <Text style={globalStyles.subtitle}>결과</Text>
-                <Text style={globalStyles.description}>7월 17일 결과에요</Text>
+        <View style={[globalStyles.container]}>
+            <View style={globalStyles.header}>
+                <Text style={[globalStyles.subtitle, { fontFamily: 'Pretendard' }]}>결과</Text>
+                <Text style={[globalStyles.description, { fontFamily: 'Pretendard' }]}>상황 대처 학습 결과를 확인해봐요.</Text>
             </View>
             
             <TouchableOpacity style={styles.messageBox} onPress={deleteData}>
                 <SafeAreaView style={styles.scrollView}>
-                    <ScrollView>
-                        <Text style={styles.messageText}>{feedbackTop || '터치하면 피드백을 볼 수 있어요.'}</Text>
-                    </ScrollView>
+                    <View style={styles.scrollViewContent}>
+                        <Text style={[styles.messageText, { fontFamily: 'Pretendard', textAlign: 'center' }]}>
+                            {feedbackTop || '터치하면 피드백을 볼 수 있어요.'}
+                        </Text>
+                    </View>
                 </SafeAreaView>
             </TouchableOpacity>
 
             <View style={styles.footer}>
-                <Text style={styles.footerText}>테스트에서{'\n'}희성이를 걱정하는 말을 해주셔야 해요.</Text>
-                <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                    <Text style={styles.buttonText}>완료</Text>
-                </TouchableOpacity>
+                <Text style={[styles.footerText, { fontFamily: 'Pretendard' }]}>테스트에서{'\n'}희성이를 걱정하는 말을 해주셔야 해요.</Text>
+                <View style={styles.buttonContainer}>
+          <Button title="확인" onPress={() => router.push('/child/training/point')} />
+        </View>
             </View>
-        </ScrollView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        backgroundColor: '#FFFFFF',
-    },
+
     header: {
         alignItems: 'center',
         marginBottom: -10 * rem,
         marginTop: 50,
     },
     messageBox: {
-        width: "85%",
-        height: 400 * rem, 
-        backgroundColor: '#F9F9F9',
-        borderRadius: 10 * rem,
-        padding: 15 * rem,
-        marginTop: 30 * rem,
-        alignItems: 'center',
+        width: 300,
+        height: 400, 
+        backgroundColor: '#FFFFFF',
+        borderRadius: 8,
+        marginTop: 30,
         justifyContent: 'center',
-        textAlign: 'center',
+        marginLeft: 46,
     },
     scrollView: {
         width: "90%",
@@ -106,35 +104,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    scrollViewContent: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     messageText: {
         color: '#565656',
         fontSize: 17 * rem,
         fontWeight: '500',
         textAlign: 'center',
+        marginLeft: 20,
     },
     footer: {
         width: '100%',
         alignItems: 'center',
-        marginTop: 20 * rem,
+        marginTop: 30,
     },
     footerText: {
         color: '#909090',
-        fontSize: 16 * rem,
+        fontSize: 16,
         textAlign: 'center',
-    },
-    submitButton: {
-        width: '80%',
-        height: 50 * rem,
-        backgroundColor: '#5772FF',
-        borderRadius: 8 * rem,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: '15 rem',
-    },
-    buttonText: {
-        color: '#FFFFFF',
-        fontSize: '17 rem', // ''를 쓰면 에러가 나지 않음. 하지만 그렇지 않다면 에러가 뜸.
-        fontWeight: '600',
     },
 });
 
