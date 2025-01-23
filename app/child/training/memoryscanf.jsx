@@ -1,42 +1,61 @@
-import React, { useState } from 'react'; // useState 추가
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Button from '../../../components/Button'; 
+import { globalStyles } from '../../../styles/global'; 
+
 export default function MemoryGameAnswer() {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState(''); // inputValue 상태 추가
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   const handleSubmit = async () => {
-    const emojiCount = await AsyncStorage.getItem("emojiCount")
-    if (inputValue == emojiCount) {
+    const emojiCount = await AsyncStorage.getItem("emojiCount");
+    if (selectedAnswer == emojiCount) {
       router.push('/child/training/point');
-    }
-    else {
+    } else {
       router.push('/child/training/pointNot');
     }
   };
 
+  const options = ['4개', '5개', '6개', '7개'];
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>메모리게임 정답</Text>
-      <Text style={styles.subHeader}>질문에 대한 답을 입력하세요.</Text>
+      <Text style={globalStyles.subtitle}>숨은 과일 찾기 정답</Text>
+      <Text style={globalStyles.description}>질문에 대한 답을 입력하세요.</Text>
 
       <View style={styles.content}>
         <Text style={styles.question}>
-          <Text style={styles.highlight}>사과의 개수</Text>를 알려주세요.
+          <Text style={styles.highlight}>Q.🍎</Text>
+          <Text style={[styles.highlight, { color: '#5772FF' }]}>의 개수는?</Text>
         </Text>
 
-        <TextInput
-          style={styles.input}
-          placeholder="사과의 개수를 적어줘."
-          placeholderTextColor="#aaa"
-          value={inputValue} // inputValue 상태 값 사용
-          onChangeText={setInputValue} // inputValue 상태 업데이트
-        />
+        <View style={styles.optionsContainer}>
+          {options.map((option, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.optionButton,
+                selectedAnswer === option && styles.selectedButton,
+              ]}
+              onPress={() => setSelectedAnswer(option)}
+            >
+              <Text
+                style={[
+                  styles.optionText,
+                  selectedAnswer === option && styles.selectedText,
+                ]}
+              >
+                {option}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>완료하기</Text>
-        </TouchableOpacity>
+        <View style={{ marginTop: 40 }}>
+          <Button title="선택하기" onPress={handleSubmit} />
+        </View>
       </View>
     </ScrollView>
   );
@@ -45,22 +64,9 @@ export default function MemoryGameAnswer() {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#F3F4F6',
     paddingHorizontal: '5%',
     paddingVertical: 32,
-  },
-  header: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginBottom: 4,
-    marginTop: 60,
-    marginLeft: '5%',
-  },
-  subHeader: {
-    fontSize: 16,
-    color: '#888888',
-    marginBottom: 24, 
-    marginLeft: '5%',
   },
   content: {
     marginTop: 24,
@@ -68,32 +74,39 @@ const styles = StyleSheet.create({
   question: {
     fontSize: 22,
     marginBottom: 24,
-    color: '#565656',
+    color: '#000000',
     fontWeight: '600',
-    marginLeft: '5%',
+    marginLeft: '6%',
+    fontFamily: 'Pretendard',
   },
-  input: {
-    borderBottomWidth: 2,
-    borderBottomColor: '#5772FF',
-    paddingVertical: 8,
+  optionsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
     marginBottom: 24,
-    fontSize: 18,
-    marginLeft: '5%',
-    width: '90%', 
   },
-  button: {
-    width: '90%', 
-    height: 60,
-    backgroundColor: '#5772FF',
-    borderRadius: 8,
+  optionButton: {
+    width: 140,
+    height: 160,
+    paddingVertical: 16,
+    margin: 8,
+    borderWidth: 2,
+    borderColor: '#5772FF',
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
-    alignSelf: 'center', 
   },
-  buttonText: {
-    color: '#FFFF',
-    fontSize: 18,
-    fontWeight: 'bold',
+  selectedButton: {
+    backgroundColor: '#5772FF',
+  },
+  optionText: {
+    fontSize: 20,
+    color: '#5772FF',
+    fontFamily: 'Pretendard',
+    textAlign: 'center',
+    fontWeight: 700,
+  },
+  selectedText: {
+    color: '#FFFFFF',
   },
 });
