@@ -3,16 +3,24 @@ import { View, TouchableOpacity, Text, StyleSheet, Image, Dimensions } from 'rea
 import { useRouter } from 'expo-router';
 import { globalStyles } from '../../../styles/global';
 
-const cards = [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]; 
+const cards = [1, 2, 3, 1, 2, 3];
 const { width } = Dimensions.get('window');
-const numColumns = 4;
-const cardSize = (width / numColumns) - 10;
+const numColumns = 3;
+const cardSize = 120;
 
 const CardGame = () => {
-    const [flipped, setFlipped] = useState(Array(cards.length).fill(false));
-    const [matched, setMatched] = useState(Array(cards.length).fill(false)); 
+    const [flipped, setFlipped] = useState(Array(cards.length).fill(true)); 
+    const [matched, setMatched] = useState(Array(cards.length).fill(false));
     const [firstCard, setFirstCard] = useState(null);
     const router = useRouter();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setFlipped(Array(cards.length).fill(false)); 
+        }, 1500);
+
+        return () => clearTimeout(timer); 
+    }, []);
 
     const handleCardPress = (index) => {
         if (flipped[index] || matched[index]) return; 
@@ -31,7 +39,7 @@ const CardGame = () => {
             } else {
                 setTimeout(() => {
                     const resetFlipped = flipped.map((f, i) =>
-                        (i === firstCard || i === index ? false : f)
+                        i === firstCard || i === index ? false : f
                     );
                     setFlipped(resetFlipped);
                 }, 1000);
@@ -41,12 +49,12 @@ const CardGame = () => {
     };
 
     const handleBackClick = () => {
-        router.back(); 
+        router.back();
     };
 
     useEffect(() => {
         if (matched.every(Boolean)) {
-            router.push('/child/training/point'); 
+            router.push('/child/training/point');
         }
     }, [matched]);
 
@@ -86,60 +94,36 @@ const styles = StyleSheet.create({
     board: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'center',
-        marginTop: 20,
+        justifyContent: 'space-between',
+        marginTop: 70,
     },
     card: {
         width: cardSize,
-        height: cardSize * 1.2, 
+        height: 160,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
         borderColor: '#FFFFFF',
         borderRadius: 8,
-        margin: 5,
+        marginHorizontal: 30,
+        marginVertical: 13.5,
         backgroundColor: '#fff',
     },
     cardFlipped: {
-        backgroundColor: '#eee',
+        borderColor: '#5772FF',
+        borderWidth: 3,
+        backgroundColor: '#FFFFFF',
     },
     cardText: {
-        fontSize: 24,
+        fontSize: 32,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#5772FF',
+        fontFamily: 'Pretendard',
     },
     cardImage: {
         width: '100%',
         height: '100%',
         resizeMode: 'contain',
-    },
-    backButton: {
-        position: 'absolute', 
-        top: 60, 
-        left: 36, 
-        flexDirection: 'row',
-        alignItems: 'center',
-        zIndex: 1, 
-    },
-    backText: {
-        fontSize: 18,
-        color: '#808080',
-        fontWeight: '400',
-    },
-    title: {
-        position: 'absolute',
-        top: 100, 
-        left: 36,
-        fontSize: 26, 
-        fontWeight: 'bold',
-        color: '#000',
-    },
-    subtitle: {
-        position: 'absolute',
-        top: 140, 
-        left: 36, 
-        fontSize: 16,
-        color: '#808080', 
     },
 });
 
