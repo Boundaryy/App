@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
     },
     userText: {
         color: '#FFFFFF',
+        fontFamily: 'Pretendard',
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -196,9 +197,9 @@ const styles = StyleSheet.create({
     },
     stopButton: {
         backgroundColor: '#FFFFFF',
-        borderRadius: 21,
-        width: 150,
-        height: 42,
+        borderRadius: 8,
+        width: 160,
+        height: 50,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
@@ -206,21 +207,23 @@ const styles = StyleSheet.create({
     },
     continueButton: {
         backgroundColor: '#5772FF',
-        borderRadius: 21,
-        width: 150,
-        height: 42,
+        borderRadius: 8,
+        width: 160,
+        height: 50,
         justifyContent: 'center',
         alignItems: 'center',
     },
     stopButtonText: {
         color: '#5772FF',
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: '600',
+        fontFamily: 'Pretendard',
     },
     continueButtonText: {
         color: '#FFFFFF',
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: '600',
+        fontFamily: 'Pretendard',
     },
     inputContainer: {
         position: 'absolute',
