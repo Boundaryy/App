@@ -8,7 +8,7 @@ const App = () => {
    const router = useRouter();
 
    const handleLoginClick = () => {
-       router.push('/child/training/resolve');
+       router.push('/child/training/sitchoice');
    };
 
    const chatMessages = [
@@ -54,7 +54,7 @@ const App = () => {
                <Text style={[styles.description, styles.text]}>
                    바운더리에서 {'\n'}상황 대처 학습을 진행해봐요.
                </Text>
-               <Button title={"시작하기"} onPress={handleLoginClick} />
+               <Button title={"다음으로"} onPress={handleLoginClick} />
            </View>
        </View>
    );
