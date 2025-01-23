@@ -8,7 +8,7 @@ const App = () => {
    const router = useRouter();
 
    const handleLoginClick = () => {
-       router.push('/child/training/sitchoice');
+       router.push('/child/training/resolve');
    };
 
    const chatMessages = [

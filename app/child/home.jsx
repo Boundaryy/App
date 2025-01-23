@@ -25,7 +25,7 @@ const ParentDashboard = () => {
                     <BarButton 
                         title={"대화형 상황 대처 학습"} 
                         explain={"AI와 대화하며 학습력 UP UP"} 
-                        toLink={"/child/training/situchoose"} 
+                        toLink={"/child/training/sitchoice"} 
                         imgLink={require("../../assets/speak.png")}
                     />
                     <BarButton 

@@ -11,7 +11,7 @@ const App = () => {
 
     const handleLoginClick = () => {
         if (selectedOption) {
-            router.push('/child/training/resolve');
+            router.push('/child/training/explain');
         } else {
             alert('먼저 상황을 선택해주세요.');
         }
