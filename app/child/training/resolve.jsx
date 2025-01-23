@@ -1,290 +1,184 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native';
-import { useRouter } from 'expo-router';
-import axios from 'axios';
+import { View, Text, FlatList, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { globalStyles } from '../../../styles/global';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const { width, height } = Dimensions.get('window');
+const App = () => {
+    const [chatMessages, setChatMessages] = useState([]);
+    const [inputText, setInputText] = useState('');
 
-const ChatScreen = () => {
-  const [messageList, setMessageList] = useState([]);
-  const [message, setMessage] = useState('');
-  const [threads, setThreads] = useState('');
-  const [isVisible, setIsVisible] = useState(true);
-  const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        const initialMessage = {
+            id: `${Date.now()}-response`,
+            sender: 'response',
+            message: '안녕! 어떻게 도와줄까?',
+        };
+        setChatMessages([initialMessage]);
+    }, []);
 
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
-  };
-  
-  const router = useRouter();
+    const handleSend = () => {
+        if (inputText.trim()) {
+            const newMessage = {
+                id: `${Date.now()}-user`,
+                sender: 'user',
+                message: inputText.trim(),
+            };
 
-  useEffect(() => {
-    if (messageList.length >= 5) {
-      setTimeout(function () {
-        AsyncStorage.setItem("thread", threads);
-        router.push('/child/training/resultcontent');
-      }, 3000);
+            setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+            setInputText('');
 
-    }
-  }, [messageList, router]);
-
-  const fetchFirstMessage = async () => {
-    toggleVisibility();
-    setLoading(true);
-
-    try {
-      const token = await AsyncStorage.getItem("accessToken");
-      const situationId = await AsyncStorage.getItem("situationId");
-      
-      const response = await axios.post(
-        `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/sst/${situationId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+            setTimeout(() => {
+                const autoResponse = {
+                    id: `${Date.now()}-response`,
+                    sender: 'response',
+                    message: '알겠어! 푹 쉬고 힘내!',
+                };
+                setChatMessages((prevMessages) => [...prevMessages, autoResponse]);
+            }, 1000);
         }
-      );
-      await console.log(response.data.botFirstMessage);
-      await setThreads(response.data.threadId);
-      await setMessageList([...messageList, response.data.botFirstMessage]);
-    } catch (error) {
-      console.log('첫 메시지 불러오기:', error);
-      fetchFirstMessage();
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  const sendMessage = async () => {
-    if (!message.trim()) {
-      alert('메시지가 비어있습니다.');
-      return;
-    }
-
-    try {
-      const token = await AsyncStorage.getItem("accessToken");
-      if (!token) {
-        console.error('토큰이 없습니다.');
-        return;
-      }
-
-      console.log('Threads:', threads);
-      console.log('Message:', message);
-
-      const response = await axios.post(
-        `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/sst/threads/${threads}`,
-        {
-          userMessage: message,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    const handleKeyPress = (event) => {
+        if (event.nativeEvent.key === 'Enter') {
+            handleSend();
         }
-      );
+    };
 
-      const botMessage = response.data.botMessage;
-      setMessageList(prevList => [...prevList, message, botMessage]);
-      setMessage('');
-    } catch (error) {
-      console.error('메시지 전송 실패:', error.response?.data || error.message);
-      // 에러 발생 시 재귀 호출 대신 사용자에게 알림
-      sendMessage()
-    }
-  };
-
-  const handleBackClick = () => {
-    router.push('child/home');
-  };
-
-  return (
-    <View style={globalStyles.container}>
-      {isVisible && (
-        <View style={styles.startButtonContainer}>
-          <TouchableOpacity style={styles.startButton} onPress={fetchFirstMessage}>
-            <Text style={styles.startText}>시작하기</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-      {loading && (
-        <View style={styles.loadingContainer}>
-          <Text>로딩 중...</Text>
-        </View>
-      )}
-      <TouchableOpacity style={globalStyles.header} onPress={handleBackClick}>
-        <Text style={globalStyles.subtitle}>← 상황 대처 지능 테스트</Text>
-      </TouchableOpacity>
-
-      <ScrollView style={styles.chatArea} contentContainerStyle={styles.chatContent}>
-        {messageList.map((mes, key) => (
-          <View key={key} style={key % 2 === 1 ? styles.mySpeechBubbleContainer : styles.speechBubbleContainer}>
-            <Image
-              source={{
-                uri: key % 2 === 1
-                  ? 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Astonished%20Face.png'
-                  : 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Robot.png',
-              }}
-              style={styles.icon}
-            />
-            <View style={key % 2 === 1 ? styles.mySpeechBubble : styles.speechBubble}>
-              <Text style={key % 2 === 1 ? styles.myBubbleTextContent : styles.bubbleText}>{mes}</Text>
+    const renderChatBubble = ({ item }) => {
+        const isUser = item.sender === 'user';
+        return (
+            <View
+                style={[
+                    styles.chatBubbleContainer,
+                    isUser ? { alignSelf: 'flex-end' } : { alignSelf: 'flex-start' },
+                ]}
+            >
+                <View
+                    style={[
+                        styles.chatBubble,
+                        isUser ? styles.userBubble : styles.responseBubble,
+                        isUser ? styles.userBubbleRadius : styles.responseBubbleRadius,
+                    ]}
+                >
+                    <Text style={[styles.chatText, isUser && styles.userText]}>{item.message}</Text>
+                </View>
             </View>
-          </View>
-        ))}
-      </ScrollView>
+        );
+    };
 
-      <View style={styles.inputContainer}>
-        <SafeAreaView style={styles.sendBox}>
-          <TextInput
-            style={styles.input}
-            placeholder="여기에 메시지를 입력하세요"
-            placeholderTextColor="#A0A0A0"
-            value={message}
-            onChangeText={setMessage}
-          />
-          <TouchableOpacity onPress={sendMessage}>
-            <Image source={require('../../../assets/image.png')} style={styles.sendIcon} />
-          </TouchableOpacity>
-        </SafeAreaView>
-      </View>
-    </View>
-  );
+    return (
+        <View style={[globalStyles.container]}>
+            <View style={globalStyles.header}>
+                <Text style={[globalStyles.subtitle, styles.text]}>상황 대처 학습</Text>
+                <Text style={[globalStyles.description]}>철수와 대화해요.</Text>
+            </View>
+
+            <FlatList
+                data={chatMessages}
+                renderItem={renderChatBubble}
+                keyExtractor={(item) => item.id}
+                contentContainerStyle={styles.chatContainer}
+                style={{ marginBottom: 80 }}
+            />
+
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={[styles.textInput, { outlineStyle: 'none' }]} 
+                    placeholder="여기에 답변을 입력하세요."
+                    value={inputText}
+                    onChangeText={setInputText}
+                    onKeyPress={handleKeyPress} 
+                />
+                <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
+                    <Image
+                        source={require('../../../assets/image.png')} 
+                        style={styles.sendImage}
+                    />
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  startButtonContainer: {
-    position: 'absolute',
-    backgroundColor: "rgba(1,1,1,.6)",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1,
+    chatContainer: {
+        paddingVertical: 10,
+    },
+    chatBubbleContainer: {
+        maxWidth: '80%',
+        marginVertical: 8,
+        marginHorizontal: 20,
+    },
+    chatBubble: {
+        padding: 12,
+        borderRadius: 15,
+        paddingHorizontal: 20,
+    },
+    userBubble: {
+        backgroundColor: '#5772FF',
+    },
+    responseBubble: {
+        backgroundColor: '#FFFFFF',
+    },
+    userBubbleRadius: {
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 0,
+        borderBottomLeftRadius: 25,
+        borderBottomRightRadius: 25,
+    },
+    responseBubbleRadius: {
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 25,
+    },
+    chatText: {
+        fontSize: 16,
+        color: '#505050',
+        fontFamily: 'Pretendard',
+        fontWeight: '400',
+    },
+    userText: {
+        color: '#FFFFFF',
+    },
+    inputContainer: {
+      position: 'absolute',
+      bottom: 30,
+      left: 10,
+      right: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#FFFFFF',
+      borderRadius: 25,
+      paddingHorizontal: 15,
+      height: 48, 
+      shadowColor: '#000',
+      shadowOffset: { width: 5, height: 4 },
+      shadowOpacity: 0.13,
+      shadowRadius: 20, 
+      elevation: 5,
   },
-  startButton: {
-    backgroundColor: "#5772FF",
-    padding: 20,
-    borderRadius: 24,
-  },
-  startText: {
-    fontWeight: "bold",
-    fontSize: 32,
-    color: '#FFFFFF',
-  },
-  backText: {
-    color: '#808080',
-    marginTop: 40,
-    marginLeft: 20,
-  },
-  header: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    color: '#000000',
-    marginTop: 80,
-    marginLeft: 20,
-  },
-  chatArea: {
-    flex: 1,
-    marginTop: 80,
-  },
-  chatContent: {
-    paddingHorizontal: 20,
-    paddingBottom: 16,
-  },
-  speechBubbleContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 32,
-  },
-  mySpeechBubbleContainer: {
-    flexDirection: 'row-reverse',
-    alignItems: 'flex-start',
-    marginBottom: 32,
-  },
-  icon: {
-    width: 56,
-    height: 56,
-    borderRadius: 20,
-  },
-  speechBubble: {
-    backgroundColor: '#F3F4F6',
-    padding: 16,
-    borderRadius: 16,
-    borderTopLeftRadius: 0,
-    maxWidth: '80%',
-    marginLeft: 16,
-    marginTop: 8,
-    justifyContent: 'center',
-  },
-  mySpeechBubble: {
-    backgroundColor: '#5772FF',
-    padding: 16,
-    borderRadius: 16,
-    borderTopRightRadius: 0,
-    maxWidth: '80%',
-    marginRight: 8,
-    marginTop: 8,
-    justifyContent: 'center',
-  },
-  bubbleText: {
-    fontSize: 16,
-  },
-  myBubbleTextContent: {
-    color: 'white',
-    fontSize: 16,
-  },
-  sendBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 50,
-    padding: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    marginTop: 16,
-    width: '90%',
-  },
-  input: {
-    flex: 1,
-    fontSize: 18,
-    color: '#333',
-    padding: 12,
-    borderRadius: 20,
-    backgroundColor: '#F3F4F6',
-    marginRight: 10,
-  },
-  sendIcon: {
-    width: 24,
-    height: 24,
-    tintColor: '#5772FF',
-  },
-  inputContainer: {
-    width: '100%',
-    alignItems: 'center',
-    paddingBottom: 16,
-  },
-  backButtonSpacing: {
-    marginBottom: 24,
-  },
-  loadingContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(1,1,1,0.5)',
-    zIndex: 2,
-  },
+  
+    textInput: {
+        flex: 1,
+        fontSize: 15,
+        fontFamily: 'Pretendard',
+        color: '#A1A1A1 ',
+        marginLeft: 10,
+    },
+    sendButton: {
+        width: 46,
+        height: 46,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    sendImage: {
+        width: 24,
+        height: 24,
+        marginRight: -20,
+    },
+    text: {
+        fontFamily: 'Pretendard',
+    },
 });
 
-export default ChatScreen;
+export default App;
