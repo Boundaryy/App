@@ -10,7 +10,7 @@ const cardSize = 120;
 
 const formatTime = (milliseconds) => {
     const secs = Math.floor(milliseconds / 1000);
-    const ms = Math.floor((milliseconds % 1000) / 10); // 밀리초 두 자리로 변환
+    const ms = Math.floor((milliseconds % 1000) / 10); 
     const mins = Math.floor(secs / 60);
     return `${mins.toString().padStart(2, '0')}:${(secs % 60).toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
 };
@@ -19,31 +19,26 @@ const CardGame = () => {
     const [flipped, setFlipped] = useState(Array(cards.length).fill(false));
     const [matched, setMatched] = useState(Array(cards.length).fill(false));
     const [firstCard, setFirstCard] = useState(null);
-    const [timer, setTimer] = useState(0); // 밀리초 단위로 타이머 관리
+    const [timer, setTimer] = useState(0); 
     const [isTimerRunning, setIsTimerRunning] = useState(false);
     const router = useRouter();
 
-    // 카드 3초 후에 1.5초 동안 보여주기
     useEffect(() => {
         const initialDelay = setTimeout(() => {
-            setFlipped(Array(cards.length).fill(true)); // 카드 뒤집기 (보이게 하기)
+            setFlipped(Array(cards.length).fill(true)); 
             const flipBackTimer = setTimeout(() => {
-                setFlipped(Array(cards.length).fill(false)); // 다시 뒤집기 (숨기기)
-                setIsTimerRunning(true); // 타이머 시작
-            }, 1500); // 1.5초 후 뒤집기
-
+                setFlipped(Array(cards.length).fill(false)); 
+                setIsTimerRunning(true); 
+            }, 1500); 
             return () => clearTimeout(flipBackTimer);
-        }, 3000); // 3초 후 카드 보이기 시작
-
+        }, 2000); 
         return () => clearTimeout(initialDelay);
     }, []);
-
-    // 타이머 로직
     useEffect(() => {
         let interval;
         if (isTimerRunning) {
             interval = setInterval(() => {
-                setTimer((prevTimer) => prevTimer + 10); // 10ms씩 증가
+                setTimer((prevTimer) => prevTimer + 10); 
             }, 10);
         }
         return () => clearInterval(interval);
@@ -79,7 +74,6 @@ const CardGame = () => {
         router.back();
     };
 
-    // 모든 카드가 매칭되면 타이머 중단 및 다음 화면 이동
     useEffect(() => {
         if (matched.every(Boolean)) {
             setIsTimerRunning(false);
@@ -93,7 +87,6 @@ const CardGame = () => {
                 <Text style={[globalStyles.subtitle, styles.text]}>카드 뒤집기</Text>
                 <Text style={[globalStyles.description]}>모양이 똑같은 카드 2장을 선택하세요.</Text>
 
-                {/* 타이머 표시 */}
                 <Text style={styles.timer}>{formatTime(timer)}</Text>
 
                 <View style={styles.board}>
@@ -126,8 +119,8 @@ const styles = StyleSheet.create({
     board: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        marginTop: 70,
+        justifyContent: 'center', 
+        marginTop: 50,
     },
     card: {
         width: cardSize,
@@ -137,13 +130,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#FFFFFF',
         borderRadius: 8,
-        marginHorizontal: 30,
+        marginHorizontal: 13.5,
         marginVertical: 13.5,
         backgroundColor: '#fff',
     },
     cardFlipped: {
         borderColor: '#5772FF',
-        borderWidth: 3,
+        borderWidth: 4,
         backgroundColor: '#FFFFFF',
     },
     cardText: {
