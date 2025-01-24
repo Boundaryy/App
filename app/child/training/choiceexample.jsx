@@ -53,12 +53,9 @@ const LearningMethod = () => {
 
     const handleNextClick = () => {
         if (selectedOption !== null) {
-            console.log('Next button clicked');
-            router.push('/child/training/resolve');
+            router.push('/child/training/choice');
         }
     };
-
-    console.log('Rendering LearningMethod Component');
 
     return (
         <View style={[globalStyles.container, { flex: 1 }]}>

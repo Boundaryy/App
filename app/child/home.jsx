@@ -31,7 +31,7 @@ const ParentDashboard = () => {
                     <BarButton 
                         title={"선택형 상황 대처 학습"} 
                         explain={"사지선다 문제로 질문에 맞는 답변 선택"} 
-                        toLink={"/"} 
+                        toLink={"/child/training/choiceexample"} 
                         imgLink={require("../../assets/check.png")}
                     />
                     <BarButton 
