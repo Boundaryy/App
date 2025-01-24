@@ -3,9 +3,9 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 
 const LearningMethod = () => {
-    const [selectedOption, setSelectedOption] = useState(null); // 선택된 옵션 상태
-    const [tutorialStep, setTutorialStep] = useState(1); // 튜토리얼 단계
-    const [isHighlighted, setIsHighlighted] = useState(false); // 강조 상태
+    const [selectedOption, setSelectedOption] = useState(null); 
+    const [tutorialStep, setTutorialStep] = useState(1); 
+    const [isHighlighted, setIsHighlighted] = useState(false); 
 
     const options = [
         "철수와 영희는 내 친구니까 인사를 해야 한다.",
@@ -15,12 +15,12 @@ const LearningMethod = () => {
     ];
 
     useEffect(() => {
-        if (tutorialStep <= 2) {
+        if (tutorialStep <= 1) {
             const interval = setInterval(() => {
-                setIsHighlighted((prev) => !prev); // 강조 상태를 토글
-            }, 500); // 500ms 간격으로 깜빡임
+                setIsHighlighted((prev) => !prev); 
+            }, 500); 
 
-            return () => clearInterval(interval); // 컴포넌트 언마운트 시 정리
+            return () => clearInterval(interval); 
         }
     }, [tutorialStep]);
 
@@ -34,11 +34,10 @@ const LearningMethod = () => {
 
     return (
         <View style={globalStyles.container}>
-            {/* 프로그레스 바 */}
             <View
                 style={[
                     styles.progressBarContainer,
-                    tutorialStep === 1 && isHighlighted && styles.highlightBox, // 프로그레스 바 깜빡임 효과
+                    tutorialStep === 1 && isHighlighted && styles.highlightBox, 
                 ]}
             >
                 <View style={styles.progressBar}>
@@ -46,11 +45,10 @@ const LearningMethod = () => {
                 </View>
             </View>
 
-            {/* 메인 컨텐츠 */}
             <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
                 <View style={styles.header}>
-                    <Text style={[globalStyles.subtitle]}>학습 방법</Text>
-                    <Text style={[globalStyles.description]}>
+                    <Text style={[globalStyles.subtitle, styles.pretendardFont]}>학습 방법</Text>
+                    <Text style={[globalStyles.description, styles.pretendardFont]}>
                         아래 예시와 같이 학습이 진행되요.
                     </Text>
                 </View>
@@ -59,22 +57,21 @@ const LearningMethod = () => {
                     철수와 영희가 내 앞에 있다.{"\n"}인사를 해야 할까?
                 </Text>
 
-                {/* 4지선다 문항 */}
                 {options.map((option, index) => (
                     <TouchableOpacity
                         key={index}
                         style={[
                             styles.choiceBox,
-                            selectedOption === index && styles.choiceBoxSelected, // 선택 상태에 따른 스타일
-                            tutorialStep === 2 && isHighlighted && styles.highlightBox, // 항목 깜빡임 효과
+                            selectedOption === index && styles.choiceBoxSelected, 
+                            tutorialStep === 2 && isHighlighted && styles.highlightBox,
                         ]}
-                        onPress={() => handleOptionSelect(index)} // 선택 상태 업데이트
+                        onPress={() => handleOptionSelect(index)}
                     >
                         <Text
                             style={[
                                 styles.choiceText,
-                                styles.pretendardFont, // Pretendard 폰트 적용
-                                selectedOption === index && styles.choiceTextSelected, // 선택 상태에 따른 텍스트 스타일
+                                styles.pretendardFont, 
+                                selectedOption === index && styles.choiceTextSelected, 
                             ]}
                         >
                             {option}
@@ -83,17 +80,19 @@ const LearningMethod = () => {
                 ))}
             </View>
 
-            {/* 튜토리얼 설명 오버레이 */}
             {tutorialStep <= 2 && (
                 <View
                     style={[
                         styles.tutorialOverlay,
                         tutorialStep === 1
-                            ? styles.tutorialCenter // 프로그레스 바 설명은 중앙에 표시
-                            : styles.tutorialSubtitle, // 문항 설명은 subtitle 아래에 표시
+                            ? styles.tutorialCenter 
+                            : styles.tutorialSubtitle,
                     ]}
                 >
-                    <Text style={styles.tutorialText}>
+                    <Text style={[styles.tutorialTitle, styles.pretendardFont]}>
+                        {tutorialStep === 1 ? "프로그레스 바 설명" : "문항 선택 방법"}
+                    </Text>
+                    <Text style={[styles.tutorialText, styles.pretendardFont]}>
                         {tutorialStep === 1
                             ? "이건 문제를 풀 때마다 조금씩 올라갑니다."
                             : "여기서 질문에 대한 답을 하나 고르면 됩니다."}
@@ -102,11 +101,20 @@ const LearningMethod = () => {
                         style={styles.nextButton}
                         onPress={handleNextTutorial}
                     >
-                        <Text style={styles.nextButtonText}>
+                        <Text style={[styles.nextButtonText, styles.pretendardFont]}>
                             {tutorialStep === 2 ? "완료" : "다음"}
                         </Text>
                     </TouchableOpacity>
                 </View>
+            )}
+
+            {tutorialStep <= 2 && (
+                <View
+                    style={[
+                        styles.transparentLayer,
+                        tutorialStep === 1 ? styles.transparentBottom : styles.transparentTop, 
+                    ]}
+                />
             )}
         </View>
     );
@@ -117,7 +125,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 50,
         borderWidth: 3,
-        borderColor: 'transparent', // 기본 테두리 투명
+        borderColor: 'transparent',
         borderRadius: 5,
     },
     progressBar: {
@@ -142,6 +150,7 @@ const styles = StyleSheet.create({
         marginBottom: 120,
         marginTop: 140,
         fontWeight: '700',
+        fontFamily: 'Pretendard',
     },
     choiceBox: {
         borderWidth: 3,
@@ -162,21 +171,23 @@ const styles = StyleSheet.create({
         color: '#5772FF',
         textAlign: 'center',
         fontSize: 15,
+        fontFamily: 'Pretendard',
     },
     choiceTextSelected: {
         color: '#FFFFFF',
     },
     highlightBox: {
         borderWidth: 3,
-        borderColor: 'red', // 깜빡임을 위한 빨간 테두리
-        marginHorizontal: 28, // 양쪽에서 5만큼 줄어듦
+        borderColor: 'red',
+        marginHorizontal: 28,
     },
     tutorialOverlay: {
-        position: 'absolute',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        backgroundColor: '#FFFFFF',
         borderRadius: 10,
-        padding: 20,
-        zIndex: 10,
+        paddingVertical: 30,
+        paddingHorizontal: 20,
+        zIndex: 20,
+        position: 'absolute',
     },
     tutorialCenter: {
         top: '40%', 
@@ -184,12 +195,18 @@ const styles = StyleSheet.create({
         right: '10%',
     },
     tutorialSubtitle: {
-        top: 100, // subtitle 아래에 배치
-        left: 20,
-        right: 20,
+        position: 'absolute',
+        top: 280, 
+        left: '10%',
+        right: '10%',
+    },
+    tutorialTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        marginBottom: 10,
     },
     tutorialText: {
-        color: '#FFFFFF',
+        color: '#000000',
         fontSize: 16,
         textAlign: 'center',
         marginBottom: 20,
@@ -199,6 +216,8 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 5,
         alignItems: 'center',
+        width: 260,
+        height: 36,
     },
     nextButtonText: {
         color: '#FFFFFF',
@@ -206,6 +225,21 @@ const styles = StyleSheet.create({
     },
     pretendardFont: {
         fontFamily: 'Pretendard',
+    },
+    transparentLayer: {
+        position: 'absolute',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        width: '100%',
+        height: '100%',
+        zIndex: 10,
+    },
+    transparentTop: {
+        top: 0,
+        height: '50%',
+    },
+    transparentBottom: {
+        bottom: 0,
+        height: '50%',
     },
 });
 
