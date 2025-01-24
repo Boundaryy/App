@@ -3,10 +3,18 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 import { useRouter } from 'expo-router';
 
-const Button = ({ title, onPress }) => (
+const Button = ({ title, onPress, disabled }) => (
     <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={onPress} style={styles.button}>
-            <Text style={styles.buttonText}>{title}</Text>
+        <TouchableOpacity
+            onPress={!disabled ? onPress : null}
+            style={[
+                styles.button,
+                disabled && styles.buttonDisabled,
+            ]}
+        >
+            <Text style={[styles.buttonText, disabled && styles.buttonTextDisabled]}>
+                {title}
+            </Text>
         </TouchableOpacity>
     </View>
 );
@@ -44,8 +52,10 @@ const LearningMethod = () => {
     };
 
     const handleNextClick = () => {
-        console.log('Next button clicked');
-        router.push('/child/training/resolve');
+        if (selectedOption !== null) {
+            console.log('Next button clicked');
+            router.push('/child/training/resolve');
+        }
     };
 
     console.log('Rendering LearningMethod Component');
@@ -102,6 +112,7 @@ const LearningMethod = () => {
                     <Button
                         title="다음으로"
                         onPress={handleNextClick}
+                        disabled={selectedOption === null}
                     />
                 </View>
             </View>
@@ -285,11 +296,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: -180,
     },
+    buttonDisabled: {
+        backgroundColor: '#D3D3D3',
+    },
     buttonText: {
         color: '#FFFFFF',
         fontSize: 18,
         fontFamily: 'Pretendard',
         fontWeight: '600',
+    },
+    buttonTextDisabled: {
+        color: '#A9A9A9',
     },
 });
 
