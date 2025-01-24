@@ -4,7 +4,7 @@ import { globalStyles } from '../../../styles/global';
 
 const LearningMethod = () => {
     const [selectedOption, setSelectedOption] = useState(null); 
-    const [tutorialStep, setTutorialStep] = useState(1); 
+    const [tutorialStep, setTutorialStep] = useState(1);
     const [isHighlighted, setIsHighlighted] = useState(false); 
 
     const options = [
@@ -15,10 +15,10 @@ const LearningMethod = () => {
     ];
 
     useEffect(() => {
-        if (tutorialStep <= 1) {
+        if (tutorialStep <= 2) {
             const interval = setInterval(() => {
-                setIsHighlighted((prev) => !prev); 
-            }, 500); 
+                setIsHighlighted((prev) => !prev);
+            }, 500);
 
             return () => clearInterval(interval); 
         }
@@ -57,15 +57,29 @@ const LearningMethod = () => {
                     철수와 영희가 내 앞에 있다.{"\n"}인사를 해야 할까?
                 </Text>
 
+                {tutorialStep === 1 && (
+                    <View
+                        style={[styles.tutorialOverlay, styles.tutorialCenter]}
+                    >
+                        <Text style={[styles.tutorialTitle, styles.pretendardFont]}>
+                            프로그레스 바 설명
+                        </Text>
+                        <Text style={[styles.tutorialText, styles.pretendardFont]}>
+                            이건 문제를 풀 때마다 조금씩 올라갑니다.
+                        </Text>
+                    </View>
+                )}
+
                 {options.map((option, index) => (
                     <TouchableOpacity
                         key={index}
                         style={[
                             styles.choiceBox,
                             selectedOption === index && styles.choiceBoxSelected, 
-                            tutorialStep === 2 && isHighlighted && styles.highlightBox,
+                            tutorialStep === 2 && selectedOption === index && isHighlighted && styles.highlightBox,
+                            tutorialStep === 2 && isHighlighted && styles.redBorder 
                         ]}
-                        onPress={() => handleOptionSelect(index)}
+                        onPress={() => handleOptionSelect(index)} 
                     >
                         <Text
                             style={[
@@ -86,7 +100,7 @@ const LearningMethod = () => {
                         styles.tutorialOverlay,
                         tutorialStep === 1
                             ? styles.tutorialCenter 
-                            : styles.tutorialSubtitle,
+                            : { ...styles.tutorialSubtitle, top: 220 },
                     ]}
                 >
                     <Text style={[styles.tutorialTitle, styles.pretendardFont]}>
@@ -112,7 +126,7 @@ const LearningMethod = () => {
                 <View
                     style={[
                         styles.transparentLayer,
-                        tutorialStep === 1 ? styles.transparentBottom : styles.transparentTop, 
+                        tutorialStep === 1 ? styles.transparentBottom : styles.transparentTop,
                     ]}
                 />
             )}
@@ -196,7 +210,6 @@ const styles = StyleSheet.create({
     },
     tutorialSubtitle: {
         position: 'absolute',
-        top: 280, 
         left: '10%',
         right: '10%',
     },
@@ -240,6 +253,10 @@ const styles = StyleSheet.create({
     transparentBottom: {
         bottom: 0,
         height: '50%',
+    },
+    redBorder: {
+        borderWidth: 3,
+        borderColor: 'red',
     },
 });
 
