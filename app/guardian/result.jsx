@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { globalStyles } from '../../styles/global';
-import { useRouter } from 'expo-router';
-import { BarButton } from '../../components/Choice';
+import { BarButton } from '../../components/Guardian_choice';
 
 const App = () => {
-    const router = useRouter();
-    const [selectedOption, setSelectedOption] = useState(null);
-
     return (
         <View style={[globalStyles.container]}>
             <View style={globalStyles.header}>
@@ -22,47 +18,24 @@ const App = () => {
                     <BarButton
                         title="선택지 1"
                         explain="이 선택지를 클릭하세요."
-                        isSelected={selectedOption === '선택지 1'}
-                        onSelect={setSelectedOption}
+                        toLink="/guardian/resolve"
                     />
                     <BarButton
                         title="선택지 2"
                         explain="이 선택지를 클릭하세요."
-                        isSelected={selectedOption === '선택지 2'}
-                        onSelect={setSelectedOption}
+                        toLink="/guardian/resolve"
                     />
-                    <BarButton
+                    <BarButton  
                         title="선택지 3"
                         explain="이 선택지를 클릭하세요."
-                        isSelected={selectedOption === '선택지 3'}
-                        onSelect={setSelectedOption}
+                        toLink="/guardian/resolve"
                     />
                     <BarButton
                         title="선택지 4"
                         explain="이 선택지를 클릭하세요."
-                        isSelected={selectedOption === '선택지 4'}
-                        onSelect={setSelectedOption}
-                    />
-                    <BarButton
-                        title="선택지 5"
-                        explain="이 선택지를 클릭하세요."
-                        isSelected={selectedOption === '선택지 5'}
-                        onSelect={setSelectedOption}
-                    />
-                    <BarButton
-                        title="선택지 6"
-                        explain="이 선택지를 클릭하세요."
-                        isSelected={selectedOption === '선택지 6'}
-                        onSelect={setSelectedOption}
-                    />
-                                        <BarButton
-                        title="선택지 7"
-                        explain="이 선택지를 클릭하세요."
-                        isSelected={selectedOption === '선택지 7'}
-                        onSelect={setSelectedOption}
+                        toLink="/guardian/resolve"
                     />
                 </ScrollView>
-
             </View>
         </View>
     );
