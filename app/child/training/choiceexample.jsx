@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { globalStyles } from '../../../styles/global';
+import { useRouter } from 'expo-router';
+
+const Button = ({ title, onPress }) => (
+    <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={onPress} style={styles.button}>
+            <Text style={styles.buttonText}>{title}</Text>
+        </TouchableOpacity>
+    </View>
+);
 
 const LearningMethod = () => {
-    const [selectedOption, setSelectedOption] = useState(null); 
+    const [selectedOption, setSelectedOption] = useState(null);
     const [tutorialStep, setTutorialStep] = useState(1);
-    const [isHighlighted, setIsHighlighted] = useState(false); 
+    const [isHighlighted, setIsHighlighted] = useState(false);
+    const router = useRouter();
 
     const options = [
-        "철수와 영희는 내 친구니까 인사를 해야 한다.",
-        "철수와 영희는 내 친구니까 인사를 해야 한다.",
-        "철수와 영희는 내 친구니까 인사를 해야 한다.",
-        "철수와 영희는 내 친구니까 인사를 해야 한다.",
+        "옵션 1: 인사해야 한다.",
+        "옵션 2: 인사하지 않아도 된다.",
+        "옵션 3: 상황에 따라 다르다.",
+        "옵션 4: 더 생각해봐야 한다.",
     ];
 
     useEffect(() => {
@@ -20,7 +30,7 @@ const LearningMethod = () => {
                 setIsHighlighted((prev) => !prev);
             }, 500);
 
-            return () => clearInterval(interval); 
+            return () => clearInterval(interval);
         }
     }, [tutorialStep]);
 
@@ -30,14 +40,22 @@ const LearningMethod = () => {
 
     const handleOptionSelect = (index) => {
         setSelectedOption(index);
+        console.log(`Option ${index + 1} selected: ${options[index]}`);
     };
 
+    const handleNextClick = () => {
+        console.log('Next button clicked');
+        router.push('/child/training/resolve');
+    };
+
+    console.log('Rendering LearningMethod Component');
+
     return (
-        <View style={globalStyles.container}>
+        <View style={[globalStyles.container, { flex: 1 }]}>
             <View
                 style={[
                     styles.progressBarContainer,
-                    tutorialStep === 1 && isHighlighted && styles.highlightBox, 
+                    tutorialStep === 1 && isHighlighted && styles.highlightBox,
                 ]}
             >
                 <View style={styles.progressBar}>
@@ -45,7 +63,7 @@ const LearningMethod = () => {
                 </View>
             </View>
 
-            <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
+            <View style={[globalStyles.container, { backgroundColor: '#F3F4F6', flex: 1 }]}>
                 <View style={styles.header}>
                     <Text style={[globalStyles.subtitle, styles.pretendardFont]}>학습 방법</Text>
                     <Text style={[globalStyles.description, styles.pretendardFont]}>
@@ -57,29 +75,35 @@ const LearningMethod = () => {
                     철수와 영희가 내 앞에 있다.{"\n"}인사를 해야 할까?
                 </Text>
 
-
                 {options.map((option, index) => (
                     <TouchableOpacity
                         key={index}
                         style={[
                             styles.choiceBox,
-                            selectedOption === index && styles.choiceBoxSelected, 
+                            selectedOption === index && styles.choiceBoxSelected,
                             tutorialStep === 2 && selectedOption === index && isHighlighted && styles.highlightBox,
-                            tutorialStep === 2 && isHighlighted && styles.redBorder 
+                            tutorialStep === 2 && isHighlighted && styles.redBorder,
                         ]}
-                        onPress={() => handleOptionSelect(index)} 
+                        onPress={() => handleOptionSelect(index)}
                     >
                         <Text
                             style={[
                                 styles.choiceText,
-                                styles.pretendardFont, 
-                                selectedOption === index && styles.choiceTextSelected, 
+                                styles.pretendardFont,
+                                selectedOption === index && styles.choiceTextSelected,
                             ]}
                         >
                             {option}
                         </Text>
                     </TouchableOpacity>
                 ))}
+
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="다음으로"
+                        onPress={handleNextClick}
+                    />
+                </View>
             </View>
 
             {tutorialStep <= 2 && (
@@ -192,7 +216,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     tutorialCenter: {
-        top: '40%', 
+        top: '40%',
         left: '10%',
         right: '10%',
     },
@@ -211,7 +235,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'center',
         marginBottom: 20,
-        marginLeft: -26,
     },
     nextButton: {
         backgroundColor: '#5772FF',
@@ -246,6 +269,27 @@ const styles = StyleSheet.create({
     redBorder: {
         borderWidth: 3,
         borderColor: 'red',
+    },
+    buttonContainer: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    button: {
+        width: 310,
+        height: 50,
+        backgroundColor: '#5772FF',
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: -180,
+    },
+    buttonText: {
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontFamily: 'Pretendard',
+        fontWeight: '600',
     },
 });
 
