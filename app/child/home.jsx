@@ -37,13 +37,13 @@ const ParentDashboard = () => {
                         title={"선택형 상황 대처 학습"} 
                         explain={"사지선다 문제로 질문에 맞는 답변 선택"} 
                         toLink="/child/training/choiceexample" 
-                        imgLink={require("../../assets/check.png")}
+                        imgLink={require("../../assets/assets_check.png")}
                     />
                     <BarButton 
                         title={"카드 뒤집기"} 
                         explain={"같은 카드를 찾으며 기억력 상승"} 
                         toLink="/child/training/card" 
-                        imgLink={require("../../assets/cardgame.png")}
+                        imgLink={require("../../assets/assets_cardgame.png")}
                     />
                     <BarButton 
                         title={"숨은 과일 찾기"} 
