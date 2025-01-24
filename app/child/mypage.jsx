@@ -95,10 +95,10 @@ const App = () => {
     <View style={[globalStyles.container]}>
       <View style={globalStyles.header}>
         <Text style={[globalStyles.subtitle, styles.text]}>
-          아이 학습 진행도 확인
+          마이페이지
         </Text>
         <Text style={[globalStyles.description]}>
-          아이의 학습 결과를 확인하며 도와주세요.
+          레벨과 학습 일수를 확인해요.
         </Text>
       </View>
 
@@ -108,7 +108,7 @@ const App = () => {
         progress={progress} 
       />
 
-      <View style={styles.calendarContainer}>
+      <View style={styles.calendarContainer}> 
         <Calendar
           style={styles.calendar}
           theme={calendarTheme}
