@@ -57,18 +57,6 @@ const LearningMethod = () => {
                     철수와 영희가 내 앞에 있다.{"\n"}인사를 해야 할까?
                 </Text>
 
-                {tutorialStep === 1 && (
-                    <View
-                        style={[styles.tutorialOverlay, styles.tutorialCenter]}
-                    >
-                        <Text style={[styles.tutorialTitle, styles.pretendardFont]}>
-                            프로그레스 바 설명
-                        </Text>
-                        <Text style={[styles.tutorialText, styles.pretendardFont]}>
-                            이건 문제를 풀 때마다 조금씩 올라갑니다.
-                        </Text>
-                    </View>
-                )}
 
                 {options.map((option, index) => (
                     <TouchableOpacity
@@ -99,17 +87,17 @@ const LearningMethod = () => {
                     style={[
                         styles.tutorialOverlay,
                         tutorialStep === 1
-                            ? styles.tutorialCenter 
+                            ? { ...styles.tutorialCenter, top: 480 }
                             : { ...styles.tutorialSubtitle, top: 220 },
                     ]}
                 >
                     <Text style={[styles.tutorialTitle, styles.pretendardFont]}>
-                        {tutorialStep === 1 ? "프로그레스 바 설명" : "문항 선택 방법"}
+                        {tutorialStep === 1 ? "문제 진행 상태" : "정답 선택"}
                     </Text>
                     <Text style={[styles.tutorialText, styles.pretendardFont]}>
                         {tutorialStep === 1
-                            ? "이건 문제를 풀 때마다 조금씩 올라갑니다."
-                            : "여기서 질문에 대한 답을 하나 고르면 됩니다."}
+                            ? "문제를 풀 때 마다 파란색이 증가합니다."
+                            : "여기서 질문에 대한 답을 고르면 됩니다."}
                     </Text>
                     <TouchableOpacity
                         style={styles.nextButton}
@@ -161,7 +149,7 @@ const styles = StyleSheet.create({
     question: {
         fontSize: 24,
         textAlign: 'center',
-        marginBottom: 120,
+        marginBottom: 80,
         marginTop: 140,
         fontWeight: '700',
         fontFamily: 'Pretendard',
@@ -214,7 +202,7 @@ const styles = StyleSheet.create({
         right: '10%',
     },
     tutorialTitle: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: '700',
         marginBottom: 10,
     },
@@ -223,6 +211,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'center',
         marginBottom: 20,
+        marginLeft: -26,
     },
     nextButton: {
         backgroundColor: '#5772FF',
