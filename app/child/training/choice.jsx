@@ -3,11 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 import { useRouter } from 'expo-router';
 
-const Button = ({ title, onPress }) => (
+const Button = ({ title, onPress, disabled }) => (
     <View style={styles.buttonContainer}>
         <TouchableOpacity
             onPress={onPress}
-            style={styles.button}
+            style={[styles.button, disabled && styles.buttonDisabled]}
+            disabled={disabled}
         >
             <Text style={styles.buttonText}>
                 {title}
@@ -47,6 +48,69 @@ const LearningMethod = () => {
                 "옵션 2: 함께 해결한다.",
                 "옵션 3: 무시한다.",
                 "옵션 4: 상사에게 바로 보고한다.",
+            ],
+        },
+        {
+            question: "버스에서 자리가 없다면 \n어떻게 해야 할까?",
+            options: [
+                "옵션 1: 서서 간다.",
+                "옵션 2: 억지로 자리를 만든다.",
+                "옵션 3: 다른 사람에게 자리를 양보한다.",
+                "옵션 4: 기사님께 항의한다.",
+            ],
+        },
+        {
+            question: "친구가 슬퍼하고 있다면 \n어떻게 해야 할까?",
+            options: [
+                "옵션 1: 무관심하게 본다.",
+                "옵션 2: 위로해준다.",
+                "옵션 3: 함께 울어준다.",
+                "옵션 4: 모른 척한다.",
+            ],
+        },
+        {
+            question: "시험 준비를 \n어떻게 해야 할까?",
+            options: [
+                "옵션 1: 미리 계획을 세운다.",
+                "옵션 2: 벼락치기 공부를 한다.",
+                "옵션 3: 공부하지 않는다.",
+                "옵션 4: 친구에게 맡긴다.",
+            ],
+        },
+        {
+            question: "길을 잃었을 때는 \n어떻게 해야 할까?",
+            options: [
+                "옵션 1: 경찰에게 도움을 요청한다.",
+                "옵션 2: 계속 걸어다닌다.",
+                "옵션 3: 큰소리로 외친다.",
+                "옵션 4: 울고만 있는다.",
+            ],
+        },
+        {
+            question: "동생이 잘못을 했다면 \n어떻게 해야 할까?",
+            options: [
+                "옵션 1: 혼을 낸다.",
+                "옵션 2: 이유를 물어본다.",
+                "옵션 3: 그냥 넘어간다.",
+                "옵션 4: 부모님께 말한다.",
+            ],
+        },
+        {
+            question: "친구가 거짓말을 하면 \n어떻게 해야 할까?",
+            options: [
+                "옵션 1: 왜 거짓말을 했는지 묻는다.",
+                "옵션 2: 화를 낸다.",
+                "옵션 3: 관계를 끊는다.",
+                "옵션 4: 용서한다.",
+            ],
+        },
+        {
+            question: "다른 사람이 도움을 요청하면 \n어떻게 해야 할까?",
+            options: [
+                "옵션 1: 도와준다.",
+                "옵션 2: 모른 척한다.",
+                "옵션 3: 조건을 건다.",
+                "옵션 4: 고민한다.",
             ],
         },
     ];
@@ -117,6 +181,7 @@ const LearningMethod = () => {
                     <Button
                         title="다음으로"
                         onPress={handleNextClick}
+                        disabled={selectedOption === null} // 옵션을 선택하지 않았을 때 비활성화
                     />
                 </View>
             </View>
@@ -190,6 +255,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: -180,
+    },
+    buttonDisabled: {
+        backgroundColor: '#B0B0B0',
     },
     buttonText: {
         color: '#FFFFFF',
