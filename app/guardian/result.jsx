@@ -1,148 +1,89 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import axios from "axios";
-import { useState, useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { globalStyles } from '../../styles/global';
+import { useRouter } from 'expo-router';
+import { BarButton } from '../../components/Choice';
 
-const LearningResults = () => {
-    const navigation = useNavigation();
-    const [results, setResults] = useState([]);
-
-    useEffect(() => {
-        const fetchResults = async () => {
-            const accessToken = await AsyncStorage.getItem("accessToken");
-            try {
-                const response = await axios.get(
-                    `https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/sst/treads`,
-                    {
-                        withCredentials: true,
-                        headers: {
-                            Authorization: `Bearer ${accessToken}`,
-                        },
-                    }
-                );
-                console.log(response.data);
-                setResults(response.data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchResults();
-    }, []);
-
-    const handlePress = async (th) => {
-        await AsyncStorage.setItem("threadId", th);
-        await navigation.navigate('guardian/resolve');
-    };
-
-    const handleBackPress = () => {
-        console.log('뒤로가기 버튼 누름');
-        navigation.goBack();
-    };
+const App = () => {
+    const router = useRouter();
+    const [selectedOption, setSelectedOption] = useState(null);
 
     return (
-        <ScrollView style={styles.container}>
-            <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
-                <Text style={styles.backButtonText}>뒤로가기</Text>
-            </TouchableOpacity>
-            <View style={styles.header}>
-                <Text style={styles.title}>학습 결과</Text>
-                <Text style={styles.subtitle}>최근 학습 결과를 확인해보세요.</Text>
-            </View>
-            {results.map((result, index) => (
-                <TouchableOpacity key={index} style={styles.resultItem} onPress={() => {handlePress(result.threadId)}}>
-                    <Image
-                        source={{
-                            uri: result.status === 'correct'
-                                ? 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Cowboy%20Hat%20Face.png'
-                                : 'https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Exploding%20Head.png'
-                        }}
-                        style={styles.resultIcon}
+        <View style={[globalStyles.container]}>
+            <View style={globalStyles.header}>
+                <Text style={[globalStyles.subtitle, styles.text]}>학습 결과</Text>
+                <Text style={[globalStyles.description]}>최근 학습 결과를 확인해보세요.</Text>
+                <ScrollView
+                    contentContainerStyle={styles.scrollContainer}
+                    style={{
+                        maxHeight: Dimensions.get('window').height - 200, 
+                    }}
+                >
+                    <BarButton
+                        title="선택지 1"
+                        explain="이 선택지를 클릭하세요."
+                        isSelected={selectedOption === '선택지 1'}
+                        onSelect={setSelectedOption}
                     />
-                    <View style={styles.resultContent}>
-                        <Text style={styles.resultTitle}>{result.title}</Text>
-                        <Text style={styles.resultDate}>{result.date} 상황 대처 학습 결과</Text>
-                        <Text style={[styles.resultSummary, result.status === 'incorrect' && styles.incorrectSummary]}>
-                            {result.summary}
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-            ))}
-        </ScrollView>
+                    <BarButton
+                        title="선택지 2"
+                        explain="이 선택지를 클릭하세요."
+                        isSelected={selectedOption === '선택지 2'}
+                        onSelect={setSelectedOption}
+                    />
+                    <BarButton
+                        title="선택지 3"
+                        explain="이 선택지를 클릭하세요."
+                        isSelected={selectedOption === '선택지 3'}
+                        onSelect={setSelectedOption}
+                    />
+                    <BarButton
+                        title="선택지 4"
+                        explain="이 선택지를 클릭하세요."
+                        isSelected={selectedOption === '선택지 4'}
+                        onSelect={setSelectedOption}
+                    />
+                    <BarButton
+                        title="선택지 5"
+                        explain="이 선택지를 클릭하세요."
+                        isSelected={selectedOption === '선택지 5'}
+                        onSelect={setSelectedOption}
+                    />
+                    <BarButton
+                        title="선택지 6"
+                        explain="이 선택지를 클릭하세요."
+                        isSelected={selectedOption === '선택지 6'}
+                        onSelect={setSelectedOption}
+                    />
+                                        <BarButton
+                        title="선택지 7"
+                        explain="이 선택지를 클릭하세요."
+                        isSelected={selectedOption === '선택지 7'}
+                        onSelect={setSelectedOption}
+                    />
+                </ScrollView>
+
+            </View>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 20,
+    scrollContainer: {
+        paddingBottom: 20,
     },
-    backButtonText: {
+    description: {
+        color: '#565656',
         fontSize: 18,
-        color: '#808080',  
-        marginTop: 40,
-        marginLeft: 30,
+        textAlign: 'center',
+        fontWeight: '300',
+        marginBottom: -10,
+        marginTop: 30,
+        fontFamily: 'Pretendard',
     },
-    header: {
-        marginBottom: 10,
-        paddingTop: 0,
-    },
-    title: {
-        fontSize: 28,
-        fontWeight: '600',
-        color: '#000',
-        marginLeft: 28,
-        marginTop: 20,
-    },
-    subtitle: {
-        color: '#898989',
-        fontSize: 16,
-        marginVertical: 8,
-        fontWeight: '200',
-        marginTop: 0,
-        marginLeft: 28,
-    },
-    resultItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: 16,
-        paddingHorizontal: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#E0E0E0',
-        backgroundColor: '#F5F5F5', // Light gray background
-        borderRadius: 8, // Rounded corners
-        marginBottom: 10, // Space between each session
-    },
-    resultIcon: {
-        width: 68,
-        height: 68,
-        marginRight: 20,
-        marginLeft: 24,
-    },
-    resultContent: {
-        flexGrow: 1,
-    },
-    resultTitle: {
-        fontSize: 22,
-        fontWeight: '600',
-        color: '#000000',
-        marginLeft: -8,
-    },
-    resultDate: {
-        fontSize: 16,
-        color: '#5772FF',
-        marginTop: 4,
-        marginLeft: -7,
-    },
-    resultSummary: {
-        fontSize: 16,
-        color: '#4CAF50',
-        marginTop: 4,
-        marginLeft: -7,
-    },
-    incorrectSummary: {
-        color: '#FF0000', // Red for incorrect results
+    text: {
+        fontFamily: 'Pretendard',
     },
 });
 
-export default LearningResults;
+export default App;
