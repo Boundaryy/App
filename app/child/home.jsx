@@ -1,49 +1,54 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { BarButton}  from "../../components/Bar-Button";
+import { Link } from "expo-router"; 
+import { BarButton } from "../../components/Bar-Button";
 import { globalStyles } from '../../styles/global';
 
 const ParentDashboard = () => {
-    const navigation = useNavigation();
-    
     const [selectedDate, setSelectedDate] = useState('');
 
     return (
         <ScrollView contentContainerStyle={globalStyles.container}>
             <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
+                <Link href="/child/mypage" style={styles.profileImageContainer}>
+                    <Image 
+                        source={require('../../assets/face.svg')} 
+                        style={styles.profileImage} 
+                    />
+                </Link>
+
                 <View style={globalStyles.header}>
                     <Text style={[globalStyles.subtitle]}>어렵지 않은 학습</Text>
                     <Text style={[globalStyles.description]}>상황 대처, 게임을 통한 학습으로 지능을 향상시켜요. </Text>
                 </View>
 
                 <View style={[styles.menu, { marginTop: -40 }]}>
-                    <TouchableOpacity style={styles.menuItem} onPress={() => navigation.navigate('guardian/result')}>
+                    <TouchableOpacity style={styles.menuItem}>
                         <View style={styles.menuItemContent}>
                         </View>
                     </TouchableOpacity>
                     <BarButton 
                         title={"대화형 상황 대처 학습"} 
                         explain={"AI와 대화하며 학습력 UP UP"} 
-                        toLink={"/child/training/sitchoice"} 
+                        toLink="/child/training/sitchoice" 
                         imgLink={require("../../assets/speak.png")}
                     />
                     <BarButton 
                         title={"선택형 상황 대처 학습"} 
                         explain={"사지선다 문제로 질문에 맞는 답변 선택"} 
-                        toLink={"/child/training/choiceexample"} 
+                        toLink="/child/training/choiceexample" 
                         imgLink={require("../../assets/check.png")}
                     />
                     <BarButton 
                         title={"카드 뒤집기"} 
                         explain={"같은 카드를 찾으며 기억력 상승"} 
-                        toLink={"/child/training/card"} 
+                        toLink="/child/training/card" 
                         imgLink={require("../../assets/cardgame.png")}
                     />
                     <BarButton 
                         title={"숨은 과일 찾기"} 
                         explain={"숨은 과일을 찾으며 관찰력을 높여요."} 
-                        toLink={"/child/training/memory"} 
+                        toLink="/child/training/memory" 
                         imgLink={require("../../assets/fruit.svg")}
                     />
                 </View>
@@ -65,9 +70,17 @@ const styles = StyleSheet.create({
         alignItems: 'left',
         fontFamily: 'Pretendard',
     },
-
-
-
+    profileImageContainer: {
+        position: 'absolute',
+        top: 76, 
+        right: 30, 
+        zIndex: 10,
+    },
+    profileImage: {
+        width: 32, 
+        height: 32, 
+        borderRadius: 20, 
+    },
     progressBarContainer: {
         width: 320,
         height: 38,
