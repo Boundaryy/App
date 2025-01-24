@@ -108,7 +108,7 @@ const App = () => {
         progress={progress} 
       />
 
-      <View style={styles.calendarContainer}>
+      <View style={styles.calendarContainer}> 
         <Calendar
           style={styles.calendar}
           theme={calendarTheme}
