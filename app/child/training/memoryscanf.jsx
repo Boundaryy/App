@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../../../components/Button'; 
@@ -22,8 +22,16 @@ export default function MemoryGameAnswer() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={globalStyles.subtitle}>숨은 과일 찾기 정답</Text>
-      <Text style={globalStyles.description}>질문에 대한 답을 입력하세요.</Text>
+      <TouchableOpacity
+        style={globalStyles.backButton}
+        onPress={() => router.back()}
+      >
+          <Image
+    source={require('../../../assets/arrow.svg')}
+
+  />
+      </TouchableOpacity>
+      <Text style={globalStyles.backsubtitle}>숨은 과일 찾기 정답</Text>
 
       <View style={styles.content}>
         <Text style={styles.question}>
