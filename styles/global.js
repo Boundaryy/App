@@ -91,8 +91,8 @@ export const globalStyles = StyleSheet.create({
     color: '#000000',
   },
   backButtonImage: {
-    width: 12,
-    height: 18,
+    width: 10,
+    height: 16,
     zIndex: 10,
   },
   label: {
