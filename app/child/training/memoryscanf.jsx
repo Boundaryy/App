@@ -31,7 +31,9 @@ export default function MemoryGameAnswer() {
           style={globalStyles.backButtonImage}
         />
       </TouchableOpacity>
-      <Text style={globalStyles.backsubtitle}>숨은 과일 찾기 정답</Text>
+      <Text style={[globalStyles.backsubtitle, { marginTop: 18 }]}>
+  숨은 과일 찾기 정답
+</Text>
 
       <View style={styles.content}>
         <Text style={styles.question}>

@@ -52,7 +52,7 @@ export const globalStyles = StyleSheet.create({
     fontWeight: '700',
     fontFamily: 'Pretendard',
     textAlign: 'center', 
-    marginTop: 20, 
+    marginTop: 30, 
     marginBottom: 50,
   },
   backdescription: {

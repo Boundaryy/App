@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Dimensions, TouchableOpacity, Image } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 import Button from '../../../components/Button';
 import { useRouter } from 'expo-router';
@@ -20,8 +20,17 @@ const App = () => {
     return (
         <View style={[globalStyles.container]}>
             <View style={globalStyles.header}>
-                <Text style={[globalStyles.subtitle, styles.text]}>상황 선택하기</Text>
-                <Text style={[globalStyles.description]}>아래에서 학습할 상황을 선택해주세요.</Text>
+                <TouchableOpacity
+                    style={globalStyles.backButton}
+                    onPress={() => router.push('/child/home')} 
+                >
+                    <Image
+                        source={require('../../../assets/arrow.svg')}
+                        style={globalStyles.backButtonImage} 
+                    />
+                </TouchableOpacity>
+
+                <Text style={[globalStyles.backsubtitle, styles.text]}>상황 선택하기</Text>
                 <ScrollView
                     contentContainerStyle={styles.scrollContainer}
                     style={{
@@ -64,7 +73,7 @@ const App = () => {
                         isSelected={selectedOption === '선택지 6'}
                         onSelect={setSelectedOption}
                     />
-                                        <BarButton
+                    <BarButton
                         title="선택지 7"
                         explain="이 선택지를 클릭하세요."
                         isSelected={selectedOption === '선택지 7'}
@@ -79,18 +88,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-    scrollContainer: {
-        paddingBottom: 20,
-    },
-    description: {
-        color: '#565656',
-        fontSize: 18,
-        textAlign: 'center',
-        fontWeight: '300',
-        marginBottom: -10,
-        marginTop: 30,
-        fontFamily: 'Pretendard',
-    },
+
     text: {
         fontFamily: 'Pretendard',
     },
