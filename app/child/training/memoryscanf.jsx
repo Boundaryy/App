@@ -24,12 +24,12 @@ export default function MemoryGameAnswer() {
     <ScrollView contentContainerStyle={styles.container}>
       <TouchableOpacity
         style={globalStyles.backButton}
-        onPress={() => router.back()}
+        onPress={() => router.push('/child/home')}
       >
-          <Image
-    source={require('../../../assets/arrow.svg')}
-
-  />
+        <Image
+          source={require('../../../assets/arrow.svg')}
+          style={globalStyles.backButtonImage}
+        />
       </TouchableOpacity>
       <Text style={globalStyles.backsubtitle}>숨은 과일 찾기 정답</Text>
 
