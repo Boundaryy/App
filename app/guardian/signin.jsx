@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimensions, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, useWindowDimensions } from 'react-native';
 import axios from 'axios';
-import { useRouter, Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { globalStyles } from '../../styles/global';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../../components/Button';
@@ -11,19 +11,6 @@ const LoginScreen = () => {
     const [password, setPassword] = useState('');
     const router = useRouter();
     const { width, height } = useWindowDimensions();
-    const [countdown, setCountdown] = useState(5);
-
-    useEffect(() => {
-        if (countdown > 0) {
-            const timer = setInterval(() => {
-                setCountdown(prev => prev - 1);
-            }, 1000);
-
-            return () => clearInterval(timer);
-        } else {
-            router.replace('/chooselogin');
-        }
-    }, [countdown]);
 
     const handleSubmit = async () => {
         if (!username || !password) {
@@ -50,40 +37,37 @@ const LoginScreen = () => {
                 await AsyncStorage.setItem("accessToken", accessToken);
                 await AsyncStorage.setItem("refreshToken", refreshToken);
 
+                // const userResponse = await axios.get(`https://port-0-v1-server-9zxht12blq9gr7pi.sel4.cloudtype.app/user`, {
+                //     headers: {
+                //         'access-token': accessToken,
+                //     },
+                // });
+
+                // if (userResponse.status !== 200) {
+                //     throw new Error('사용자 정보 가져오기 실패');
+                // }
+
                 router.push('/guardian/home');
             } catch (error) {
                 console.error("로그인 중 오류 발생:", error.message);
-            }
+            }   
         }
     };
 
     const handleSignup = () => {
-        router.push('/guardian/signup');
+        router.push('/child/signup');
     };
-    
+
     const inputWidth = width > 400 ? '80%' : '90%';
+    const buttonWidth = width > 400 ? '80%' : '90%';
+    const buttonMarginTop = height > 700 ? 20 : 10;
+    const fontSize = width > 400 ? 20 : 16;
 
     return (
-        <View style={[globalStyles.container, { backgroundColor: '#F3F4F6', justifyContent: 'center', alignItems: 'center' }]}>
-            <Text style={{ fontSize: 48, fontWeight: 'bold' }}>{countdown}</Text>
-            
-            <TouchableOpacity 
-                onPress={() => {
-                    console.log('Button pressed');
-                    router.replace('/chooselogin');
-                }} 
-                style={[globalStyles.backButton, { zIndex: 10 }]} 
-                hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }} 
-            >
-                <Image 
-                    source={require('../../assets/arrow.png')} 
-                    style={globalStyles.backButtonImage}
-                />
-            </TouchableOpacity>
-            
+        <View style={[globalStyles.container, { backgroundColor: '#F3F4F6' }]}>
             <View style={globalStyles.header}>
-                <Text style={[globalStyles.backsubtitle]}>보호자 로그인</Text>
-                <Text style={[globalStyles.backdescription]}>로그인 정보를 입력해주세요</Text>
+                <Text style={[globalStyles.subtitle]}>보호자 로그인</Text>
+                <Text style={[globalStyles.description]}>로그인 정보를 입력해주세요</Text>
             </View>
             <View style={globalStyles.formGroup}>
                 <Text style={globalStyles.label}>아이디를 입력하세요.</Text>
@@ -98,7 +82,7 @@ const LoginScreen = () => {
             <View style={globalStyles.formGroup}>
                 <Text style={globalStyles.label}>비밀번호를 입력하세요.</Text>
                 <TextInput
-                    style={[globalStyles.input, { width: inputWidth }]}
+                    style={[globalStyles.input, { width: inputWidth }] }
                     placeholder="예시) qwer!1234"
                     secureTextEntry
                     value={password}
@@ -106,8 +90,9 @@ const LoginScreen = () => {
                 />
             </View>
 
-            <View style={[styles.buttonContainer, { marginBottom: '100' }]}>
+            <View style={[styles.buttonContainer, { marginTop: 10 }]}>
                 <Button onPress={handleSubmit} title="로그인" />
+
             </View>
         </View>
     );
