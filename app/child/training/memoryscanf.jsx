@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Button from '../../../components/Button'; 
-import { globalStyles } from '../../../styles/global'; 
+import Button from '../../../components/Button';
+import { globalStyles } from '../../../styles/global';
 
 export default function MemoryGameAnswer() {
   const router = useRouter();
@@ -22,6 +22,7 @@ export default function MemoryGameAnswer() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      {/* Back Button */}
       <TouchableOpacity
         style={globalStyles.backButton}
         onPress={() => router.push('/child/home')}
@@ -31,11 +32,14 @@ export default function MemoryGameAnswer() {
           style={globalStyles.backButtonImage}
         />
       </TouchableOpacity>
-      <Text style={[globalStyles.backsubtitle, { marginTop: 18 }]}>
-  숨은 과일 찾기 정답
-</Text>
 
-      <View style={styles.content}>
+      {/* Subtitle */}
+      <Text style={[globalStyles.backsubtitle, { marginTop: 18 }]}>
+        숨은 과일 찾기 정답
+      </Text>
+
+      {/* Main Content */}
+      <View style={styles.mainContent}>
         <Text style={styles.question}>
           <Text style={styles.highlight}>Q.🍎</Text>
           <Text style={[styles.highlight, { color: '#5772FF' }]}>의 개수는?</Text>
@@ -78,8 +82,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: '5%',
     paddingVertical: 32,
   },
-  content: {
-    marginTop: 24,
+  mainContent: {
+    marginTop: 60, 
   },
   question: {
     fontSize: 22,
@@ -114,7 +118,7 @@ const styles = StyleSheet.create({
     color: '#5772FF',
     fontFamily: 'Pretendard',
     textAlign: 'center',
-    fontWeight: 700,
+    fontWeight: '700',
   },
   selectedText: {
     color: '#FFFFFF',
