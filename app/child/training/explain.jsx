@@ -12,7 +12,7 @@ const App = () => {
    };
 
    const handleBackClick = () => {
-       router.back(); // 뒤로 가기
+       router.back(); 
    };
 
    const chatMessages = [
@@ -44,36 +44,39 @@ const App = () => {
    return (
        <View style={[globalStyles.container]}>
            <View style={globalStyles.header}>
-               {/* Back Button */}
                <TouchableOpacity
                    style={globalStyles.backButton}
                    onPress={handleBackClick}
                >
                    <Image
-                       source={require('../../../assets/arrow.svg')} // 백 버튼 아이콘
+                       source={require('../../../assets/arrow.svg')} 
                        style={globalStyles.backButtonImage}
                    />
                </TouchableOpacity>
                <Text style={[globalStyles.backsubtitle, styles.text]}>상황 대처 학습 예시</Text>
                
-               {/* Description first, then chat */}
-               <Text style={[styles.description, styles.text]}>
-                   바운더리에서 {'\n'}상황 대처 학습을 진행해봐요.
-               </Text>
-               
-               <FlatList
-                   data={chatMessages}
-                   renderItem={renderChatBubble}
-                   keyExtractor={(item) => item.id}
-                   contentContainerStyle={styles.chatContainer}
-               />
-               <Button title={"다음으로"} onPress={handleLoginClick} />
+               <View style={styles.mainContent}>
+                   <Text style={[styles.description, styles.text]}>
+                       바운더리에서 {'\n'}상황 대처 학습을 진행해봐요.
+                   </Text>
+                   
+                   <FlatList
+                       data={chatMessages}
+                       renderItem={renderChatBubble}
+                       keyExtractor={(item) => item.id}
+                       contentContainerStyle={styles.chatContainer}
+                   />
+                   <Button title={"다음으로"} onPress={handleLoginClick} />
+               </View>
            </View>
        </View>
    );
 };
 
 const styles = StyleSheet.create({
+   mainContent: {
+       marginTop: 40, 
+   },
    chatContainer: {
        marginVertical: 20,
    },

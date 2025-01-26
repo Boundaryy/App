@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     },
     fixedButtonContainer: {
         position: 'absolute',
-        bottom: 180, // Fixed at the bottom of the screen
+        bottom: 180,
         left: 0,
         right: 0,
         alignItems: 'center', 
