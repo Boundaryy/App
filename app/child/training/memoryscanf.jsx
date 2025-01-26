@@ -9,20 +9,14 @@ export default function MemoryGameAnswer() {
   const router = useRouter();
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  const handleSubmit = async () => {
-    const emojiCount = await AsyncStorage.getItem("emojiCount");
-    if (selectedAnswer == emojiCount) {
-      router.push('/child/training/point');
-    } else {
-      router.push('/child/training/pointNot');
-    }
+  const handleSubmit = () => {
+    router.push('/child/training/point');
   };
 
   const options = ['4개', '5개', '6개', '7개'];
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Back Button */}
       <TouchableOpacity
         style={globalStyles.backButton}
         onPress={() => router.push('/child/home')}
@@ -33,12 +27,10 @@ export default function MemoryGameAnswer() {
         />
       </TouchableOpacity>
 
-      {/* Subtitle */}
       <Text style={[globalStyles.backsubtitle, { marginTop: 18 }]}>
         숨은 과일 찾기 정답
       </Text>
 
-      {/* Main Content */}
       <View style={styles.mainContent}>
         <Text style={styles.question}>
           <Text style={styles.highlight}>Q.🍎</Text>
@@ -83,7 +75,7 @@ const styles = StyleSheet.create({
     paddingVertical: 32,
   },
   mainContent: {
-    marginTop: 60, 
+    marginTop: 60,
   },
   question: {
     fontSize: 22,
