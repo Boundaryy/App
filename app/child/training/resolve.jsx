@@ -101,9 +101,18 @@ const App = () => {
 
     return (
         <View style={[globalStyles.container]}>
+            {/* Back Button */}
             <View style={globalStyles.header}>
-                <Text style={[globalStyles.subtitle, styles.text]}>상황 대처 학습</Text>
-                <Text style={[globalStyles.description]}>{`${chatName}이와 대화해요.`}</Text>
+                <TouchableOpacity
+                    style={globalStyles.backButton}
+                    onPress={() => router.push('/child/home')}
+                >
+                    <Image
+                        source={require('../../../assets/arrow.svg')}
+                        style={globalStyles.backButtonImage}
+                    />
+                </TouchableOpacity>
+                <Text style={[globalStyles.backsubtitle, styles.text]}>상황 대처 학습</Text>
             </View>
 
             <FlatList
@@ -132,7 +141,7 @@ const App = () => {
                     value={inputText}
                     onChangeText={setInputText}
                     onKeyPress={handleKeyPress}
-                    editable={!showButtons} // 입력창 비활성화
+                    editable={!showButtons}
                 />
                 <TouchableOpacity onPress={handleSend} style={styles.sendButton} disabled={showButtons}>
                     <Image

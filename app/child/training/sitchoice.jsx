@@ -34,7 +34,7 @@ const App = () => {
                 <ScrollView
                     contentContainerStyle={styles.scrollContainer}
                     style={{
-                        maxHeight: Dimensions.get('window').height - 350, 
+                        maxHeight: Dimensions.get('window').height - 280, 
                     }}
                 >
                     <BarButton
