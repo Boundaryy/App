@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 import Button from '../../../components/Button';
 import { useRouter } from 'expo-router';
@@ -9,6 +9,10 @@ const App = () => {
 
    const handleLoginClick = () => {
        router.push('/child/training/resolve');
+   };
+
+   const handleBackClick = () => {
+       router.back(); 
    };
 
    const chatMessages = [
@@ -21,10 +25,7 @@ const App = () => {
    const renderChatBubble = ({ item }) => {
        const isUser = item.sender === 'user';
        return (
-           <View style={[
-               styles.chatBubbleContainer,
-               isUser ? { alignSelf: 'flex-start' } : { alignSelf: 'flex-end' }
-           ]}>
+           <View style={[styles.chatBubbleContainer, isUser ? { alignSelf: 'flex-start' } : { alignSelf: 'flex-end' }]}>
                <View
                    style={[
                        styles.chatBubble,
@@ -43,24 +44,39 @@ const App = () => {
    return (
        <View style={[globalStyles.container]}>
            <View style={globalStyles.header}>
-               <Text style={[globalStyles.subtitle, styles.text]}>상황 대처 학습 예시</Text>
-               <Text style={[globalStyles.description]}>아래 예시와 같이 학습이 진행되요.</Text>
-               <FlatList
-                   data={chatMessages}
-                   renderItem={renderChatBubble}
-                   keyExtractor={(item) => item.id}
-                   contentContainerStyle={styles.chatContainer}
-               />
-               <Text style={[styles.description, styles.text]}>
-                   바운더리에서 {'\n'}상황 대처 학습을 진행해봐요.
-               </Text>
-               <Button title={"다음으로"} onPress={handleLoginClick} />
+               <TouchableOpacity
+                   style={globalStyles.backButton}
+                   onPress={handleBackClick}
+               >
+                   <Image
+                       source={require('../../../assets/arrow.svg')} 
+                       style={globalStyles.backButtonImage}
+                   />
+               </TouchableOpacity>
+               <Text style={[globalStyles.backsubtitle, styles.text]}>상황 대처 학습 예시</Text>
+               
+               <View style={styles.mainContent}>
+                   <Text style={[styles.description, styles.text]}>
+                       바운더리에서 {'\n'}상황 대처 학습을 진행해봐요.
+                   </Text>
+                   
+                   <FlatList
+                       data={chatMessages}
+                       renderItem={renderChatBubble}
+                       keyExtractor={(item) => item.id}
+                       contentContainerStyle={styles.chatContainer}
+                   />
+                   <Button title={"다음으로"} onPress={handleLoginClick} />
+               </View>
            </View>
        </View>
    );
 };
 
 const styles = StyleSheet.create({
+   mainContent: {
+       marginTop: 40, 
+   },
    chatContainer: {
        marginVertical: 20,
    },
@@ -108,7 +124,7 @@ const styles = StyleSheet.create({
        fontSize: 18,
        textAlign: 'center',
        fontWeight: '300',
-       marginBottom: -10,
+       marginBottom: 20,
        marginTop: 30,
        fontFamily: 'Pretendard',
    },

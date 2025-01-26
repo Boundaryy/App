@@ -28,14 +28,13 @@ export const globalStyles = StyleSheet.create({
     paddingTop: 20,
     fontFamily: 'Pretendard',
   },
-
   subtitle: {
     fontSize: 26,
     whiteSpace: "nowrap",
     fontWeight: '700',
-    marginLeft: 20,
     fontFamily: 'Pretendard',
     marginTop: 60,
+    marginLeft: 20,
   },
   description: {
     fontSize: 16,
@@ -48,16 +47,14 @@ export const globalStyles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 20,
   },
-
   backsubtitle: {
-    fontSize: 26,
-    whiteSpace: "nowrap",
+    fontSize: 16,
     fontWeight: '700',
-    marginLeft: 50,
     fontFamily: 'Pretendard',
-    marginTop: 60,
+    marginTop: 30, 
+    marginBottom: 20,
+    marginLeft: 46,
   },
-
   backdescription: {
     fontSize: 16,
     textAlign: 'left',
@@ -69,7 +66,6 @@ export const globalStyles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 50,
   },
-
   formGroup: {
     width: '100%',
     paddingHorizontal: 20,
@@ -83,9 +79,11 @@ export const globalStyles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 86,
+    top: 52,
     left: 40,
-    zIndex: 10 ,
+    zIndex: 10,
+    width: 8, 
+    height: 18,
   },
   backButtonText: {
     fontSize: 24,
@@ -93,15 +91,15 @@ export const globalStyles = StyleSheet.create({
     color: '#000000',
   },
   backButtonImage: {
-    width: 12,
-    height: 18,
-    zIndex: 10 ,
+    width: 10,
+    height: 16,
+    zIndex: 10,
   },
   label: {
     marginTop: 30,
     fontSize: 18,
     fontWeight: '500',
-    marginBottom:  5,
+    marginBottom: 5,
     textAlign: 'left',
     fontFamily: 'Pretendard',
     marginLeft: 16,

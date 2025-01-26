@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView, Dimensions, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import axios from 'axios';
 import { globalStyles } from '../../../styles/global';
@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../../../components/Button';
 
 const { width, height } = Dimensions.get('window');
-const rem = width / 375; 
+const rem = width / 375;
 
 const ResultScreen = () => {
     const router = useRouter();
@@ -58,8 +58,16 @@ const ResultScreen = () => {
     return (
         <View style={[globalStyles.container]}>
             <View style={globalStyles.header}>
-                <Text style={[globalStyles.subtitle, { fontFamily: 'Pretendard' }]}>결과</Text>
-                <Text style={[globalStyles.description, { fontFamily: 'Pretendard' }]}>상황 대처 학습 결과를 확인해봐요.</Text>
+                <TouchableOpacity 
+                    style={globalStyles.backButton} 
+                    onPress={() => router.back()}  // Add the back button functionality here
+                >
+                    <Image
+                        source={require('../../../assets/arrow.svg')}  // Make sure you have the correct back arrow image
+                        style={globalStyles.backButtonImage} 
+                    />
+                </TouchableOpacity>
+                <Text style={[globalStyles.backsubtitle, { fontFamily: 'Pretendard' }]}>결과</Text>
             </View>
             
             <TouchableOpacity style={styles.messageBox} onPress={deleteData}>
@@ -74,16 +82,17 @@ const ResultScreen = () => {
 
             <View style={styles.footer}>
                 <Text style={[styles.footerText, { fontFamily: 'Pretendard' }]}>테스트에서{'\n'}희성이를 걱정하는 말을 해주셔야 해요.</Text>
-                <View style={styles.buttonContainer}>
-          <Button title="확인" onPress={() => router.push('/child/training/point')} />
-        </View>
+            </View>
+
+            {/* Fixed position button */}
+            <View style={styles.fixedButtonContainer}>
+                <Button title="확인" onPress={() => router.push('/child/training/point')} />
             </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-
     header: {
         alignItems: 'center',
         marginBottom: -10 * rem,
@@ -91,7 +100,7 @@ const styles = StyleSheet.create({
     },
     messageBox: {
         width: 300,
-        height: 400, 
+        height: 460, 
         backgroundColor: '#FFFFFF',
         borderRadius: 8,
         marginTop: 30,
@@ -119,13 +128,20 @@ const styles = StyleSheet.create({
     footer: {
         width: '100%',
         alignItems: 'center',
-        marginTop: 30,
+        marginTop: 60,
     },
     footerText: {
         color: '#909090',
         fontSize: 16,
         textAlign: 'center',
     },
+    fixedButtonContainer: {
+        position: 'absolute',
+        bottom: 180,
+        left: 0,
+        right: 0,
+        alignItems: 'center', 
+    }
 });
 
 export default ResultScreen;

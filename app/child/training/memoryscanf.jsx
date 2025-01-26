@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Button from '../../../components/Button'; 
-import { globalStyles } from '../../../styles/global'; 
+import Button from '../../../components/Button';
+import { globalStyles } from '../../../styles/global';
 
 export default function MemoryGameAnswer() {
   const router = useRouter();
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  const handleSubmit = async () => {
-    const emojiCount = await AsyncStorage.getItem("emojiCount");
-    if (selectedAnswer == emojiCount) {
-      router.push('/child/training/point');
-    } else {
-      router.push('/child/training/pointNot');
-    }
+  const handleSubmit = () => {
+    router.push('/child/training/point');
   };
 
   const options = ['4개', '5개', '6개', '7개'];
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={globalStyles.subtitle}>숨은 과일 찾기 정답</Text>
-      <Text style={globalStyles.description}>질문에 대한 답을 입력하세요.</Text>
+      <TouchableOpacity
+        style={globalStyles.backButton}
+        onPress={() => router.push('/child/home')}
+      >
+        <Image
+          source={require('../../../assets/arrow.svg')}
+          style={globalStyles.backButtonImage}
+        />
+      </TouchableOpacity>
 
-      <View style={styles.content}>
+      <Text style={[globalStyles.backsubtitle, { marginTop: 18 }]}>
+        숨은 과일 찾기 정답
+      </Text>
+
+      <View style={styles.mainContent}>
         <Text style={styles.question}>
           <Text style={styles.highlight}>Q.🍎</Text>
           <Text style={[styles.highlight, { color: '#5772FF' }]}>의 개수는?</Text>
@@ -68,8 +74,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: '5%',
     paddingVertical: 32,
   },
-  content: {
-    marginTop: 24,
+  mainContent: {
+    marginTop: 60,
   },
   question: {
     fontSize: 22,
@@ -104,7 +110,7 @@ const styles = StyleSheet.create({
     color: '#5772FF',
     fontFamily: 'Pretendard',
     textAlign: 'center',
-    fontWeight: 700,
+    fontWeight: '700',
   },
   selectedText: {
     color: '#FFFFFF',
