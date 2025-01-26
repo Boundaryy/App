@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     },
     messageBox: {
         width: 300,
-        height: 400, 
+        height: 460, 
         backgroundColor: '#FFFFFF',
         borderRadius: 8,
         marginTop: 30,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     footer: {
         width: '100%',
         alignItems: 'center',
-        marginTop: 30,
+        marginTop: 60,
     },
     footerText: {
         color: '#909090',
