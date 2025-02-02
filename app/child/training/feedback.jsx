@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, StyleSheet, Dimensions, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { globalStyles } from '../../../styles/global';
+import Button from '../../../components/Button';
 
 const { width } = Dimensions.get('window');
 
@@ -54,23 +55,20 @@ const App = () => {
                 <View style={styles.paginationContainerContainer}>
                     <View style={styles.paginationContainer}>
                         <Image 
-                            source={require('../../../assets/arrow.png')}
+                            source={require('../../../assets/arrow.svg')}
                             style={styles.sendImage1} 
                         />
                         <Text style={styles.paginationText}>3/5</Text>
                         <Image 
-                            source={require('../../../assets/arrow.png')}
+                            source={require('../../../assets/arrow.svg')}
                             style={styles.sendImage2} 
                         />
                     </View>
                 </View>
 
-                <TouchableOpacity 
-                    style={styles.submitButton}
-                    onPress={() => router.push('/next-screen')}
-                >
-                    <Text style={styles.submitButtonText}>완료하기</Text>
-                </TouchableOpacity>
+                <View style={styles.buttonContainer}>
+                    <Button title="다음으로" onPress={() => router.push('/child/feedback')} />
+                </View>
             </View>
         </View>
     );
@@ -94,6 +92,7 @@ const styles = StyleSheet.create({
     backButtonText: {
         fontSize: 24,
         color: '#000',
+        fontFamily: 'Pretendard',
     },
     headerTitle: {
         textAlign: 'center',
@@ -214,6 +213,7 @@ const styles = StyleSheet.create({
         padding: 16,
         borderRadius: 12,
         alignItems: 'center',
+        fontFamily: 'Pretendard',
     },
     submitButtonText: {
         color: '#FFFFFF',
